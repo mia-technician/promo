@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
     <title>Special Treatment Packages | Medical Aesthetic</title>
-    <!-- Supabase SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -14,25 +12,25 @@
             padding: 0;
             box-sizing: border-box;
         }
- 
+
         body {
             background: #f6f4f1;
             font-family: system-ui, -apple-system, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             padding: 24px 16px 48px;
             color: #1e1c19;
         }
- 
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
- 
+
         /* Header Section */
         .promo-header {
             text-align: center;
             margin-bottom: 40px;
         }
- 
+
         .promo-badge {
             background: #d9c5b0;
             color: #3e2c22;
@@ -44,7 +42,7 @@
             letter-spacing: 1px;
             margin-bottom: 16px;
         }
- 
+
         .promo-title {
             font-size: 2.5rem;
             font-weight: 700;
@@ -55,7 +53,7 @@
             color: transparent;
             margin-bottom: 12px;
         }
- 
+
         .promo-sub {
             color: #6e5a48;
             font-size: 1rem;
@@ -63,30 +61,28 @@
             display: inline-block;
             padding-top: 12px;
         }
- 
-        /* Packages Grid - Mobile First */
+
+        /* Packages Grid */
         .packages-grid {
             display: flex;
             flex-direction: column;
             gap: 28px;
             margin: 32px 0 40px;
         }
- 
-        /* Card Design */
+
         .package-card {
             background: white;
             border-radius: 32px;
             overflow: hidden;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.05);
-            transition: all 0.2s ease;
             border: 1px solid #ede5db;
         }
- 
+
         .card-header {
             padding: 24px 24px 16px 24px;
             border-bottom: 2px solid #f3ede7;
         }
- 
+
         .card-category {
             font-size: 0.7rem;
             text-transform: uppercase;
@@ -95,7 +91,7 @@
             color: #b48b5a;
             margin-bottom: 8px;
         }
- 
+
         .card-title {
             font-size: 1.65rem;
             font-weight: 700;
@@ -103,14 +99,14 @@
             line-height: 1.3;
             margin-bottom: 10px;
         }
- 
+
         .specs-badge {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin-top: 8px;
         }
- 
+
         .spec-badge {
             background: #f0e8e0;
             padding: 4px 12px;
@@ -119,7 +115,7 @@
             font-weight: 500;
             color: #5c4938;
         }
- 
+
         .specs-row {
             background: #faf7f2;
             padding: 12px 24px;
@@ -131,34 +127,34 @@
             font-weight: 500;
             color: #5c4938;
         }
- 
+
         .spec-item {
             display: flex;
             align-items: center;
             gap: 8px;
         }
- 
+
         .spec-item i {
             width: 18px;
             color: #b48b5a;
         }
- 
+
         .card-body {
             padding: 20px 24px;
         }
- 
+
         .desc-text {
             font-size: 0.95rem;
             line-height: 1.6;
             color: #3d352c;
             margin-bottom: 20px;
         }
- 
+
         .feature-list {
             list-style: none;
             margin: 16px 0 12px;
         }
- 
+
         .feature-list li {
             margin-bottom: 10px;
             font-size: 0.9rem;
@@ -166,14 +162,14 @@
             align-items: flex-start;
             gap: 10px;
         }
- 
+
         .feature-list li i {
             color: #b48b5a;
             font-size: 0.85rem;
             margin-top: 2px;
             flex-shrink: 0;
         }
- 
+
         .price-tag {
             font-size: 1.5rem;
             font-weight: 700;
@@ -184,7 +180,7 @@
             padding-top: 14px;
             width: 100%;
         }
- 
+
         /* Membership Section */
         .membership-card {
             background: linear-gradient(125deg, #fff8f0, #fffef9);
@@ -192,29 +188,28 @@
             padding: 32px 28px;
             margin: 16px 0 32px;
             border: 1px solid #e7d9cd;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
         }
- 
+
         .membership-title {
             font-size: 2rem;
             font-weight: 700;
             color: #c29a6b;
             margin-bottom: 12px;
         }
- 
+
         .membership-sub {
             font-size: 1rem;
             color: #8a7864;
             margin-bottom: 24px;
         }
- 
+
         .membership-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 24px;
             margin-top: 20px;
         }
- 
+
         .member-block {
             flex: 1;
             min-width: 220px;
@@ -223,23 +218,23 @@
             padding: 20px 24px;
             border: 1px solid #f0e2d4;
         }
- 
+
         .member-block h4 {
             font-weight: 700;
             margin-bottom: 14px;
             font-size: 1.2rem;
             color: #5c4938;
         }
- 
+
         .member-block ul {
             margin-left: 20px;
             line-height: 1.6;
         }
- 
+
         .member-block li {
             margin: 8px 0;
         }
- 
+
         .footer-note {
             text-align: center;
             font-size: 0.7rem;
@@ -248,15 +243,7 @@
             border-top: 1px solid #e7dbcf;
             padding-top: 24px;
         }
- 
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 60px;
-            color: #b29c82;
-        }
- 
-        /* Mobile Optimization */
+
         @media (max-width: 640px) {
             body {
                 padding: 16px 12px 40px;
@@ -283,210 +270,168 @@
 <body>
 <div class="container">
     <!-- Header Section -->
-    <div class="promo-header" id="promoHeader">
-        <div class="promo-badge" id="promoBadge">2026 March Promo</div>
-        <h1 class="promo-title" id="promoTitle">Special Treatment Package</h1>
-        <div class="promo-sub" id="promoSub">Medical aesthetic excellence · tailor-made plans</div>
+    <div class="promo-header">
+        <div class="promo-badge">2026 March Promo</div>
+        <h1 class="promo-title">Special Treatment Package</h1>
+        <div class="promo-sub">Medical aesthetic excellence · tailor-made plans</div>
     </div>
- 
+
     <!-- Packages Grid -->
-    <div id="packagesList" class="packages-grid">
-        <div class="loading"><i class="fas fa-spinner fa-pulse"></i> Loading treatments...</div>
+    <div class="packages-grid">
+        <!-- PRF -->
+        <div class="package-card">
+            <div class="card-header">
+                <div class="card-category">Platelet-Rich Fibrin (PRF)</div>
+                <div class="card-title">Eye Countour Rejuvenating / Hair Rejuvenating</div>
+                <div class="specs-badge"><span class="spec-badge">4 Treatments</span></div>
+            </div>
+            <div class="specs-row">
+                <div class="spec-item"><i class="fas fa-check-circle"></i> 4 Treatments</div>
+            </div>
+            <div class="card-body">
+                <div class="desc-text">PRF is an advanced, natural cosmetic treatment that uses a concentrated portion of your own blood to rejuvenate the skin and support hair restoration. Helps reduce dark circles, fine lines, and crepey under-eye skin. Results can last up to 12 months.</div>
+                <ul class="feature-list">
+                    <li><i class="fas fa-star"></i> Stimulates collagen production</li>
+                    <li><i class="fas fa-star"></i> Natural growth factors</li>
+                    <li><i class="fas fa-star"></i> Results up to 12 months</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fillers -->
+        <div class="package-card">
+            <div class="card-header">
+                <div class="card-category">JUVÉDERM® &amp; BELOTERO®</div>
+                <div class="card-title">Face Defining &amp; Plumping</div>
+                <div class="specs-badge"><span class="spec-badge">4 Syringes / 4ml</span><span class="spec-badge">Baseline 6 months</span></div>
+            </div>
+            <div class="specs-row">
+                <div class="spec-item"><i class="fas fa-check-circle"></i> 4 Syringes / 4ml</div>
+                <div class="spec-item"><i class="fas fa-check-circle"></i> Baseline 6 months</div>
+            </div>
+            <div class="card-body">
+                <div class="desc-text">Dermal fillers designed to smooth, sculpt, and restore youthful volume. Helps improve static wrinkles, facial contour, lip shape.</div>
+                <ul class="feature-list">
+                    <li><i class="fas fa-star"></i> Static wrinkles (lines at rest)</li>
+                    <li><i class="fas fa-star"></i> Facial contour and definition</li>
+                    <li><i class="fas fa-star"></i> Loss of facial volume</li>
+                    <li><i class="fas fa-star"></i> Lip shape and plumping</li>
+                    <li><i class="fas fa-star"></i> Results up to 2 years</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Radiesse -->
+        <div class="package-card">
+            <div class="card-header">
+                <div class="card-category">Advanced Biostimulator - Radiesse</div>
+                <div class="card-title">Lifting &amp; Rejuvenating</div>
+                <div class="specs-badge"><span class="spec-badge">4 Syringes</span></div>
+            </div>
+            <div class="specs-row">
+                <div class="spec-item"><i class="fas fa-check-circle"></i> 4 Syringes</div>
+            </div>
+            <div class="card-body">
+                <div class="desc-text">Restore structure and rejuvenate from within. Lift vertically, correct volume loss, increase skin thickness, define jawline, improve crepey skin on neck and hands.</div>
+                <ul class="feature-list">
+                    <li><i class="fas fa-star"></i> Lift vertically for youthful appearance</li>
+                    <li><i class="fas fa-star"></i> Correct volume loss</li>
+                    <li><i class="fas fa-star"></i> Increase skin thickness</li>
+                    <li><i class="fas fa-star"></i> Enhance facial contour</li>
+                    <li><i class="fas fa-star"></i> Results up to 2 years</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SkinVive -->
+        <div class="package-card">
+            <div class="card-header">
+                <div class="card-category">SKINVIVE by JUVÉDERM</div>
+                <div class="card-title">Skin Hydrating &amp; Glowing!</div>
+                <div class="specs-badge"><span class="spec-badge">3 Syringes</span></div>
+            </div>
+            <div class="specs-row">
+                <div class="spec-item"><i class="fas fa-check-circle"></i> 3 Syringes</div>
+            </div>
+            <div class="card-body">
+                <div class="desc-text">Innovative injectable treatment using microdroplets of hyaluronic acid to boost skin hydration, glow, and smoothness. Results last up to 9 months.</div>
+                <ul class="feature-list">
+                    <li><i class="fas fa-star"></i> Deep hydration</li>
+                    <li><i class="fas fa-star"></i> Radiant complexion</li>
+                    <li><i class="fas fa-star"></i> Minimal downtime</li>
+                    <li><i class="fas fa-star"></i> Results up to 9 months</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Thermage -->
+        <div class="package-card">
+            <div class="card-header">
+                <div class="card-category">Thermage CPT</div>
+                <div class="card-title">Skin Tightening</div>
+                <div class="specs-badge"><span class="spec-badge">3 Treatments (face and/or eye)</span></div>
+            </div>
+            <div class="specs-row">
+                <div class="spec-item"><i class="fas fa-check-circle"></i> 3 Treatments (face and/or eye)</div>
+            </div>
+            <div class="card-body">
+                <div class="desc-text">Non-invasive radiofrequency technology to tighten, smooth, and contour skin. Improves loose skin, fine lines, and loss of firmness.</div>
+                <ul class="feature-list">
+                    <li><i class="fas fa-star"></i> Loose or sagging skin improvement</li>
+                    <li><i class="fas fa-star"></i> Fine lines and wrinkles reduction</li>
+                    <li><i class="fas fa-star"></i> Natural collagen stimulation</li>
+                    <li><i class="fas fa-star"></i> No downtime</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Emsella -->
+        <div class="package-card">
+            <div class="card-header">
+                <div class="card-category">EMSELLA</div>
+                <div class="card-title">Pelvic Floor Muscles Strengthening</div>
+                <div class="specs-badge"><span class="spec-badge">$150/60 Minutes Treatment</span></div>
+            </div>
+            <div class="specs-row">
+                <div class="spec-item"><i class="fas fa-check-circle"></i> $150/60 Minutes Treatment</div>
+            </div>
+            <div class="card-body">
+                <div class="desc-text">High-intensity focused electromagnetic energy strengthens pelvic floor muscles. Treat urinary incontinence, improve sexual wellness.</div>
+                <ul class="feature-list">
+                    <li><i class="fas fa-star"></i> Non-invasive</li>
+                    <li><i class="fas fa-star"></i> Fully clothed during session</li>
+                    <li><i class="fas fa-star"></i> No downtime</li>
+                    <li><i class="fas fa-star"></i> Health Canada approved</li>
+                </ul>
+                <div class="price-tag">$150 / session</div>
+            </div>
+        </div>
     </div>
- 
+
     <!-- VIP Membership Section -->
-    <div id="membershipSection" class="membership-card">
-        <div class="loading"><i class="fas fa-spinner fa-pulse"></i> Loading membership info...</div>
+    <div class="membership-card">
+        <div class="membership-title">✨ Skin Fit</div>
+        <div class="membership-sub">VIP Loyalty Membership</div>
+        <div class="membership-grid">
+            <div class="member-block">
+                <h4><i class="fas fa-hand-holding-usd"></i> How to Join</h4>
+                <p>Deposit $105 into your account each month (5% tax prepaid), it enables your tax-free spending power!</p>
+            </div>
+            <div class="member-block">
+                <h4><i class="fas fa-gift"></i> Member Benefits</h4>
+                <ul>
+                    <li>2 Free Microdermabrasion Facial per year</li>
+                    <li>15% off of Non-Physician Treatments (Facial, Peel & Lasers! ect...)</li>
+                    <li>and MORE...!!!</li>
+                    <li>Free to cancel any time after 1 year!</li>
+                </ul>
+            </div>
+        </div>
     </div>
- 
+
     <div class="footer-note">
         * All treatments require professional medical evaluation. Results may vary by individual.
     </div>
 </div>
- 
-<script>
-    // Supabase Configuration
-    const SUPABASE_URL = "https://dmrskyskryrdclknezth.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtcnNreXNrcnlyZGNsa25lenRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNzE2MzgsImV4cCI6MjA4OTk0NzYzOH0.Dnced4YAY24fE6kLxOe9YuR6Wrgt8pYcqKcjMFWDrY8";
-    
-    let supabase = null;
-    let packagesData = [];
-    let promoMeta = {
-        badge: "2026 March Promo",
-        mainTitle: "Special Treatment Package",
-        subText: "Medical aesthetic excellence · tailor-made plans"
-    };
-    let membershipData = {
-        title: "Skin Fit",
-        description: "VIP Loyalty Membership",
-        joinDesc: "Deposit $105 into your account each month (5% tax prepaid), it enables your tax-free spending power!",
-        benefits: [
-            "2 Free Microdermabrasion Facial per year",
-            "15% off of Non-Physician Treatments (Facial, Peel & Lasers! ect...)",
-            "and MORE...!!!",
-            "Free to cancel any time after 1 year!"
-        ]
-    };
- 
-    // Initialize Supabase
-    function initSupabase() {
-        if (window.supabase) {
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            console.log("Supabase connected");
-            loadAllData();
-        } else {
-            console.log("Waiting for Supabase...");
-            setTimeout(initSupabase, 300);
-        }
-    }
- 
-    // Load all data from cloud
-    async function loadAllData() {
-        if (!supabase) return;
-        
-        try {
-            // Load packages
-            const { data: packages, error: pErr } = await supabase
-                .from('promo_packages')
-                .select('*')
-                .order('sort_order', { ascending: true });
-            
-            if (!pErr && packages && packages.length > 0) {
-                packagesData = packages;
-            } else {
-                console.log("No packages found, using default data");
-                await initDefaultData();
-            }
-            
-            // Load header config
-            const { data: header, error: hErr } = await supabase
-                .from('promo_config')
-                .select('*')
-                .eq('key', 'header')
-                .maybeSingle();
-            
-            if (!hErr && header) {
-                promoMeta = {
-                    badge: header.badge || promoMeta.badge,
-                    mainTitle: header.main_title || promoMeta.mainTitle,
-                    subText: header.sub_text || promoMeta.subText
-                };
-            }
-            
-            // Load membership config
-            const { data: member, error: mErr } = await supabase
-                .from('promo_config')
-                .select('*')
-                .eq('key', 'membership')
-                .maybeSingle();
-            
-            if (!mErr && member) {
-                membershipData = {
-                    title: member.mb_title || membershipData.title,
-                    description: member.mb_desc || membershipData.description,
-                    joinDesc: member.join_desc || membershipData.joinDesc,
-                    benefits: member.benefits || membershipData.benefits
-                };
-            }
-            
-            renderPage();
-        } catch (e) {
-            console.error("Error loading data:", e);
-            renderPage();
-        }
-    }
- 
-    // Initialize default data if tables are empty
-    async function initDefaultData() {
-        if (!supabase) return;
-        
-        const defaultPackages = [
-            { id: "prf_eyes", title: "Eye Countour Rejuvenating / Hair Rejuvenating", category: "Platelet-Rich Fibrin (PRF)", specs: ["4 Treatments"], description: "PRF is an advanced, natural cosmetic treatment that uses a concentrated portion of your own blood to rejuvenate the skin and support hair restoration. Helps reduce dark circles, fine lines, and crepey under-eye skin. Results can last up to 12 months.", features: ["✨ Stimulates collagen production", "✨ Natural growth factors", "✨ Results up to 12 months"], price: null, sort_order: 1 },
-            { id: "fillers", title: "Face Defining & Plumping", category: "JUVÉDERM® & BELOTERO®", specs: ["4 Syringes / 4ml", "Baseline 6 months"], description: "Dermal fillers designed to smooth, sculpt, and restore youthful volume. Helps improve static wrinkles, facial contour, lip shape.", features: ["✨ Static wrinkles (lines at rest)", "✨ Facial contour and definition", "✨ Loss of facial volume", "✨ Lip shape and plumping", "✨ Results up to 2 years"], price: null, sort_order: 2 },
-            { id: "radiesse", title: "Lifting & Rejuvenating", category: "Advanced Biostimulator - Radiesse", specs: ["4 Syringes"], description: "Restore structure and rejuvenate from within. Lift vertically, correct volume loss, increase skin thickness, define jawline, improve crepey skin on neck and hands.", features: ["✨ Lift vertically for youthful appearance", "✨ Correct volume loss", "✨ Increase skin thickness", "✨ Enhance facial contour", "✨ Results up to 2 years"], price: null, sort_order: 3 },
-            { id: "skinvive", title: "Skin Hydrating & Glowing!", category: "SKINVIVE by JUVÉDERM", specs: ["3 Syringes"], description: "Innovative injectable treatment using microdroplets of hyaluronic acid to boost skin hydration, glow, and smoothness. Results last up to 9 months.", features: ["✨ Deep hydration", "✨ Radiant complexion", "✨ Minimal downtime", "✨ Results up to 9 months"], price: null, sort_order: 4 },
-            { id: "thermage", title: "Skin Tightening", category: "Thermage CPT", specs: ["3 Treatments (face and/or eye)"], description: "Non-invasive radiofrequency technology to tighten, smooth, and contour skin. Improves loose skin, fine lines, and loss of firmness.", features: ["✨ Loose or sagging skin improvement", "✨ Fine lines and wrinkles reduction", "✨ Natural collagen stimulation", "✨ No downtime"], price: null, sort_order: 5 },
-            { id: "emsella", title: "Pelvic Floor Muscles Strengthening", category: "EMSELLA", specs: ["$150/60 Minutes Treatment"], description: "High-intensity focused electromagnetic energy strengthens pelvic floor muscles. Treat urinary incontinence, improve sexual wellness.", features: ["✨ Non-invasive", "✨ Fully clothed during session", "✨ No downtime", "✨ Health Canada approved"], price: "$150 / session", sort_order: 6 }
-        ];
-        
-        for (let pkg of defaultPackages) {
-            await supabase.from('promo_packages').upsert(pkg, { onConflict: 'id' });
-        }
-        
-        await supabase.from('promo_config').upsert({ key: 'header', badge: promoMeta.badge, main_title: promoMeta.mainTitle, sub_text: promoMeta.subText });
-        await supabase.from('promo_config').upsert({ key: 'membership', mb_title: membershipData.title, mb_desc: membershipData.description, join_desc: membershipData.joinDesc, benefits: membershipData.benefits });
-        
-        await loadAllData();
-    }
- 
-    // Escape HTML
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
- 
-    // Render Page
-    function renderPage() {
-        // Render Header
-        document.getElementById('promoBadge').innerText = promoMeta.badge;
-        document.getElementById('promoTitle').innerText = promoMeta.mainTitle;
-        document.getElementById('promoSub').innerHTML = promoMeta.subText;
-        
-        // Render Packages
-        const container = document.getElementById('packagesList');
-        if (!packagesData || packagesData.length === 0) {
-            container.innerHTML = '<div class="loading">No treatments available. Please check back later.</div>';
-        } else {
-            container.innerHTML = packagesData.map(pkg => `
-                <div class="package-card">
-                    <div class="card-header">
-                        <div class="card-category">${escapeHtml(pkg.category || 'Premium Treatment')}</div>
-                        <div class="card-title">${escapeHtml(pkg.title)}</div>
-                        ${pkg.specs ? `<div class="specs-badge">${pkg.specs.map(s => `<span class="spec-badge">${escapeHtml(s)}</span>`).join('')}</div>` : ''}
-                    </div>
-                    ${pkg.specs && pkg.specs.length ? `
-                    <div class="specs-row">
-                        ${pkg.specs.map(s => `<div class="spec-item"><i class="fas fa-check-circle"></i> ${escapeHtml(s)}</div>`).join('')}
-                    </div>` : ''}
-                    <div class="card-body">
-                        <div class="desc-text">${escapeHtml(pkg.description || '')}</div>
-                        ${pkg.features ? `
-                        <ul class="feature-list">
-                            ${pkg.features.map(f => `<li><i class="fas fa-star"></i> ${escapeHtml(f)}</li>`).join('')}
-                        </ul>` : ''}
-                        ${pkg.price ? `<div class="price-tag">${escapeHtml(pkg.price)}</div>` : ''}
-                    </div>
-                </div>
-            `).join('');
-        }
-        
-        // Render Membership
-        const memberDiv = document.getElementById('membershipSection');
-        memberDiv.innerHTML = `
-            <div class="membership-title">✨ ${escapeHtml(membershipData.title)}</div>
-            <div class="membership-sub">${escapeHtml(membershipData.description)}</div>
-            <div class="membership-grid">
-                <div class="member-block">
-                    <h4><i class="fas fa-hand-holding-usd"></i> How to Join</h4>
-                    <p>${escapeHtml(membershipData.joinDesc)}</p>
-                </div>
-                <div class="member-block">
-                    <h4><i class="fas fa-gift"></i> Member Benefits</h4>
-                    <ul>
-                        ${membershipData.benefits.map(b => `<li>${escapeHtml(b)}</li>`).join('')}
-                    </ul>
-                </div>
-            </div>
-        `;
-    }
- 
-    // Start the app
-    initSupabase();
-</script>
 </body>
 </html>
