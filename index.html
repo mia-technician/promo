@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>2026 March Promo | Special Treatment Package | Medical Aesthetic</title>
+    <title>March 2026 Promo | Special Offers & Treatments | Medical Aesthetic</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -22,145 +22,170 @@
             line-height: 1.5;
         }
 
-        /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
-        /* ========== PROMO HEADER ========== */
-        .promo-header {
+        /* ========== HERO SECTION ========== */
+        .hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c241e 100%);
+            color: white;
             text-align: center;
-            padding: 60px 24px 40px;
-            background: linear-gradient(135deg, #f5f0ea 0%, #fff9f2 100%);
-            border-bottom: 1px solid #e8dfd5;
+            padding: 80px 24px;
         }
 
-        .promo-badge {
+        .hero-badge {
             display: inline-block;
-            background: #d9c5b0;
-            color: #3e2c22;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
             padding: 6px 20px;
             border-radius: 40px;
             font-size: 0.75rem;
-            font-weight: 600;
             letter-spacing: 2px;
             margin-bottom: 20px;
         }
 
-        .promo-title {
+        .hero h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             font-weight: 600;
-            color: #2c2824;
             margin-bottom: 16px;
         }
 
-        .promo-sub {
+        .hero p {
             font-size: 1rem;
-            color: #7a6e62;
+            opacity: 0.8;
             max-width: 600px;
             margin: 0 auto;
         }
 
-        /* ========== SECTION STYLES ========== */
-        .section {
+        /* ========== PROMO CARDS GRID ========== */
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
             margin: 60px 0;
         }
 
-        .treatment-item {
-            margin-bottom: 56px;
-            border-bottom: 1px solid #eee5dc;
-            padding-bottom: 48px;
+        .promo-card {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+            border: 1px solid #eee5dc;
         }
 
-        .treatment-item:last-child {
-            border-bottom: none;
+        .promo-card:hover {
+            transform: translateY(-4px);
         }
 
-        /* Treatment Header */
-        .treatment-header {
-            margin-bottom: 24px;
-        }
-
-        .treatment-subtitle {
-            font-size: 1.8rem;
-            font-weight: 600;
-            font-family: 'Cormorant Garamond', serif;
-            color: #2c2824;
-            margin-bottom: 8px;
-        }
-
-        .treatment-brand {
-            font-size: 0.85rem;
+        .promo-icon {
+            font-size: 2rem;
             color: #c4a47c;
-            letter-spacing: 1px;
-            font-weight: 500;
-            text-transform: uppercase;
+            margin-bottom: 16px;
         }
 
-        /* Treatment Content */
-        .treatment-description {
-            font-size: 0.95rem;
-            color: #5a4f43;
-            line-height: 1.7;
-            margin-bottom: 20px;
+        .promo-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #2c2824;
         }
 
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 12px;
-            margin: 20px 0;
+        .promo-card .highlight {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #9b7b58;
+            margin: 12px 0;
         }
 
-        .feature-item {
+        .promo-card .small-text {
+            font-size: 0.8rem;
+            color: #8a7a6a;
+        }
+
+        .promo-card ul {
+            list-style: none;
+            margin-top: 16px;
+        }
+
+        .promo-card li {
+            padding: 6px 0;
             display: flex;
             align-items: center;
             gap: 10px;
             font-size: 0.85rem;
             color: #5a4f43;
-            padding: 6px 0;
         }
 
-        .feature-item i {
+        .promo-card li i {
             color: #c4a47c;
             width: 20px;
-            font-size: 0.8rem;
         }
 
-        /* Specs & Price */
-        .treatment-specs {
+        .badge {
+            display: inline-block;
+            background: #d9c5b0;
+            color: #3e2c22;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        /* ========== COOLSCULPTING FEATURE ========== */
+        .feature-block {
+            background: linear-gradient(135deg, #f5f0ea 0%, #fff9f2 100%);
+            border-radius: 28px;
+            padding: 40px;
+            margin: 40px 0;
             display: flex;
             flex-wrap: wrap;
-            gap: 16px;
-            margin: 20px 0 12px;
-            padding-top: 12px;
-            border-top: 1px dashed #e5d9cf;
+            gap: 32px;
+            align-items: center;
         }
 
-        .spec-item {
-            background: #f0ebe4;
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: #8b7355;
+        .feature-content {
+            flex: 2;
         }
 
-        .price-item {
-            font-size: 1.2rem;
+        .feature-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-content p {
+            color: #5a4f43;
+            line-height: 1.6;
+        }
+
+        .feature-highlight {
+            flex: 1;
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid #e8dfd5;
+        }
+
+        .feature-highlight .percent {
+            font-size: 2.5rem;
             font-weight: 700;
             color: #9b7b58;
         }
 
-        /* ========== VIP MEMBERSHIP ========== */
+        /* ========== MEMBERSHIP SECTION ========== */
         .membership-section {
-            background: linear-gradient(135deg, #f5f0ea 0%, #faf7f2 100%);
+            background: white;
             border-radius: 28px;
-            padding: 48px 40px;
-            margin: 60px 0 50px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid #eee5dc;
         }
 
         .membership-header {
@@ -170,44 +195,30 @@
 
         .membership-header h2 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            font-weight: 600;
-            color: #2c2824;
+            font-size: 2rem;
             margin-bottom: 8px;
-        }
-
-        .membership-header p {
-            color: #7a6e62;
         }
 
         .membership-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
         }
 
         .member-card {
-            background: white;
-            padding: 28px;
-            border-radius: 24px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            background: #faf8f5;
+            padding: 24px;
+            border-radius: 20px;
         }
 
         .member-card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
+            font-size: 1.2rem;
             margin-bottom: 16px;
-            color: #2c2824;
         }
 
         .member-card h3 i {
             color: #c4a47c;
-            margin-right: 10px;
-        }
-
-        .member-card p {
-            color: #6a5e52;
-            line-height: 1.6;
+            margin-right: 8px;
         }
 
         .member-card ul {
@@ -215,16 +226,136 @@
         }
 
         .member-card li {
-            padding: 8px 0;
+            padding: 6px 0;
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: #5a4f43;
+            gap: 8px;
+            font-size: 0.85rem;
         }
 
         .member-card li i {
             color: #c4a47c;
-            width: 18px;
+        }
+
+        /* ========== BIRTHDAY & MIX & MATCH ========== */
+        .offers-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .offer-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid #eee5dc;
+            transition: all 0.2s;
+        }
+
+        .offer-card:hover {
+            border-color: #c4a47c;
+        }
+
+        .offer-card i {
+            font-size: 2rem;
+            color: #c4a47c;
+            margin-bottom: 12px;
+        }
+
+        .offer-card .discount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #9b7b58;
+        }
+
+        /* ========== TREATMENT LIST (原有套餐) ========== */
+        .section-title {
+            text-align: center;
+            margin: 60px 0 40px;
+        }
+
+        .section-title h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+
+        .section-title .divider {
+            width: 60px;
+            height: 2px;
+            background: #c4a47c;
+            margin: 12px auto;
+        }
+
+        .treatment-item {
+            margin-bottom: 48px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #eee5dc;
+        }
+
+        .treatment-item:last-child {
+            border-bottom: none;
+        }
+
+        .treatment-subtitle {
+            font-size: 1.6rem;
+            font-weight: 600;
+            font-family: 'Cormorant Garamond', serif;
+            margin-bottom: 4px;
+        }
+
+        .treatment-brand {
+            font-size: 0.8rem;
+            color: #c4a47c;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .treatment-description {
+            color: #5a4f43;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .feature-list span {
+            background: #f0ebe4;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #8b7355;
+        }
+
+        .treatment-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px dashed #e5d9cf;
+        }
+
+        .spec-tag {
+            background: #f0ebe4;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #9b7b58;
         }
 
         /* Footer */
@@ -234,189 +365,247 @@
             border-top: 1px solid #e8dfd5;
             color: #9b8b7c;
             font-size: 0.7rem;
+            margin-top: 40px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .container {
                 padding: 0 16px;
             }
-            .promo-header {
-                padding: 40px 16px 30px;
+            .hero h1 {
+                font-size: 2.2rem;
             }
-            .promo-title {
-                font-size: 2rem;
+            .feature-block {
+                flex-direction: column;
+                padding: 28px;
             }
             .treatment-subtitle {
-                font-size: 1.4rem;
-            }
-            .membership-section {
-                padding: 32px 20px;
-            }
-            .membership-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            .feature-grid {
-                grid-template-columns: 1fr;
+                font-size: 1.3rem;
             }
         }
     </style>
 </head>
 <body>
 
-<!-- ========== PROMO HEADER (完整复刻原版) ========== -->
-<div class="promo-header">
-    <div class="promo-badge">2026 MARCH PROMO</div>
-    <h1 class="promo-title">Special Treatment Package</h1>
-    <div class="promo-sub">Medical aesthetic excellence · tailor-made plans</div>
-</div>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-badge">MARCH 2026 · BIGGEST PROMO EVER</div>
+    <h1>Special Treatment Package</h1>
+    <p>Medical aesthetic excellence · Limited time offers</p>
+</section>
 
 <div class="container">
-    <!-- ========== PRF TREATMENT ========== -->
-    <div class="treatment-item">
-        <div class="treatment-header">
-            <div class="treatment-subtitle">Eye Countour Rejuvenating</div>
-            <div class="treatment-subtitle" style="font-size: 1.2rem; color: #8b7355;">Hair Rejuvenating</div>
-            <div class="treatment-brand">Platelet-Rich Fibrin (PRF)</div>
+    <!-- ========== 主要促销卡片区 ========== -->
+    <div class="promo-grid">
+        <!-- Referral Credit -->
+        <div class="promo-card">
+            <div class="promo-icon"><i class="fas fa-user-friends"></i></div>
+            <div class="badge">SHARE & SAVE</div>
+            <h3>$150 Credit for Both You & Your Friend!</h3>
+            <p class="small-text">Refer a new customer and you'll both receive a $150 credit — redeemable for any Non-Physician Treatments or Products!</p>
         </div>
-        <div class="treatment-description">
-            PRF is an advanced, natural cosmetic treatment that uses a concentrated portion of your own blood to rejuvenate the skin and support hair restoration. 
-            PRF helps reduce dark circles, fine lines, and crepey under-eye skin by stimulating collagen production and improving tissue regeneration. 
-            It's also highly effective for hair thinning and hair loss. Because it uses your body's own growth factors, results look natural and can last up to 12 months.
+
+        <!-- Cash Back -->
+        <div class="promo-card">
+            <div class="promo-icon"><i class="fas fa-money-bill-wave"></i></div>
+            <div class="badge">FIRST TREATMENT</div>
+            <h3>$50 Cash Back!</h3>
+            <p class="small-text">Get $50 Cash Back on your first Filler or Skinvive treatment.</p>
         </div>
-        <div class="feature-grid">
-            <div class="feature-item"><i class="fas fa-check-circle"></i> Stimulates collagen production</div>
-            <div class="feature-item"><i class="fas fa-check-circle"></i> Natural growth factors</div>
-            <div class="feature-item"><i class="fas fa-check-circle"></i> Results up to 12 months</div>
-        </div>
-        <div class="treatment-specs">
-            <span class="spec-item"><i class="fas fa-syringe"></i> 4 Treatments</span>
+
+        <!-- BD Points -->
+        <div class="promo-card">
+            <div class="promo-icon"><i class="fas fa-star"></i></div>
+            <div class="badge">LOYALTY REWARDS</div>
+            <h3>Earn BD Points</h3>
+            <p class="small-text">Already a patient? Earn BD Points on Botox, Juvederm, CoolSculpting, SkinMedica, and Latisse purchases.</p>
+            <p class="small-text" style="margin-top: 8px;"><i class="fas fa-info-circle"></i> Click for details</p>
         </div>
     </div>
 
-    <!-- ========== FILLERS TREATMENT ========== -->
-    <div class="treatment-item">
-        <div class="treatment-header">
-            <div class="treatment-subtitle">Face Defining & Plumping</div>
-            <div class="treatment-brand">JUVÉDERM® &amp; BELOTERO®</div>
+    <!-- ========== COOLSCULPTING SPECIAL ========== -->
+    <div class="feature-block">
+        <div class="feature-content">
+            <div class="badge">LIMITED TIME · WHILE STOCKS LAST</div>
+            <h2>CoolSculpting Special</h2>
+            <p><strong>45-50% off CoolSculpting</strong> PLUS chance to win 6 cycles for FREE!</p>
+            <p style="margin-top: 12px;">A non-invasive, FDA-cleared procedure that reduces stubborn fat in targeted areas by freezing it (cryolipolysis) without surgery or downtime. It typically reduces fat by 20%–25% per session, with final results visible in 2–6 months!</p>
         </div>
-        <div class="treatment-description">
-            Dermal fillers designed to smooth, sculpt, and restore youthful volume. Treatments involve little to no downtime, and results can last up to 2 years, depending on the product used and treatment area.
-        </div>
-        <div class="feature-grid">
-            <div class="feature-item"><i class="fas fa-star"></i> Static wrinkles (lines at rest)</div>
-            <div class="feature-item"><i class="fas fa-star"></i> Facial contour and definition</div>
-            <div class="feature-item"><i class="fas fa-star"></i> Loss of facial volume</div>
-            <div class="feature-item"><i class="fas fa-star"></i> Lip shape and plumping</div>
-        </div>
-        <div class="treatment-specs">
-            <span class="spec-item"><i class="fas fa-syringe"></i> 4 Syringes / 4ml</span>
-            <span class="spec-item"><i class="fas fa-calendar-alt"></i> Baseline 6 months</span>
+        <div class="feature-highlight">
+            <div class="percent">45-50% OFF</div>
+            <p style="margin-top: 8px;">+ Win 6 FREE Cycles!</p>
         </div>
     </div>
 
-    <!-- ========== RADIESSE TREATMENT ========== -->
-    <div class="treatment-item">
-        <div class="treatment-header">
-            <div class="treatment-subtitle">Lifting & Rejuvenating</div>
-            <div class="treatment-brand">Advanced Biostimulator - Radiesse</div>
+    <!-- ========== FREE OFFERS ========== -->
+    <div class="offers-row">
+        <div class="offer-card">
+            <i class="fas fa-gift"></i>
+            <div class="discount">FREE</div>
+            <h3>Microdermabrasion Facial</h3>
+            <p class="small-text">Repurchase your TNS Advanced+ Serum within 90 days and receive 1 FREE Facial!</p>
         </div>
-        <div class="treatment-description">
-            Designed to restore structure and rejuvenate from within. With little to no downtime, results are long-lasting and can endure up to 2 years.
+        <div class="offer-card">
+            <i class="fas fa-calendar-alt"></i>
+            <div class="discount">20% OFF</div>
+            <h3>Birthday Special</h3>
+            <p class="small-text">Within 30 days of your birthday, enjoy 20% OFF any 1 FNL product OR any 1 Non-Physician Service!</p>
         </div>
-        <div class="feature-grid">
-            <div class="feature-item"><i class="fas fa-arrow-up"></i> Lift vertically for youthful appearance</div>
-            <div class="feature-item"><i class="fas fa-chart-simple"></i> Correct volume loss</div>
-            <div class="feature-item"><i class="fas fa-hand-peace"></i> Increase skin thickness & smooth texture</div>
-            <div class="feature-item"><i class="fas fa-draw-polygon"></i> Enhance facial contour & jawline</div>
-            <div class="feature-item"><i class="fas fa-hand-back-fist"></i> Improve crepey skin on neck & hands</div>
-        </div>
-        <div class="treatment-specs">
-            <span class="spec-item"><i class="fas fa-syringe"></i> 4 Syringes</span>
-        </div>
-    </div>
-
-    <!-- ========== SKINVIVE TREATMENT ========== -->
-    <div class="treatment-item">
-        <div class="treatment-header">
-            <div class="treatment-subtitle">Skin Hydrating & Glowing!</div>
-            <div class="treatment-brand">SKINVIVE by JUVÉDERM</div>
-        </div>
-        <div class="treatment-description">
-            Using microdroplets of hyaluronic acid, it enhances your skin's natural moisture levels by stimulating aquaporin-3, helping skin cells retain water more effectively. 
-            The result is a refreshed, radiant, and healthy-looking complexion. With little to no downtime, results can last up to 9 months.
-        </div>
-        <div class="feature-grid">
-            <div class="feature-item"><i class="fas fa-tint"></i> Deep hydration</div>
-            <div class="feature-item"><i class="fas fa-sun"></i> Radiant complexion</div>
-            <div class="feature-item"><i class="fas fa-clock"></i> Minimal downtime</div>
-        </div>
-        <div class="treatment-specs">
-            <span class="spec-item"><i class="fas fa-syringe"></i> 3 Syringes</span>
+        <div class="offer-card">
+            <i class="fas fa-hand-peace"></i>
+            <div class="discount">2 FREE</div>
+            <h3>Facials Every Year</h3>
+            <p class="small-text">Join our Skin Fit Membership and enjoy 2 FREE facials every year — because your skin deserves it!</p>
         </div>
     </div>
 
-    <!-- ========== THERMAGE TREATMENT ========== -->
-    <div class="treatment-item">
-        <div class="treatment-header">
-            <div class="treatment-subtitle">Skin Tightening</div>
-            <div class="treatment-brand">Thermage CPT</div>
+    <!-- ========== MIX & MATCH OFFERS ========== -->
+    <div class="offers-row">
+        <div class="offer-card">
+            <i class="fas fa-layer-group"></i>
+            <div class="discount">15% OFF</div>
+            <h3>Mix & Match Any 3 Treatments</h3>
+            <p class="small-text">Get 15% off Non-Physician Treatments when you book any 3</p>
         </div>
-        <div class="treatment-description">
-            Non-invasive radiofrequency (RF) technology to tighten, smooth, and contour the skin. By stimulating natural collagen production, Thermage delivers gradual, natural-looking results with little to no downtime.
+        <div class="offer-card">
+            <i class="fas fa-star-of-life"></i>
+            <div class="discount">20% OFF</div>
+            <h3>Mix & Match Any 5 Treatments</h3>
+            <p class="small-text">Get 20% off Non-Physician Treatments when you book any 5</p>
         </div>
-        <div class="feature-grid">
-            <div class="feature-item"><i class="fas fa-face-smile"></i> Loose or sagging skin</div>
-            <div class="feature-item"><i class="fas fa-grip-lines"></i> Fine lines and wrinkles</div>
-            <div class="feature-item"><i class="fas fa-circle-nodes"></i> Loss of firmness and definition</div>
-        </div>
-        <div class="treatment-specs">
-            <span class="spec-item"><i class="fas fa-hand-peace"></i> 3 Treatments (face and/or eye)</span>
-        </div>
-    </div>
-
-    <!-- ========== EMSELLA TREATMENT ========== -->
-    <div class="treatment-item">
-        <div class="treatment-header">
-            <div class="treatment-subtitle">Pelvic Floor Muscles Strengthening</div>
-            <div class="treatment-brand">EMSELLA</div>
-        </div>
-        <div class="treatment-description">
-            Non-invasive, Health Canada–approved treatment that uses high-intensity focused electromagnetic (HIFEM+) energy to strengthen the pelvic floor muscles. 
-            During the session, you remain fully clothed while seated comfortably for about 30–60 minutes.
-        </div>
-        <div class="feature-grid">
-            <div class="feature-item"><i class="fas fa-tint"></i> Treat urinary incontinence</div>
-            <div class="feature-item"><i class="fas fa-heart"></i> Improve sexual wellness</div>
-            <div class="feature-item"><i class="fas fa-hand-peace"></i> Strengthen pelvic organs</div>
-        </div>
-        <div class="treatment-specs">
-            <span class="spec-item"><i class="fas fa-clock"></i> 60 minutes treatment</span>
-            <span class="price-item">$150 / session</span>
+        <div class="offer-card">
+            <i class="fas fa-crown"></i>
+            <div class="discount">15-20% OFF</div>
+            <h3>Members Exclusive</h3>
+            <p class="small-text">Join Skin Fit Membership and enjoy 15% off all Non-Physician Treatments</p>
         </div>
     </div>
 
-    <!-- ========== VIP MEMBERSHIP SECTION ========== -->
+    <!-- ========== SKIN FIT MEMBERSHIP ========== -->
     <div class="membership-section">
         <div class="membership-header">
-            <h2>Skin Fit</h2>
+            <h2>✨ Skin Fit ✨</h2>
             <p>VIP Loyalty Membership</p>
+            <div class="divider"></div>
         </div>
         <div class="membership-grid">
             <div class="member-card">
                 <h3><i class="fas fa-hand-holding-usd"></i> How to Join</h3>
                 <p>Deposit <strong>$105</strong> into your account each month <em>(5% tax prepaid)</em>, it enables your tax-free spending power!</p>
+                <p style="margin-top: 12px;"><strong>Free to cancel any time after 1 year!</strong></p>
             </div>
             <div class="member-card">
                 <h3><i class="fas fa-gift"></i> Member Benefits</h3>
                 <ul>
-                    <li><i class="fas fa-check-circle"></i> 2 Free Microdermabrasion Facials per year</li>
-                    <li><i class="fas fa-percent"></i> 15% off Non-Physician Treatments</li>
-                    <li><i class="fas fa-star"></i> and MORE...!!!</li>
-                    <li><i class="fas fa-door-open"></i> Free to cancel any time after 1 year!</li>
+                    <li><i class="fas fa-check"></i> 2 Free Microdermabrasion Facials per year</li>
+                    <li><i class="fas fa-check"></i> 15% off Non-Physician Treatments</li>
+                    <li><i class="fas fa-check"></i> 15-20% off Mix & Match packages</li>
+                    <li><i class="fas fa-check"></i> Birthday 20% off</li>
+                    <li><i class="fas fa-check"></i> and MORE...!!!</li>
                 </ul>
             </div>
+        </div>
+    </div>
+
+    <!-- ========== TREATMENT PACKAGES SECTION ========== -->
+    <div class="section-title">
+        <h2>Signature Treatment Packages</h2>
+        <div class="divider"></div>
+        <p>Advanced aesthetic solutions tailored to your unique needs</p>
+    </div>
+
+    <!-- PRF -->
+    <div class="treatment-item">
+        <div class="treatment-subtitle">Eye Countour Rejuvenating</div>
+        <div class="treatment-subtitle" style="font-size: 1.2rem;">Hair Rejuvenating</div>
+        <div class="treatment-brand">Platelet-Rich Fibrin (PRF)</div>
+        <div class="treatment-description">PRF is an advanced, natural cosmetic treatment that uses a concentrated portion of your own blood to rejuvenate the skin and support hair restoration. PRF helps reduce dark circles, fine lines, and crepey under-eye skin. Results can last up to 12 months.</div>
+        <div class="feature-list">
+            <span>✨ Stimulates collagen</span>
+            <span>✨ Natural growth factors</span>
+            <span>✨ Results up to 12 months</span>
+        </div>
+        <div class="treatment-specs">
+            <span class="spec-tag">4 Treatments</span>
+        </div>
+    </div>
+
+    <!-- Fillers -->
+    <div class="treatment-item">
+        <div class="treatment-subtitle">Face Defining & Plumping</div>
+        <div class="treatment-brand">JUVÉDERM® & BELOTERO®</div>
+        <div class="treatment-description">Dermal fillers designed to smooth, sculpt, and restore youthful volume. Treatments involve little to no downtime, results up to 2 years.</div>
+        <div class="feature-list">
+            <span>Static wrinkles</span>
+            <span>Facial contour</span>
+            <span>Volume loss</span>
+            <span>Lip plumping</span>
+        </div>
+        <div class="treatment-specs">
+            <span class="spec-tag">4 Syringes / 4ml</span>
+            <span class="spec-tag">Baseline 6 months</span>
+        </div>
+    </div>
+
+    <!-- Radiesse -->
+    <div class="treatment-item">
+        <div class="treatment-subtitle">Lifting & Rejuvenating</div>
+        <div class="treatment-brand">Advanced Biostimulator - Radiesse</div>
+        <div class="treatment-description">Restore structure and rejuvenate from within. Lift vertically, correct volume loss, enhance facial contour. Results up to 2 years.</div>
+        <div class="feature-list">
+            <span>Vertical lift</span>
+            <span>Volume correction</span>
+            <span>Skin thickness</span>
+            <span>Jawline definition</span>
+        </div>
+        <div class="treatment-specs">
+            <span class="spec-tag">4 Syringes</span>
+        </div>
+    </div>
+
+    <!-- SkinVive -->
+    <div class="treatment-item">
+        <div class="treatment-subtitle">Skin Hydrating & Glowing!</div>
+        <div class="treatment-brand">SKINVIVE by JUVÉDERM</div>
+        <div class="treatment-description">Microdroplets of hyaluronic acid boost skin hydration, glow, and smoothness. Results last up to 9 months.</div>
+        <div class="feature-list">
+            <span>Deep hydration</span>
+            <span>Radiant complexion</span>
+            <span>Minimal downtime</span>
+        </div>
+        <div class="treatment-specs">
+            <span class="spec-tag">3 Syringes</span>
+        </div>
+    </div>
+
+    <!-- Thermage -->
+    <div class="treatment-item">
+        <div class="treatment-subtitle">Skin Tightening</div>
+        <div class="treatment-brand">Thermage CPT</div>
+        <div class="treatment-description">Non-invasive radiofrequency technology to tighten, smooth, and contour skin. Natural collagen stimulation.</div>
+        <div class="feature-list">
+            <span>Loose skin</span>
+            <span>Fine lines</span>
+            <span>Loss of firmness</span>
+        </div>
+        <div class="treatment-specs">
+            <span class="spec-tag">3 Treatments (face and/or eye)</span>
+        </div>
+    </div>
+
+    <!-- Emsella -->
+    <div class="treatment-item">
+        <div class="treatment-subtitle">Pelvic Floor Muscles Strengthening</div>
+        <div class="treatment-brand">EMSELLA</div>
+        <div class="treatment-description">Health Canada–approved, non-invasive treatment using HIFEM+ energy to strengthen pelvic floor muscles.</div>
+        <div class="feature-list">
+            <span>Urinary incontinence</span>
+            <span>Sexual wellness</span>
+            <span>Pelvic support</span>
+        </div>
+        <div class="treatment-specs">
+            <span class="spec-tag">60 minutes treatment</span>
+            <span class="price">$150 / session</span>
         </div>
     </div>
 </div>
