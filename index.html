@@ -33,7 +33,7 @@
             background: linear-gradient(135deg, #1a1a1a 0%, #2c241e 100%);
             color: white;
             text-align: center;
-            padding: 60px 12px;
+            padding: 30px 12px;
         }
 
         .hero-badge {
@@ -107,33 +107,10 @@
             transform: translateY(-4px);
         }
 
-/* 横向长方形图片样式 (6:4 = 3:2) */
-.promo-icon {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.promo-icon img {
-    width: 100%;
-    max-width: 100%;
-    aspect-ratio: 6 / 2;
-    object-fit: cover;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #f5efe8 0%, #fff9f2 100%);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.promo-card:hover .promo-icon img {
-    transform: scale(1.02);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
-}
-}
-
-        .promo-card:hover .promo-icon img {
-            transform: scale(1.02);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        .promo-icon {
+            font-size: 2rem;
+            color: #c4a47c;
+            margin-bottom: 16px;
         }
 
         .promo-card h3 {
@@ -163,6 +140,46 @@
             font-size: 0.7rem;
             font-weight: 600;
             margin-bottom: 12px;
+        }
+
+        /* CoolSculpting Feature */
+        .feature-block {
+            background: linear-gradient(135deg, #f5f0ea 0%, #fff9f2 100%);
+            border-radius: 24px;
+            padding: 32px;
+            margin: 30px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .feature-content {
+            flex: 2;
+        }
+
+        .feature-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .feature-content p {
+            color: #5a4f43;
+            line-height: 1.6;
+        }
+
+        .feature-highlight {
+            flex: 1;
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .feature-highlight .percent {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #9b7b58;
         }
 
         /* Loyalty Grid */
@@ -220,6 +237,7 @@
             margin: 12px 0;
         }
 
+        /* Membership Card */
         .membership-card {
             background: linear-gradient(135deg, #fff9f2 0%, #faf5ee 100%);
             border: 2px solid #d9c5b0;
@@ -290,6 +308,13 @@
             font-weight: 500;
         }
 
+        .price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #9b7b58;
+        }
+
+        /* Footer */
         .footer {
             text-align: center;
             padding: 40px 24px;
@@ -299,7 +324,6 @@
             margin-top: 40px;
         }
 
-        /* 手机竖屏优化 */
         @media (max-width: 768px) {
             .container {
                 padding: 0 16px;
@@ -307,19 +331,12 @@
             .hero h1 {
                 font-size: 2rem;
             }
-            .promo-icon img {
+            .feature-block {
+                flex-direction: column;
+                text-align: center;
             }
             .treatment-title {
                 font-size: 1.2rem;
-            }
-            .promo-card {
-                padding: 20px;
-            }
-        }
-
-        /* 小手机进一步优化 */
-        @media (max-width: 480px) {
-            .promo-icon img {
             }
         }
     </style>
@@ -328,14 +345,15 @@
 
 <!-- Hero Section -->
 <section class="hero">
-    <div class="hero-badge">APRIL 2026</div>
-    <h1>Spring Renewal</h1>
-    <p>Exclusive aesthetic offers — limited time</p>
+    <div class="hero-badge"></div>
+    <p></p>
 </section>
 
 <div class="container">
 
+    <!-- ============================================================ -->
     <!-- SECTION 1: APRIL PROMO -->
+    <!-- ============================================================ -->
     <div class="section-header">
         <h2>🎉 April Promo</h2>
         <div class="divider"></div>
@@ -343,11 +361,9 @@
     </div>
 
     <div class="promo-grid">
-        <!-- CoolSculpting -->
+                <!-- CoolSculpting -->
         <div class="promo-card">
-            <div class="promo-icon">
-                <img src="https://mia-technician.github.io/promo/images/coolsculpting.jpg" alt="CoolSculpting">
-            </div>
+            <div class="promo-icon"><i class="fas fa-percent"></i></div>
             <div class="badge">COOLSCULPTING</div>
             <h3>45%-50% off</h3>
             <p class="small-text">A non-invasive, FDA-cleared procedure that reduces stubborn fat in targeted areas by freezing it (cryolipolysis) without surgery or downtime. It typically reduces fat by 20%–25% per session, with final results visible in 2–6 months!</p>
@@ -355,23 +371,16 @@
         
         <!-- Cash Back -->
         <div class="promo-card">
-            <div class="promo-icon">
-                <img src="https://mia-technician.github.io/promo/images/50.jpg" alt="Cash Back">
-            </div>
+            <div class="promo-icon"><i class="fas fa-money-bill-wave"></i></div>
             <div class="badge">FIRST TREATMENT</div>
             <h3>$50 Cash Back!</h3>
             <p class="small-text">Get $50 Cash Back on your first JUVÉDERM® filler or SKINVIVE™ treatment.</p>
-            <p class="small-text" style="margin-top: 16px;"><i class="fas fa-info-circle"></i> Already a client? You're still winning. Earn points to redeem for cash on every purchase! Collect BD points from BOTOX®, JUVÉDERM®, CoolSculpting®, SkinMedica®, Latisse®</p>
-            <div style="margin-top: 20px;">
-                <a href="#" style="display: inline-block; background: #c4a47c; color: white; padding: 8px 18px; border-radius: 40px; text-decoration: none; font-size: 0.75rem; font-weight: 600; transition: background 0.2s;" onmouseover="this.style.background='#9b7b58'" onmouseout="this.style.background='#c4a47c'">Click here for details →</a>
-            </div>
+            <p class="small-text" style="margin-top: 16px;"><i class="fas fa-info-circle"></i> Already a clinet? You're still winning. Earn points to redeam for cash on every purchase! Collect BD points from BOTOX®, JUVÉDERM®, CoolSculpting®, SkinMedica®, Latisse®</p>
         </div>
 
         <!-- 15% off Products -->
         <div class="promo-card">
-            <div class="promo-icon">
-                <img src="https://mia-technician.github.io/promo/images/pd.jpg" alt="Products">
-            </div>
+            <div class="promo-icon"><i class="fas fa-percent"></i></div>
             <div class="badge">PRODUCTS</div>
             <h3>15% off</h3>
             <p class="small-text">Enjoy 15% off any 3 products — applies to Skinmedica, Skinscuticles, Zo, Colorscience!</p>
@@ -379,9 +388,7 @@
 
         <!-- 15%-20% off Service Packages -->
         <div class="promo-card">
-            <div class="promo-icon">
-                <img src="https://mia-technician.github.io/promo/images/services.jpg" alt="Services">
-            </div>
+            <div class="promo-icon"><i class="fas fa-percent"></i></div>
             <div class="badge">NON-PHYSICIAN SERVICES</div>
             <h3>15%-20% off</h3>
             <p class="small-text">15% off for 3 mix & match services pkg</p>
@@ -390,16 +397,16 @@
         
         <!-- Birthday -->
         <div class="promo-card">
-            <div class="promo-icon">
-                <img src="https://mia-technician.github.io/promo/images/birthday.jpg" alt="Birthday">
-            </div>
+            <div class="promo-icon"><i class="fas fa-birthday-cake"></i></div>
             <div class="badge">BIRTHDAY MONTH</div>
             <h3>20% off</h3>
-            <p class="small-text">Enjoy any 1 FNL product OR any 1 Non-Physician Service within your birthday Month!</p>
+            <p class="small-text"> Enjoy any 1 FNL product OR any 1 Non-Physician Service with in your birthday Month!</p>
         </div>
     </div>
 
+    <!-- ============================================================ -->
     <!-- SECTION 2: LOYALTY PROGRAMS -->
+    <!-- ============================================================ -->
     <div class="section-header">
         <h2>👑 Loyalty Programs</h2>
         <div class="divider"></div>
@@ -407,6 +414,7 @@
     </div>
 
     <div class="loyalty-grid">
+        <!-- Referral -->
         <div class="loyalty-card">
             <h3><i class="fas fa-user-friends"></i> Referral Program</h3>
             <div class="highlight-text">$150 Credit</div>
@@ -418,6 +426,7 @@
             </ul>
         </div>
 
+        <!-- Skin Fit Membership -->
         <div class="loyalty-card membership-card">
             <h3><i class="fas fa-crown"></i> Skin Fit Membership</h3>
             <div class="highlight-text">VIP Loyalty</div>
@@ -430,15 +439,19 @@
         </div>
     </div>
 
-    <!-- SECTION 3: VALUE PACKAGES -->
+
+    <!-- ============================================================ -->
+    <!-- SECTION 3: VALUE PACKAGES (超值套餐) -->
+    <!-- ============================================================ -->
     <div class="section-header">
         <h2>💎 Value Packages</h2>
         <div class="divider"></div>
         <p>Curated treatments · Premium results</p>
     </div>
 
+    <!-- PRF -->
     <div class="treatment-item">
-        <div class="treatment-title">Eye Contour Rejuvenating · Hair Rejuvenating</div>
+        <div class="treatment-title">Eye Countour Rejuvenating · Hair Rejuvenating</div>
         <div class="treatment-sub">Platelet-Rich Fibrin (PRF)</div>
         <div class="treatment-desc">PRF uses your body's own growth factors to rejuvenate skin and support hair restoration. Reduces dark circles, fine lines, and crepey under-eye skin. Results up to 12 months.</div>
         <div class="treatment-features">
@@ -451,6 +464,7 @@
         </div>
     </div>
 
+    <!-- Fillers -->
     <div class="treatment-item">
         <div class="treatment-title">Face Defining & Plumping</div>
         <div class="treatment-sub">JUVÉDERM® & BELOTERO®</div>
@@ -466,6 +480,7 @@
         </div>
     </div>
 
+    <!-- Radiesse -->
     <div class="treatment-item">
         <div class="treatment-title">Face & Neck Lifting & Rejuvenating</div>
         <div class="treatment-sub">Advanced Biostimulator - RADIESSE®</div>
@@ -481,6 +496,7 @@
         </div>
     </div>
 
+    <!-- SkinVive -->
     <div class="treatment-item">
         <div class="treatment-title">Skin Hydrating & Glowing!</div>
         <div class="treatment-sub">SKINVIVE™ by JUVÉDERM</div>
@@ -495,6 +511,7 @@
         </div>
     </div>
 
+    <!-- Emsella -->
     <div class="treatment-item">
         <div class="treatment-title">Pelvic Floor Muscles Strengthening</div>
         <div class="treatment-sub">EMSELLA</div>
