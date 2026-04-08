@@ -115,8 +115,8 @@
 }
 
 .promo-icon img {
-    width: 80%;
-    max-width: 260px;
+    width: 100%;
+    max-width: 100%;
     aspect-ratio: 6 / 4;
     object-fit: cover;
     border-radius: 16px;
@@ -129,21 +129,6 @@
     transform: scale(1.02);
     box-shadow: 0 12px 28px rgba(0,0,0,0.12);
 }
-
-/* 手机竖屏 (≤768px) - 图片撑满宽度 */
-@media (max-width: 768px) {
-    .promo-icon img {
-        width: 92%;
-        max-width: none;
-    }
-}
-
-/* 平板 (769px - 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .promo-icon img {
-        width: 75%;
-        max-width: 240px;
-    }
 }
 
         .promo-card:hover .promo-icon img {
