@@ -115,14 +115,35 @@
         }
 
         .promo-icon img {
-            width: 100%;
-            max-width: 400px;
-            aspect-ratio: 6 / 4;
+            width: 65%;
+            max-width: 220px;
+            aspect-ratio: 4 / 6;
             object-fit: cover;
             border-radius: 16px;
             background: linear-gradient(135deg, #f5efe8 0%, #fff9f2 100%);
             box-shadow: 0 8px 20px rgba(0,0,0,0.08);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .promo-card:hover .promo-icon img {
+            transform: scale(1.02);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        }
+
+        /* 手机竖屏优化 - 图片占更宽比例 */
+        @media (max-width: 768px) {
+            .promo-icon img {
+                width: 85%;
+                max-width: none;
+            }
+        }
+
+        /* 大手机/平板 */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .promo-icon img {
+                width: 70%;
+                max-width: 200px;
+            }
         }
 
         .promo-card:hover .promo-icon img {
