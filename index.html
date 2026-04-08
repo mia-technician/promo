@@ -107,11 +107,24 @@
             transform: translateY(-4px);
         }
 
-        .promo-icon {
-            font-size: 2rem;
-            color: #c4a47c;
-            margin-bottom: 16px;
-        }
+.promo-icon {
+    margin-bottom: 16px;
+}
+
+.promo-icon img {
+    width: 100px;         /* 更大的图片 */
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f5efe8 0%, #fff9f2 100%);
+    padding: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+}
+
+.promo-card:hover .promo-icon img {
+    transform: scale(1.05);  /* 悬停时轻微放大 */
+}
 
         .promo-card h3 {
             font-size: 1.2rem;
@@ -141,15 +154,6 @@
             font-weight: 600;
             margin-bottom: 12px;
         }
-
-        .promo-icon img {
-    width: 56px;
-    height: 56px;
-    object-fit: contain;
-    border-radius: 50%;
-    background: #f5efe8;
-    padding: 8px;
-}
 
         /* CoolSculpting Feature */
         .feature-block {
