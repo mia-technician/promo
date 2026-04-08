@@ -107,23 +107,27 @@
             transform: translateY(-4px);
         }
 
+        /* 4:6 长方形图片样式 (即 2:3 比例) */
         .promo-icon {
             margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
         }
 
         .promo-icon img {
-            width: 100px;
-            height: 100px;
+            width: 100%;
+            max-width: 200px;
+            aspect-ratio: 4 / 6;
             object-fit: cover;
-            border-radius: 50%;
+            border-radius: 16px;
             background: linear-gradient(135deg, #f5efe8 0%, #fff9f2 100%);
-            padding: 14px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            transition: transform 0.2s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .promo-card:hover .promo-icon img {
-            transform: scale(1.05);
+            transform: scale(1.02);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
         }
 
         .promo-card h3 {
@@ -289,6 +293,7 @@
             margin-top: 40px;
         }
 
+        /* 手机竖屏优化 */
         @media (max-width: 768px) {
             .container {
                 padding: 0 16px;
@@ -297,12 +302,20 @@
                 font-size: 2rem;
             }
             .promo-icon img {
-                width: 70px;
-                height: 70px;
-                padding: 10px;
+                max-width: 160px;
             }
             .treatment-title {
                 font-size: 1.2rem;
+            }
+            .promo-card {
+                padding: 20px;
+            }
+        }
+
+        /* 小手机进一步优化 */
+        @media (max-width: 480px) {
+            .promo-icon img {
+                max-width: 140px;
             }
         }
     </style>
