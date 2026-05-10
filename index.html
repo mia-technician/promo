@@ -149,6 +149,17 @@
             font-size: 0.7rem;
             color: #9b8b7c;
             line-height: 1.4;
+            margin-bottom: 6px;
+        }
+        
+        /* 新增价格样式 */
+        .card-price {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #9b7b58;
+            text-align: center;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
         }
 
         /* 其余原有样式 */
@@ -353,6 +364,9 @@
             .card-caption h4 {
                 font-size: 0.85rem;
             }
+            .card-price {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -368,7 +382,7 @@
 
     <!-- ============================================================ -->
     <!-- NEW IN MAY - 纯图片区（异形图自动适配+模糊背景） -->
-    <!-- 无边框、无阴影、无标签、无hover，只保留图片+底部小字 -->
+    <!-- 无边框、无阴影、无标签、无hover，只保留图片+底部小字+价格 -->
     <!-- 统一圆角+细边框实现风格统一 -->
     <!-- ============================================================ -->
     <div class="section-header">
@@ -389,10 +403,11 @@
             <div class="card-caption">
                 <h4>Collagen Infusion Lip Plumping Serum</h4>
                 <p>Pro-Collagen Peptides + HA microspheres</p>
+                <div class="card-price">$78</div>
             </div>
         </div>
 
-        <!-- 卡片 2: Intense Hydration Face Moiturizer -->
+        <!-- 卡片 2: Intense Hydration Face Moisturizer -->
         <div class="new-card">
             <div class="image-wrapper">
                 <div class="image-bg-blur" id="img2-bg"></div>
@@ -401,8 +416,9 @@
                 </div>
             </div>
             <div class="card-caption">
-                <h4>Intense Hydration Face Moiturizer</h4>
+                <h4>Intense Hydration Face Moisturizer</h4>
                 <p>Dry Skin · Sensitive Skin · Dehydrated Skin</p>
+                <div class="card-price">$68</div>
             </div>
         </div>
 
@@ -416,7 +432,8 @@
             </div>
             <div class="card-caption">
                 <h4>Baby Glow Skin Booster</h4>
-                <p>Deep Hydration · A "lit-from-within" radiance without adding volume</p>
+                <p>Deep Hydration · A "lit-from-within" radiance</p>
+                <div class="card-price">$450 / session</div>
             </div>
         </div>
 
@@ -430,7 +447,8 @@
             </div>
             <div class="card-caption">
                 <h4>Ulthera V Lift</h4>
-                <p>Micro-focused ultrasound · Reduce sagging and sculpt the lower face</p>
+                <p>Micro-focused ultrasound · Reduce sagging</p>
+                <div class="card-price">$1,200 / session</div>
             </div>
         </div>
     </div>
