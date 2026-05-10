@@ -74,38 +74,32 @@
             font-size: 0.85rem;
         }
 
-        /* NEW IN MAY - 图片卡片网格 */
+        /* NEW IN MAY - 纯图片网格（无边框阴影，统一圆角+细边框） */
         .new-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 28px;
+            gap: 32px;
             margin: 30px 0;
         }
 
         .new-card {
-            background: white;
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-            cursor: pointer;
+            /* 无背景、无阴影、无 hover 效果 */
+            background: transparent;
+            cursor: default;
         }
 
-        .new-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 25px 40px rgba(0,0,0,0.12);
-        }
-
-        /* 图片容器 - 正方形，支持异形图模糊背景填充 */
+        /* 图片容器 - 正方形，100%填满，统一圆角+细边框 */
         .image-wrapper {
             position: relative;
             width: 100%;
-            aspect-ratio: 1 / 1;  /* 正方形容器 */
+            aspect-ratio: 1 / 1;
             background: #f0ebe4;
             overflow: hidden;
+            border-radius: 20px;      /* 统一圆角 */
+            border: 1px solid #e0d6cc; /* 统一细边框，颜色柔和 */
         }
 
-        /* 模糊背景层 - 原图放大+模糊 */
+        /* 模糊背景层 - 原图放大+模糊（保留异形图适配） */
         .image-bg-blur {
             position: absolute;
             top: 0;
@@ -116,11 +110,11 @@
             background-position: center;
             filter: blur(20px);
             transform: scale(1.1);
-            opacity: 0.6;
+            opacity: 0.5;
             z-index: 1;
         }
 
-        /* 清晰前景图 */
+        /* 清晰前景图 - 100%填满正方形 */
         .image-foreground {
             position: absolute;
             top: 0;
@@ -134,63 +128,26 @@
         }
 
         .image-foreground img {
-            max-width: 85%;
-            max-height: 85%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            width: 100%;
+            height: 100%;
+            object-fit: contain;   /* 保持比例，不裁剪，背景模糊填充空白 */
+            border-radius: 20px;   /* 与父容器一致，保证边缘圆润 */
         }
 
-        /* NEW! 标签 - 不同颜色样式 */
-        .new-badge {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            z-index: 3;
-            padding: 6px 14px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            border-radius: 40px;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            text-transform: uppercase;
-        }
-
-        /* 标签颜色变体 */
-        .badge-red {
-            background: linear-gradient(135deg, #ff4d4d, #cc0000);
-            color: white;
-        }
-        .badge-purple {
-            background: linear-gradient(135deg, #c86bdd, #7c3a8c);
-            color: white;
-        }
-        .badge-teal {
-            background: linear-gradient(135deg, #00b4b4, #006666);
-            color: white;
-        }
-        .badge-gold {
-            background: linear-gradient(135deg, #f5b041, #d48806);
-            color: white;
-        }
-
-        /* 卡片底部文字 */
+        /* 卡片底部文字 - 保留，极简风格 */
         .card-caption {
-            padding: 20px 16px 24px;
+            padding: 12px 8px 0;
             text-align: center;
         }
         .card-caption h4 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
             color: #2c2824;
         }
         .card-caption p {
-            font-size: 0.8rem;
-            color: #8a7a6a;
+            font-size: 0.7rem;
+            color: #9b8b7c;
             line-height: 1.4;
         }
 
@@ -391,13 +348,10 @@
                 font-size: 2rem;
             }
             .new-grid {
-                gap: 20px;
-            }
-            .card-caption {
-                padding: 16px 12px 20px;
+                gap: 24px;
             }
             .card-caption h4 {
-                font-size: 1rem;
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -413,7 +367,9 @@
 <div class="container">
 
     <!-- ============================================================ -->
-    <!-- NEW IN MAY - 图片卡片区（异形图自动适配+模糊背景） -->
+    <!-- NEW IN MAY - 纯图片区（异形图自动适配+模糊背景） -->
+    <!-- 无边框、无阴影、无标签、无hover，只保留图片+底部小字 -->
+    <!-- 统一圆角+细边框实现风格统一 -->
     <!-- ============================================================ -->
     <div class="section-header">
         <h2>✨ New In May ✨</h2>
@@ -422,29 +378,27 @@
     </div>
 
     <div class="new-grid">
-        <!-- 卡片 1: Lip Plump Serum (红色标签) -->
+        <!-- 卡片 1: Lip Plump Serum -->
         <div class="new-card">
-            <div class="image-wrapper" id="img1-wrapper">
+            <div class="image-wrapper">
                 <div class="image-bg-blur" id="img1-bg"></div>
                 <div class="image-foreground">
                     <img id="img1-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/lipplumper.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9saXBwbHVtcGVyLndlYnAiLCJpYXQiOjE3NzgzODQyMDQsImV4cCI6NDkwMDQ0ODIwNH0.05lguFhnDFI1UC9qn4aMVRtvcWpYMmgGydFj2e4kHnU" alt="Lip Plump Serum">
                 </div>
-                <div class="new-badge badge-red">🔥 NEW! 🔥</div>
             </div>
             <div class="card-caption">
                 <h4>Lip Plump & Restore Serum</h4>
-                <p>Peptide complex + HA microspheres · Smooth, plump, dewy</p>
+                <p>Peptide complex + HA microspheres</p>
             </div>
         </div>
 
-        <!-- 卡片 2: Radiance Face Serum (紫色标签) -->
+        <!-- 卡片 2: Radiance Face Serum -->
         <div class="new-card">
-            <div class="image-wrapper" id="img2-wrapper">
+            <div class="image-wrapper">
                 <div class="image-bg-blur" id="img2-bg"></div>
                 <div class="image-foreground">
                     <img id="img2-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/intensehydratation.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9pbnRlbnNlaHlkcmF0YXRpb24ud2VicCIsImlhdCI6MTc3ODM4NDM2MSwiZXhwIjo0OTAwNDQ4MzYxfQ.QwEc2g_5OidOVev9kaU0QgjIGJCwRc2q9oiQyOHwwSs" alt="Radiance Face Serum">
                 </div>
-                <div class="new-badge badge-purple">💜 NEW! 💜</div>
             </div>
             <div class="card-caption">
                 <h4>Radiance Face Serum</h4>
@@ -452,14 +406,13 @@
             </div>
         </div>
 
-        <!-- 卡片 3: Baby Glow Injection (蓝绿色标签) -->
+        <!-- 卡片 3: Baby Glow Injection -->
         <div class="new-card">
-            <div class="image-wrapper" id="img3-wrapper">
+            <div class="image-wrapper">
                 <div class="image-bg-blur" id="img3-bg"></div>
                 <div class="image-foreground">
                     <img id="img3-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/babyglow.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9iYWJ5Z2xvdy5QTkciLCJpYXQiOjE3NzgzODQ0MjAsImV4cCI6NDkwMDQ0ODQyMH0.AbG18xue09JBjMme9xdUjdk2FjyrOKZhbsp-gUo6a_0" alt="Baby Glow Injection">
                 </div>
-                <div class="new-badge badge-teal">💙 NEW! 💙</div>
             </div>
             <div class="card-caption">
                 <h4>Baby Glow Injection</h4>
@@ -467,14 +420,13 @@
             </div>
         </div>
 
-        <!-- 卡片 4: Ulthera V Lift (金色标签) -->
+        <!-- 卡片 4: Ulthera V Lift -->
         <div class="new-card">
-            <div class="image-wrapper" id="img4-wrapper">
+            <div class="image-wrapper">
                 <div class="image-bg-blur" id="img4-bg"></div>
                 <div class="image-foreground">
                     <img id="img4-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/vlift.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby92bGlmdC5QTkciLCJpYXQiOjE3NzgzODQ0NDksImV4cCI6NDkwMDQ0ODQ0OX0.g6y8wMnT5ZpTb-HNwOMwvASkeDwERnpa4GYr3LTUUlI" alt="Ulthera V Lift">
                 </div>
-                <div class="new-badge badge-gold">✨ NEW! ✨</div>
             </div>
             <div class="card-caption">
                 <h4>Ulthera V Lift</h4>
@@ -484,7 +436,7 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- SECTION 1: May PROMO (保持不变) -->
+    <!-- SECTION 1: May PROMO -->
     <!-- ============================================================ -->
     <div class="section-header">
         <h2>🎉 May Promo</h2>
@@ -656,14 +608,12 @@
 
 <script>
     // 自动为四个图片卡片设置模糊背景（异形图片适配）
-    // 原理：将主图的 URL 同时应用到模糊背景层，实现任意比例图片的正方形容器适配
-    function setupAdaptiveImage(cardId, bgElementId, imgElementId) {
+    function setupAdaptiveImage(bgElementId, imgElementId) {
         const img = document.getElementById(imgElementId);
         const bg = document.getElementById(bgElementId);
         
         if (!img || !bg) return;
         
-        // 监听图片加载完成，同步背景图
         const updateBlurBg = () => {
             const imgSrc = img.src;
             if (imgSrc && bg) {
@@ -671,14 +621,12 @@
             }
         };
         
-        // 如果图片已经加载完成
         if (img.complete) {
             updateBlurBg();
         } else {
             img.addEventListener('load', updateBlurBg);
         }
         
-        // 同时监听 src 变化（方便你后续动态替换）
         const observer = new MutationObserver(() => {
             updateBlurBg();
         });
@@ -686,10 +634,10 @@
     }
     
     // 初始化四个卡片
-    setupAdaptiveImage('card1', 'img1-bg', 'img1-main');
-    setupAdaptiveImage('card2', 'img2-bg', 'img2-main');
-    setupAdaptiveImage('card3', 'img3-bg', 'img3-main');
-    setupAdaptiveImage('card4', 'img4-bg', 'img4-main');
+    setupAdaptiveImage('img1-bg', 'img1-main');
+    setupAdaptiveImage('img2-bg', 'img2-main');
+    setupAdaptiveImage('img3-bg', 'img3-main');
+    setupAdaptiveImage('img4-bg', 'img4-main');
 </script>
 
 </body>
