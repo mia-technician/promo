@@ -83,24 +83,79 @@
         }
 
         .new-card {
-            /* 无背景、无阴影、无 hover 效果 */
             background: transparent;
             cursor: default;
         }
 
-        /* 图片容器 - 正方形，100%填满，统一圆角+细边框 */
-        .image-wrapper {
+        .new-card .image-wrapper {
             position: relative;
             width: 100%;
             aspect-ratio: 1 / 1;
             background: #f0ebe4;
             overflow: hidden;
-            border-radius: 20px;      /* 统一圆角 */
-            border: 1px solid #e0d6cc; /* 统一细边框，颜色柔和 */
+            border-radius: 20px;
+            border: 1px solid #e0d6cc;
         }
 
-        /* 模糊背景层 - 原图放大+模糊（保留异形图适配） */
-        .image-bg-blur {
+        /* 卡片底部文字 */
+        .new-card .card-caption {
+            padding: 12px 8px 0;
+            text-align: center;
+        }
+        .new-card .card-caption h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #2c2824;
+        }
+        .new-card .card-caption p {
+            font-size: 0.7rem;
+            color: #9b8b7c;
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+        .new-card .card-price {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #9b7b58;
+            text-align: center;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ========== MAY PROMO 新样式（方案B：背景+阴影+标签） ========== */
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+            margin: 30px 0;
+        }
+
+        .promo-card {
+            background: #fffdf9;           /* 浅米色背景 */
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            cursor: pointer;
+        }
+
+        .promo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+        }
+
+        /* 图片容器 */
+        .promo-card .image-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: #f0ebe4;
+            overflow: hidden;
+        }
+
+        /* 模糊背景层 */
+        .promo-card .image-bg-blur {
             position: absolute;
             top: 0;
             left: 0;
@@ -114,8 +169,8 @@
             z-index: 1;
         }
 
-        /* 清晰前景图 - 100%填满正方形 */
-        .image-foreground {
+        /* 清晰前景图 */
+        .promo-card .image-foreground {
             position: absolute;
             top: 0;
             left: 0;
@@ -127,98 +182,47 @@
             z-index: 2;
         }
 
-        .image-foreground img {
+        .promo-card .image-foreground img {
             width: 100%;
             height: 100%;
-            object-fit: contain;   /* 保持比例，不裁剪，背景模糊填充空白 */
-            border-radius: 20px;   /* 与父容器一致，保证边缘圆润 */
+            object-fit: contain;
         }
 
-        /* 卡片底部文字 - 保留，极简风格 */
-        .card-caption {
-            padding: 12px 8px 0;
+        /* 折扣标签 - 左上角 */
+        .promo-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 3;
+            background: linear-gradient(135deg, #c4a47c, #9b7b58);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            text-transform: uppercase;
+        }
+
+        /* 卡片底部文字 */
+        .promo-card .card-caption {
+            padding: 16px 12px 18px;
             text-align: center;
         }
-        .card-caption h4 {
+        .promo-card .card-caption h4 {
             font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 4px;
             color: #2c2824;
+            margin-bottom: 4px;
         }
-        .card-caption p {
+        .promo-card .card-caption p {
             font-size: 0.7rem;
             color: #9b8b7c;
             line-height: 1.4;
-            margin-bottom: 6px;
-        }
-        
-        /* 新增价格样式 */
-        .card-price {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #9b7b58;
-            text-align: center;
-            margin-top: 4px;
-            letter-spacing: 0.5px;
         }
 
-        /* 其余原有样式 */
-        .promo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
-            margin: 30px 0;
-        }
-
-        .promo-card {
-            background: white;
-            border-radius: 24px;
-            padding: 28px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: transform 0.2s ease;
-            border: 1px solid #eee5dc;
-            text-align: center;
-        }
-
-        .promo-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .promo-icon {
-            font-size: 2rem;
-            color: #c4a47c;
-            margin-bottom: 16px;
-        }
-
-        .promo-card h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .promo-card .discount {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #9b7b58;
-            margin: 12px 0;
-        }
-
-        .promo-card .small-text {
-            font-size: 0.8rem;
-            color: #8a7a6a;
-        }
-
-        .promo-card .badge {
-            display: inline-block;
-            background: #d9c5b0;
-            color: #3e2c22;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
+        /* Loyalty & 其他原有样式 */
         .loyalty-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -358,14 +362,8 @@
             .hero h1 {
                 font-size: 2rem;
             }
-            .new-grid {
-                gap: 24px;
-            }
-            .card-caption h4 {
-                font-size: 0.85rem;
-            }
-            .card-price {
-                font-size: 0.9rem;
+            .new-grid, .promo-grid {
+                gap: 20px;
             }
         }
     </style>
@@ -381,9 +379,7 @@
 <div class="container">
 
     <!-- ============================================================ -->
-    <!-- NEW IN MAY - 纯图片区（异形图自动适配+模糊背景） -->
-    <!-- 无边框、无阴影、无标签、无hover，只保留图片+底部小字+价格 -->
-    <!-- 统一圆角+细边框实现风格统一 -->
+    <!-- NEW IN MAY - 纯图片区（极简：无背景无阴影，仅圆角边框） -->
     <!-- ============================================================ -->
     <div class="section-header">
         <h2>✨ New In May ✨</h2>
@@ -392,7 +388,6 @@
     </div>
 
     <div class="new-grid">
-        <!-- 卡片 1: Collagen Lip Plumping Serum -->
         <div class="new-card">
             <div class="image-wrapper">
                 <div class="image-bg-blur" id="img1-bg"></div>
@@ -407,12 +402,11 @@
             </div>
         </div>
 
-        <!-- 卡片 2: Intense Hydration Moisturizer -->
         <div class="new-card">
             <div class="image-wrapper">
                 <div class="image-bg-blur" id="img2-bg"></div>
                 <div class="image-foreground">
-                    <img id="img2-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/intensehydratation.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9pbnRlbnNlaHlkcmF0YXRpb24ud2VicCIsImlhdCI6MTc3ODM4NDM2MSwiZXhwIjo0OTAwNDQ4MzYxfQ.QwEc2g_5OidOVev9kaU0QgjIGJCwRc2q9oiQyOHwwSs" alt="Radiance Face Serum">
+                    <img id="img2-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/intensehydratation.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9pbnRlbnNlaHlkcmF0YXRpb24ud2VicCIsImlhdCI6MTc3ODM4NDM2MSwiZXhwIjo0OTAwNDQ4MzYxfQ.QwEc2g_5OidOVev9kaU0QgjIGJCwRc2q9oiQyOHwwSs" alt="Moisturizer">
                 </div>
             </div>
             <div class="card-caption">
@@ -422,12 +416,11 @@
             </div>
         </div>
 
-                <!-- 卡片 2-2: EXO-GF Refill -->
         <div class="new-card">
             <div class="image-wrapper">
-                <div class="image-bg-blur" id="img2-bg"></div>
+                <div class="image-bg-blur" id="img3-bg"></div>
                 <div class="image-foreground">
-                    <img id="img2-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/EXO-GF_Recharge.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9FWE8tR0ZfUmVjaGFyZ2Uud2VicCIsImlhdCI6MTc3ODM4NzA4NCwiZXhwIjo0OTAwNDUxMDg0fQ.Kr9ZIU3CPqyjajzLvY3LNJYnwhpy3M-W1KYi57zp2LE" alt="Exogf-refill">
+                    <img id="img3-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/EXO-GF_Recharge.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9FWE8tR0ZfUmVjaGFyZ2Uud2VicCIsImlhdCI6MTc3ODM4NzA4NCwiZXhwIjo0OTAwNDUxMDg0fQ.Kr9ZIU3CPqyjajzLvY3LNJYnwhpy3M-W1KYi57zp2LE" alt="Exogf-refill">
                 </div>
             </div>
             <div class="card-caption">
@@ -437,12 +430,11 @@
             </div>
         </div>
 
-        <!-- 卡片 3: Baby Glow Skin Booster -->
         <div class="new-card">
             <div class="image-wrapper">
-                <div class="image-bg-blur" id="img3-bg"></div>
+                <div class="image-bg-blur" id="img4-bg"></div>
                 <div class="image-foreground">
-                    <img id="img3-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/babyglow.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9iYWJ5Z2xvdy5QTkciLCJpYXQiOjE3NzgzODQ0MjAsImV4cCI6NDkwMDQ0ODQyMH0.AbG18xue09JBjMme9xdUjdk2FjyrOKZhbsp-gUo6a_0" alt="Baby Glow Injection">
+                    <img id="img4-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/babyglow.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9iYWJ5Z2xvdy5QTkciLCJpYXQiOjE3NzgzODQ0MjAsImV4cCI6NDkwMDQ0ODQyMH0.AbG18xue09JBjMme9xdUjdk2FjyrOKZhbsp-gUo6a_0" alt="Baby Glow">
                 </div>
             </div>
             <div class="card-caption">
@@ -452,12 +444,11 @@
             </div>
         </div>
 
-        <!-- 卡片 4: Ulthera V Lift -->
         <div class="new-card">
             <div class="image-wrapper">
-                <div class="image-bg-blur" id="img4-bg"></div>
+                <div class="image-bg-blur" id="img5-bg"></div>
                 <div class="image-foreground">
-                    <img id="img4-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/vlift.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby92bGlmdC5QTkciLCJpYXQiOjE3NzgzODQ0NDksImV4cCI6NDkwMDQ0ODQ0OX0.g6y8wMnT5ZpTb-HNwOMwvASkeDwERnpa4GYr3LTUUlI" alt="Ulthera V Lift">
+                    <img id="img5-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/vlift.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby92bGlmdC5QTkciLCJpYXQiOjE3NzgzODQ0NDksImV4cCI6NDkwMDQ0ODQ0OX0.g6y8wMnT5ZpTb-HNwOMwvASkeDwERnpa4GYr3LTUUlI" alt="Ulthera V Lift">
                 </div>
             </div>
             <div class="card-caption">
@@ -469,43 +460,88 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- SECTION 1: May PROMO -->
+    <!-- MAY PROMO - 图片卡片区（方案B：浅米色背景 + 阴影 + 左上角折扣标签） -->
     <!-- ============================================================ -->
     <div class="section-header">
         <h2>🎉 May Promo</h2>
         <div class="divider"></div>
         <p>Medical aesthetic excellence · Exclusive offers this Month</p>
     </div>
-        
-        <div class="promo-card">
-            <div class="promo-icon"><i class="fas fa-money-bill-wave"></i></div>
-            <div class="badge">FIRST TREATMENT</div>
-            <h3>$50 Cash Back!</h3>
-            <p class="small-text">Get $50 Cash Back on your first JUVÉDERM® filler or SKINVIVE™ treatment.</p>
-            <p class="small-text" style="margin-top: 16px;"><i class="fas fa-info-circle"></i> Already a client? You're still winning. Earn points to redeem for cash on every purchase! Earn BD points from BOTOX®, JUVÉDERM®, CoolSculpting®, SkinMedica® & Latisse®</p>
-            <p style="margin-top: 16px;"><a href="https://www.brilliantdistinctions.ca/" style="color: #9b7b58; font-weight: 100;">Click here for details →</a></p>
+
+    <div class="promo-grid">
+        <!-- CoolSculpting -->
+        <div class="promo-card" onclick="window.open('https://www.brilliantdistinctions.ca/', '_blank')">
+            <div class="image-wrapper">
+                <div class="image-bg-blur" id="promo1-bg"></div>
+                <div class="image-foreground">
+                    <img id="promo1-img" src="https://placehold.co/400x400/f0ebe4/9b7b58?text=CoolSculpting" alt="CoolSculpting">
+                </div>
+                <div class="promo-badge">45%-50% OFF</div>
+            </div>
+            <div class="card-caption">
+                <h4>CoolSculpting®</h4>
+                <p>Non-invasive fat freezing</p>
+            </div>
         </div>
 
-        <div class="promo-card">
-            <div class="promo-icon"><i class="fas fa-tags"></i></div>
-            <div class="badge">Thermage Face Neck & Eyes</div>
-            <h3>Save $1045</h3>
-            <p class="small-text">1x1200 pulse face tip + 2x450 pulse eye tips</p>
+        <!-- Cash Back -->
+        <div class="promo-card" onclick="window.open('https://www.brilliantdistinctions.ca/', '_blank')">
+            <div class="image-wrapper">
+                <div class="image-bg-blur" id="promo2-bg"></div>
+                <div class="image-foreground">
+                    <img id="promo2-img" src="https://placehold.co/400x400/f0ebe4/9b7b58?text=Cash+Back" alt="Cash Back">
+                </div>
+                <div class="promo-badge">$50 CASH BACK</div>
+            </div>
+            <div class="card-caption">
+                <h4>First Treatment Cash Back</h4>
+                <p>On JUVÉDERM® filler or SKINVIVE™</p>
+            </div>
         </div>
 
-        <div class="promo-card">
-            <div class="promo-icon"><i class="fas fa-percent"></i></div>
-            <div class="badge">NON-PHYSICIAN SERVICES</div>
-            <h3>15%-20% off</h3>
-            <p class="small-text">15% off for 3 mix & match services package</p>
-            <p class="small-text">20% off for 5 mix & match services package</p>
+        <!-- Thermage -->
+        <div class="promo-card" onclick="window.open('#', '_blank')">
+            <div class="image-wrapper">
+                <div class="image-bg-blur" id="promo3-bg"></div>
+                <div class="image-foreground">
+                    <img id="promo3-img" src="https://placehold.co/400x400/f0ebe4/9b7b58?text=Thermage" alt="Thermage">
+                </div>
+                <div class="promo-badge">SAVE $1045</div>
+            </div>
+            <div class="card-caption">
+                <h4>Thermage Face Neck & Eyes</h4>
+                <p>1x1200 pulse face tip + 2x450 pulse eye tips</p>
+            </div>
         </div>
-        
-        <div class="promo-card">
-            <div class="promo-icon"><i class="fas fa-birthday-cake"></i></div>
-            <div class="badge">BIRTHDAY MONTH</div>
-            <h3>20% off</h3>
-            <p class="small-text"> Enjoy any 1 FNL product OR any 1 Non-Physician Service within your birthday Month!</p>
+
+        <!-- Non-Physician Services -->
+        <div class="promo-card" onclick="window.open('#', '_blank')">
+            <div class="image-wrapper">
+                <div class="image-bg-blur" id="promo4-bg"></div>
+                <div class="image-foreground">
+                    <img id="promo4-img" src="https://placehold.co/400x400/f0ebe4/9b7b58?text=Mix+%26+Match" alt="Mix & Match Services">
+                </div>
+                <div class="promo-badge">15%-20% OFF</div>
+            </div>
+            <div class="card-caption">
+                <h4>Mix & Match Services</h4>
+                <p>15% off 3 | 20% off 5 services</p>
+            </div>
+        </div>
+
+        <!-- Birthday -->
+        <div class="promo-card" onclick="window.open('#', '_blank')">
+            <div class="image-wrapper">
+                <div class="image-bg-blur" id="promo5-bg"></div>
+                <div class="image-foreground">
+                    <img id="promo5-img" src="https://placehold.co/400x400/f0ebe4/9b7b58?text=Birthday" alt="Birthday Special">
+                </div>
+                <div class="promo-badge">20% OFF</div>
+            </div>
+            <div class="card-caption">
+                <h4>Birthday Special</h4>
+                <p>Any 1 FNL product or Non-Physician Service</p>
+            </div>
         </div>
     </div>
 
@@ -541,7 +577,6 @@
             </ul>
         </div>
     </div>
-
 
     <!-- ============================================================ -->
     <!-- SECTION 3: VALUE PACKAGES -->
@@ -632,37 +667,32 @@
 </footer>
 
 <script>
-    // 自动为四个图片卡片设置模糊背景（异形图片适配）
-    function setupAdaptiveImage(bgElementId, imgElementId) {
-        const img = document.getElementById(imgElementId);
-        const bg = document.getElementById(bgElementId);
-        
+    // 统一设置异形图模糊背景函数
+    function setupAdaptiveImage(imgId, bgId) {
+        const img = document.getElementById(imgId);
+        const bg = document.getElementById(bgId);
         if (!img || !bg) return;
-        
-        const updateBlurBg = () => {
-            const imgSrc = img.src;
-            if (imgSrc && bg) {
-                bg.style.backgroundImage = `url('${imgSrc}')`;
-            }
+        const updateBg = () => {
+            if (img.src) bg.style.backgroundImage = `url('${img.src}')`;
         };
-        
-        if (img.complete) {
-            updateBlurBg();
-        } else {
-            img.addEventListener('load', updateBlurBg);
-        }
-        
-        const observer = new MutationObserver(() => {
-            updateBlurBg();
-        });
-        observer.observe(img, { attributes: true, attributeFilter: ['src'] });
+        if (img.complete) updateBg();
+        else img.addEventListener('load', updateBg);
+        new MutationObserver(() => updateBg()).observe(img, { attributes: true, attributeFilter: ['src'] });
     }
-    
-    // 初始化四个卡片
-    setupAdaptiveImage('img1-bg', 'img1-main');
-    setupAdaptiveImage('img2-bg', 'img2-main');
-    setupAdaptiveImage('img3-bg', 'img3-main');
-    setupAdaptiveImage('img4-bg', 'img4-main');
+
+    // New In May 图片
+    setupAdaptiveImage('img1-main', 'img1-bg');
+    setupAdaptiveImage('img2-main', 'img2-bg');
+    setupAdaptiveImage('img3-main', 'img3-bg');
+    setupAdaptiveImage('img4-main', 'img4-bg');
+    setupAdaptiveImage('img5-main', 'img5-bg');
+
+    // May Promo 图片
+    setupAdaptiveImage('promo1-img', 'promo1-bg');
+    setupAdaptiveImage('promo2-img', 'promo2-bg');
+    setupAdaptiveImage('promo3-img', 'promo3-bg');
+    setupAdaptiveImage('promo4-img', 'promo4-bg');
+    setupAdaptiveImage('promo5-img', 'promo5-bg');
 </script>
 
 </body>
