@@ -155,7 +155,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* JUNE PROMO 样式（背景+阴影+标签） */
+        /* JUNE PROMO 样式（背景+阴影） */
         .promo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -215,22 +215,6 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-        }
-
-        .promo-badge {
-            position: absolute;
-            top: 14px;
-            left: 14px;
-            z-index: 3;
-            background: linear-gradient(135deg, #c4a47c, #9b7b58);
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 6px 14px;
-            border-radius: 30px;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            text-transform: uppercase;
         }
 
         .promo-card .card-caption {
@@ -416,21 +400,6 @@
 
     <div class="new-grid">
         
-        <!-- 卡片2 -->
-        <div class="new-card">
-            <div class="image-wrapper">
-                <div class="image-bg-blur" id="img2-bg"></div>
-                <div class="image-foreground">
-                    <img id="img2-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/ptiox.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9wdGlveC5qcGciLCJpYXQiOjE3ODAyMzg5MzksImV4cCI6NDkwMjMwMjkzOX0.08qHUD_a6x1ozkGbHxBO3_zRTb4AScciWYVXPoSgNFc" alt="P-TIOX Cream">
-                </div>
-            </div>
-            <div class="card-caption">
-                <h4>P-TIOX Anti-Wrinkle Cream</h4>
-                <p>A needle-free, wrinkle-correcting moisturizer designed to smooth deep-set lines, minimize enlarged pores, and improve overall skin texture</p>
-                <div class="card-price">$225</div>
-            </div>
-        </div>
-
         <!-- 卡片1 -->
         <div class="new-card">
             <div class="image-wrapper">
@@ -443,6 +412,21 @@
                 <h4>Collagen Lip Plumping Serum</h4>
                 <p>Pro-Collagen Peptides + HA microspheres</p>
                 <div class="card-price">$43</div>
+            </div>
+        </div>
+
+        <!-- 卡片2 -->
+        <div class="new-card">
+            <div class="image-wrapper">
+                <div class="image-bg-blur" id="img2-bg"></div>
+                <div class="image-foreground">
+                    <img id="img2-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/ptiox.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9wdGlveC5qcGciLCJpYXQiOjE3ODAyMzg5MzksImV4cCI6NDkwMjMwMjkzOX0.08qHUD_a6x1ozkGbHxBO3_zRTb4AScciWYVXPoSgNFc" alt="P-TIOX Cream">
+                </div>
+            </div>
+            <div class="card-caption">
+                <h4>P-TIOX Anti-Wrinkle Cream</h4>
+                <p>A needle-free, wrinkle-correcting moisturizer designed to smooth deep-set lines, minimize enlarged pores, and improve overall skin texture</p>
+                <div class="card-price">$225</div>
             </div>
         </div>
 
@@ -508,7 +492,7 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- JUNE PROMO - 图片卡片区（所有卡片在同一个网格内） -->
+    <!-- JUNE PROMO - 图片卡片区（所有卡片在同一个网格内，无标签，无底部价格文字） -->
     <!-- ============================================================ -->
     <div class="section-header">
         <h2>🎉 June Promo</h2>
@@ -524,12 +508,10 @@
                 <div class="image-foreground">
                     <img id="promo1-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/cool.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9jb29sLnBuZyIsImlhdCI6MTc3OTUwOTc3NiwiZXhwIjo0OTAxNTczNzc2fQ.fpLhfcxfr42d3MCoiEanAAKLYycx38mceB7zlPd5OO4" alt="CoolSculpting Promo">
                 </div>
-                <div class="promo-badge">Limited Offer</div>
             </div>
             <div class="card-caption">
                 <h4>CoolSculpting</h4>
                 <p>Fat freezing treatment · Non-invasive contouring</p>
-                <div class="card-price">Save up to 30%</div>
             </div>
         </div>
 
@@ -540,12 +522,10 @@
                 <div class="image-foreground">
                     <img id="promo2-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/50cashback?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby81MGNhc2hiYWNrIiwiaWF0IjoxNzc4MzkzMDIwLCJleHAiOjQ5MDA0NTcwMjB9.2gP898Litx2Kkrdrjd-h_fjIYrkCAOKMI30MJ7xMS-c" alt="Cash Back">
                 </div>
-                <div class="promo-badge">$50 Cash Back</div>
             </div>
             <div class="card-caption">
                 <h4>Brilliant Distinctions</h4>
                 <p>Earn points on every treatment · Redeem for savings</p>
-                <div class="card-price">$50 back on $250+</div>
             </div>
         </div>
 
@@ -556,12 +536,10 @@
                 <div class="image-foreground">
                     <img id="promo3-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/nonphysician.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9ub25waHlzaWNpYW4ucG5nIiwiaWF0IjoxNzc4MzkzMDc4LCJleHAiOjQ5MDA0NTcwNzh9.q5Xzci91RAGmExUdhn9IlbGVcLPnDn6sQM4UtEoVA9M" alt="Mix & Match Services">
                 </div>
-                <div class="promo-badge">Mix & Match</div>
             </div>
             <div class="card-caption">
                 <h4>Non-Physician Services</h4>
                 <p>Buy 3 sessions · Get 1 free on all aesthetic treatments</p>
-                <div class="card-price">Buy 3 Get 1 Free</div>
             </div>
         </div>
 
@@ -572,12 +550,10 @@
                 <div class="image-foreground">
                     <img id="promo4-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/BD?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9CRCIsImlhdCI6MTc3ODM5Mjk1MSwiZXhwIjo0OTAwNDU2OTUxfQ.IN7ty6keePsOf1jpdS6urMCUV1C5D6QPD_7oztPb99E" alt="Birthday Special">
                 </div>
-                <div class="promo-badge">Birthday Special</div>
             </div>
             <div class="card-caption">
                 <h4>Birthday Month Reward</h4>
                 <p>20% off any single treatment · Celebrate with us!</p>
-                <div class="card-price">20% OFF</div>
             </div>
         </div>
     </div>
