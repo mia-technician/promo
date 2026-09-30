@@ -237,8 +237,8 @@
       </div>
     </div>
 
-    <!-- New: Skin Better -->
-    <div class="card">
+    <!-- New: Skin Better（整卡可点，跳到 order.html） -->
+    <div class="card is-link" onclick="window.open('https://mia-technician.github.io/promo/order.html', '_blank')">
       <div class="image-wrapper">
         <span class="card-tag new">New</span>
         <div class="image-bg-blur" id="img6-bg"></div>
@@ -249,7 +249,7 @@
       <div class="card-caption">
         <h4>Skin Better Arrived!</h4>
         <p>Retinol for face and eyes.</p>
-        <div class="card-price">$XXX</div>
+        <div class="card-price">Check the menu</div>
       </div>
     </div>
 
@@ -268,18 +268,18 @@
       </div>
     </div>
 
-       <!-- Promo: Coolsculpting -->
+    <!-- Promo: Coolsculpting -->
     <div class="card is-link" onclick="window.open('https://www.brilliantdistinctions.ca/', '_blank')">
       <div class="image-wrapper">
         <span class="card-tag promo">Promo</span>
-        <div class="image-bg-blur" id="promo2-bg"></div>
+        <div class="image-bg-blur" id="promo3-bg"></div>
         <div class="image-foreground">
-          <img id="promo2-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/cool-2.png?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9jb29sLTIucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc5MDgwMTA1MiwiZXhwIjo0OTEyODY1MDUyfQ.eRvH2XhICYGqam-xAt4740jePBm1n4seyEpwjP9Z7YY" alt="Cash Back">
+          <img id="promo3-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/cool-2.png?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9jb29sLTIucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc5MDgwMTA1MiwiZXhwIjo0OTEyODY1MDUyfQ.eRvH2XhICYGqam-xAt4740jePBm1n4seyEpwjP9Z7YY" alt="Coolsculpting">
         </div>
       </div>
       <div class="card-caption">
-        <h4>45%-50% Off</h4>
-        <p>+ $200 cashback with a minimum spend of $2000 on coolsculpting · 1st time submission of Coolsculpting in BD · Till Nov 13, 2026</p>
+        <h4>45%–50% Off</h4>
+        <p>+ $200 cashback with a minimum spend of $2000 on Coolsculpting · 1st time submission of Coolsculpting in BD · Till Nov 13, 2026</p>
       </div>
     </div>
 
@@ -310,26 +310,29 @@
 
     <div class="loyalty-card">
       <h3><i class="fas fa-user-friends"></i> 90 Days Program</h3>
-        <li><i class="fas fa-check"></i></i> Repurchase $500 products within 90 days</li>
-        <li><i class="fas fa-gift"></i>FREE Microdermabrasion Facial, valued $200</li>
-        <li><i class="fas fa-gift"></i>FREE Checkup every 3 months · Photo comparing · Products & treatment advise</li>
+      <ul>
+        <li><i class="fas fa-check"></i> Repurchase $500 products within 90 days</li>
+        <li><i class="fas fa-gift"></i> FREE Microdermabrasion Facial, valued $200</li>
+        <li><i class="fas fa-gift"></i> FREE Checkup every 3 months · Photo comparing · Products & treatment advice</li>
       </ul>
     </div>
 
     <div class="loyalty-card">
-      <h3><i class="fas fa-user-friends"></i>Referral Program</h3>
-        <li><i class="fas fa-check"></i></i>Refer a new customer</li>
-        <li><i class="fas fa-gift"></i>Both receive $50 credit</li>
-        <li><i class="fas fa-gift"></i>Redeemable for any products or treatment - Not to combine with other promos</li>
+      <h3><i class="fas fa-user-friends"></i> Referral Program</h3>
+      <ul>
+        <li><i class="fas fa-check"></i> Refer a new customer</li>
+        <li><i class="fas fa-gift"></i> Both receive $50 credit</li>
+        <li><i class="fas fa-gift"></i> Redeemable for any products or treatment — not to combine with other promos</li>
       </ul>
     </div>
 
     <div class="loyalty-card membership-card">
-      <h3><i class="fas fa-crown"></i>Skin Fit Membership</h3>
-        <li><i class="fas fa-check"></i>Deposit $105/month</li>
-        <li><i class="fas fa-gift"></i>2 FREE Express Facials/year, each valued $99</li>
-        <li><i class="fas fa-percent"></i>15% off of Non-Physician Treatments</li>
-        <li><i class="fas fa-door-open"></i>Free to cancel any time after 1 year</li>
+      <h3><i class="fas fa-crown"></i> Skin Fit Membership</h3>
+      <ul>
+        <li><i class="fas fa-check"></i> Deposit $105/month</li>
+        <li><i class="fas fa-gift"></i> 2 FREE Express Facials/year, each valued $99</li>
+        <li><i class="fas fa-percent"></i> 15% off Non-Physician Treatments</li>
+        <li><i class="fas fa-door-open"></i> Free to cancel any time after 1 year</li>
       </ul>
     </div>
 
@@ -455,6 +458,7 @@
   setupAdaptiveImage('img1-main', 'img1-bg');
   setupAdaptiveImage('img6-main', 'img6-bg');
   setupAdaptiveImage('promo2-img', 'promo2-bg');
+  setupAdaptiveImage('promo3-img', 'promo3-bg');
   setupAdaptiveImage('promo4-img', 'promo4-bg');
 </script>
 
