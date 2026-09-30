@@ -52,6 +52,25 @@
   }
   .add-btn:hover{background:#9f8468;}
 
+  /* 特价样式 */
+  .sale-tag{
+    position:absolute;top:8px;left:8px;z-index:3;
+    background:#e0453a;color:#fff;
+    font-size:.6rem;font-weight:800;letter-spacing:.06em;
+    padding:3px 8px;border-radius:999px;
+  }
+  .product-price .old-price{
+    text-decoration:line-through;
+    color:#b7a99a;
+    font-weight:400;
+    margin-right:5px;
+    font-size:.75rem;
+  }
+  .product-price .sale-price{
+    color:#e0453a;
+    font-weight:800;
+  }
+
   .variant-select{
     width:100%;padding:.4rem .5rem;border:1px solid #e2d4c6;border-radius:10px;
     font-size:.72rem;color:#5f5347;background:#fff9f2;margin-top:auto;
@@ -425,6 +444,15 @@ const VARIANTS = {
   ]
 };
 
+// ==================== 手动维护的特价产品 ====================
+// key = 数据库产品 id，value = { salePrice, originalPrice }
+const SALE_ITEMS = {
+  "ms9fcxwvznrr": {
+    salePrice: 39,
+    originalPrice: 59
+  }
+};
+
 // ==================== Group 折扣规则（隐藏） ====================
 const GROUP_EXCLUDED_BRAND = "SKINBETTER";
 const GROUP_EXCLUDED_PRODUCT_KEYWORD = "LATISSE";
@@ -488,6 +516,17 @@ function getVariantPrice(product, variantIndex) {
   return Number(product.price || 0);
 }
 
+// ==================== 特价辅助 ====================
+function getEffectivePrice(product) {
+  const sale = SALE_ITEMS[product.id];
+  if (sale) return Number(sale.salePrice);
+  return Number(product.price || 0);
+}
+
+function isOnSale(product) {
+  return !!SALE_ITEMS[product.id];
+}
+
 // ==================== 产品网格 ====================
 function renderProducts() {
   const filtered = PRODUCTS.filter(p => p.brand === currentBrand);
@@ -508,7 +547,8 @@ function renderProducts() {
              onerror="this.style.display='none';this.parentElement.innerHTML='🧴';">`
       : '🧴';
 
-    const displayPrice = hasVariants ? getVariantPrice(p, 0) : Number(p.price || 0);
+    const displayPrice = hasVariants ? getVariantPrice(p, 0) : getEffectivePrice(p);
+    const onSale = isOnSale(p) && !hasVariants;
 
     let actionHtml = '';
     if (hasVariants) {
@@ -536,11 +576,23 @@ function renderProducts() {
            </div>`;
     }
 
+    const priceHtml = onSale
+      ? `<div class="product-price">
+           <span class="old-price">$${Number(SALE_ITEMS[p.id].originalPrice).toFixed(2)}</span>
+           <span class="sale-price">$${displayPrice.toFixed(2)}</span>
+         </div>`
+      : `<div class="product-price">$${displayPrice.toFixed(2)}</div>`;
+
+    const saleTag = onSale ? `<span class="sale-tag">SALE</span>` : '';
+
     return `
       <div class="product-card">
-        <div class="product-img">${imgTag}</div>
+        <div class="product-img" style="position:relative;">
+          ${saleTag}
+          ${imgTag}
+        </div>
         <div class="product-name">${escapeHtml(p.name)}</div>
-        <div class="product-price">$${displayPrice.toFixed(2)}</div>
+        ${priceHtml}
         ${actionHtml}
       </div>
     `;
@@ -569,7 +621,7 @@ function addToCart(productId, variantIndex) {
 
   const variants = VARIANTS[productId];
   let displayName = product.name;
-  let price = Number(product.price || 0);
+  let price = getEffectivePrice(product);
 
   if (variants && variants.length > 0) {
     const vi = variantIndex != null ? variantIndex : 0;
@@ -748,7 +800,6 @@ function updateTotals() {
     bdayRow.style.display = 'none';
   }
 
-  // Group 生效时隐藏 Promo 区
   document.getElementById('promoCard').style.display = groupActive ? 'none' : 'block';
 }
 
@@ -797,7 +848,6 @@ document.getElementById('payCall').onchange = (e) => {
 
 // ==================== 姓名变化 ====================
 document.getElementById('customerName').addEventListener('input', () => {
-  // 如果变成 Group 订单，清掉已 Apply 的生日折扣
   if (isGroupOrder() && appliedPromos.birthday) {
     appliedPromos.birthday = null;
     const btn = document.querySelector('.promo-apply-btn[data-promo="birthday"]');
