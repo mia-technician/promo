@@ -192,7 +192,7 @@
   <div id="orderPage">
     <div class="header">
       <h1>Order Products</h1>
-      <p>Browse by brand · Add to cart · Add promo/discount · Submit the order to Mia to confirm - No need to pay now!</p>
+      <p>Select a brand · Add to cart · Submit your order</p>
     </div>
 
     <div class="brand-bar">
@@ -427,7 +427,7 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ==================== State ====================
 let PRODUCTS = [];
-let currentBrand = "all";
+let currentBrand = "";   // 稍后由 renderBrandTabs 自动选第一个品牌
 let cart = [];
 let appliedPromos = { birthday: null };
 
@@ -456,14 +456,14 @@ async function loadProducts() {
 
 // ==================== Brand tabs ====================
 function renderBrandTabs() {
-  const brands = ["all", ...new Set(PRODUCTS.map(p => p.brand).filter(Boolean))].sort((a,b)=>{
-    if(a==="all") return -1;
-    if(b==="all") return 1;
-    return a.localeCompare(b);
-  });
+  const brands = [...new Set(PRODUCTS.map(p => p.brand).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+  // 如果当前品牌不在列表里（比如初始的空值），默认选中第一个
+  if (!brands.includes(currentBrand)) {
+    currentBrand = brands[0] || "";
+  }
   const container = document.getElementById('brandTabs');
   container.innerHTML = brands.map(b =>
-    `<button class="brand-tab ${b===currentBrand?'active':''}" data-brand="${b}">${b==='all'?'All':b}</button>`
+    `<button class="brand-tab ${b===currentBrand?'active':''}" data-brand="${b}">${b}</button>`
   ).join('');
   container.querySelectorAll('.brand-tab').forEach(btn => {
     btn.onclick = () => { currentBrand = btn.dataset.brand; renderBrandTabs(); renderProducts(); };
@@ -482,9 +482,7 @@ function getVariantPrice(product, variantIndex) {
 
 // ==================== Product grid ====================
 function renderProducts() {
-  const filtered = currentBrand === "all"
-    ? PRODUCTS
-    : PRODUCTS.filter(p => p.brand === currentBrand);
+  const filtered = PRODUCTS.filter(p => p.brand === currentBrand);
   const grid = document.getElementById('productGrid');
 
   if (filtered.length === 0) {
