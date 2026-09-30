@@ -52,7 +52,6 @@
   }
   .add-btn:hover{background:#9f8468;}
 
-  /* 特价样式 */
   .sale-tag{
     position:absolute;top:8px;left:8px;z-index:3;
     background:#e0453a;color:#fff;
@@ -297,6 +296,22 @@
           </div>
         </div>
 
+        <!-- Promo 2: 90 Days Repurchase -->
+        <div class="promo-item" data-promo="repurchase90">
+          <div class="promo-info">
+            <div class="promo-title">💧 90 Days Repurchase Program</div>
+            <div class="promo-desc">
+              Spend over $500 on regular-priced products (before tax) within 90 days and receive a FREE Microdermabrasion Facial valued at $200.
+            </div>
+          </div>
+          <div class="promo-action">
+            <button class="promo-apply-btn" data-promo="repurchase90">Apply</button>
+          </div>
+          <div class="promo-extra" id="promoExtra-repurchase90">
+            <div class="promo-msg" id="promoMsg-repurchase90" style="display:none;"></div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -444,8 +459,7 @@ const VARIANTS = {
   ]
 };
 
-// ==================== 手动维护的特价产品 ====================
-// key = 数据库产品 id，value = { salePrice, originalPrice }
+// ==================== 特价产品 ====================
 const SALE_ITEMS = {
   "ms9fcxwvznrr": {
     salePrice: 39,
@@ -457,6 +471,12 @@ const SALE_ITEMS = {
 const GROUP_EXCLUDED_BRAND = "SKINBETTER";
 const GROUP_EXCLUDED_PRODUCT_KEYWORD = "LATISSE";
 
+// ==================== 90 天回购规则 ====================
+// 门槛：原价购买的产品小计（税前）≥ $500
+// 特价产品不算；Group 折扣生效时此 Promo 不可用
+const REPURCHASE_THRESHOLD = 500;
+const REPURCHASE_GIFT = "FREE Microdermabrasion Facial (valued $200)";
+
 // ==================== Supabase ====================
 const SUPABASE_URL = "https://dmrskyskryrdclknezth.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtcnNreXNrcnlyZGNsa25lenRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNzE2MzgsImV4cCI6MjA4OTk0NzYzOH0.Dnced4YAY24fE6kLxOe9YuR6Wrgt8pYcqKcjMFWDrY8";
@@ -467,6 +487,7 @@ let PRODUCTS = [];
 let currentBrand = "";
 let cart = [];
 let appliedPromos = { birthday: null };
+let repurchaseEligible = false;
 
 // ==================== 加载产品 ====================
 async function loadProducts() {
@@ -637,7 +658,8 @@ function addToCart(productId, variantIndex) {
   if (item) item.qty += 1;
   else cart.push({
     key, productId: product.id, name: displayName,
-    brand: product.brand, price, image: product.image, qty: 1
+    brand: product.brand, price, image: product.image, qty: 1,
+    isSale: isOnSale(product)
   });
 
   renderProducts();
@@ -730,6 +752,41 @@ function checkBirthdayPromo() {
   };
 }
 
+// ==================== 90 天回购判断 ====================
+// 只统计原价购买的产品（特价产品不算）
+// 返回符合条件产品的小计（税前）
+function getEligibleRepurchaseTotal() {
+  let total = 0;
+  cart.forEach(item => {
+    if (item.isSale) return;   // 特价产品不算
+    total += Number(item.price) * item.qty;
+  });
+  return total;
+}
+
+function checkRepurchasePromo() {
+  // Group 生效时不可用
+  if (isGroupOrder()) {
+    return {
+      ok: false,
+      message: 'This promo cannot be combined with the Group discount.'
+    };
+  }
+  const eligibleTotal = getEligibleRepurchaseTotal();
+  if (eligibleTotal >= REPURCHASE_THRESHOLD) {
+    return {
+      ok: true,
+      message: `🎉 You qualify for a ${REPURCHASE_GIFT}! Eligible product total: $${eligibleTotal.toFixed(2)}. Subject to Mia verifying that your last purchase was within 90 days. Your free Microdermabrasion Facial can be booked after Mia confirms your order.`
+    };
+  } else {
+    const diff = REPURCHASE_THRESHOLD - eligibleTotal;
+    return {
+      ok: false,
+      message: `Eligible product total: $${eligibleTotal.toFixed(2)}. Add $${diff.toFixed(2)} more to qualify for the ${REPURCHASE_GIFT}.`
+    };
+  }
+}
+
 // ==================== Apply Promo ====================
 function applyPromo(promoKey) {
   if (isGroupOrder()) {
@@ -761,6 +818,22 @@ function applyPromo(promoKey) {
       msg.innerText = result.message;
     }
     updateTotals();
+  }
+
+  if (promoKey === 'repurchase90') {
+    const result = checkRepurchasePromo();
+    msg.style.display = 'block';
+    if (result.ok) {
+      repurchaseEligible = true;
+      msg.className = 'promo-msg ok';
+      msg.innerText = result.message;
+      btn.classList.add('applied');
+      btn.innerText = 'Applied ✓';
+    } else {
+      repurchaseEligible = false;
+      msg.className = 'promo-msg no';
+      msg.innerText = result.message;
+    }
   }
 }
 
@@ -934,6 +1007,15 @@ function emailToMia() {
   body += `GST (5%): $${gst.toFixed(2)}\n`;
   body += `PST (7%): $${pst.toFixed(2)}\n`;
   body += `Total: $${total.toFixed(2)}\n\n`;
+
+  if (repurchaseEligible) {
+    const eligibleTotal = getEligibleRepurchaseTotal();
+    body += `🏷️ 90 Days Repurchase Program: Applied\n`;
+    body += `   Eligible regular-priced product total: $${eligibleTotal.toFixed(2)}\n`;
+    body += `   Gift: ${REPURCHASE_GIFT}\n`;
+    body += `   Note: Please verify that the customer's last purchase was within 90 days. Free Microdermabrasion to be booked after order confirmation.\n\n`;
+  }
+
   if (note) {
     body += `Note from Customer:\n------------------------------\n${note}\n------------------------------\n\n`;
   }
