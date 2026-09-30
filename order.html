@@ -412,6 +412,11 @@ const VARIANTS = {
   "mnjpvvqqd30e": [
     { label: "50ml", price: 66 },
     { label: "78ml", price: 96 }
+  ],
+  "retinol": [
+    { label: "0.25%", price: 66 },
+    { label: "0.5%",  price: 83 },
+    { label: "1%",    price: 99 }
   ]
 };
 
@@ -622,8 +627,6 @@ function renderCart() {
 }
 
 // ==================== Birthday 折扣判断 ====================
-// 规则：生日当月下单，购物车里最贵的一个 FNL 产品打 20% off
-// 多个并列最贵只选其中一个；折扣按单价 × 20%，只打 1 件
 function checkBirthdayPromo() {
   const bdayInput = document.getElementById('birthdayInput').value;
   if (!bdayInput) {
@@ -638,12 +641,10 @@ function checkBirthdayPromo() {
   if (fnlItems.length === 0) {
     return { ok: false, discount: 0, message: 'No FNL product in your cart. Add one to qualify.' };
   }
-  // 找最贵的一个（同价只取第一个）
   let most = fnlItems[0];
   for (const it of fnlItems) {
     if (Number(it.price) > Number(most.price)) most = it;
   }
-  // 只打 1 件的折扣
   const discount = Number(most.price) * 0.20;
   return {
     ok: true, discount,
