@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Products · Skin Care</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#f5efe9;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:2rem 1rem;}
+  .app{max-width:1100px;margin:0 auto;background:#faf7f2;border-radius:32px;border:1px solid #e8dfd4;padding:2rem 1.8rem;}
+
+  /* Header */
+  .header{text-align:center;margin-bottom:1.8rem;}
+  .header h1{font-family:'Montserrat',sans-serif;font-weight:300;font-size:1.7rem;color:#7f6e5d;letter-spacing:.06em;text-transform:uppercase;}
+  .header p{font-size:.85rem;color:#b7a99a;margin-top:.4rem;}
+
+  /* Brand tabs */
+  .brand-bar{background:#fff9f2;border-radius:24px;padding:1.1rem 1.4rem;margin-bottom:1.4rem;border:1px solid #e7dbd0;}
+  .brand-bar h2{font-family:'Montserrat',sans-serif;font-size:.85rem;font-weight:600;color:#8f7e6b;margin-bottom:.8rem;letter-spacing:.04em;}
+  .brand-tabs{display:flex;flex-wrap:wrap;gap:.6rem;}
+  .brand-tab{background:#e9dfd4;border:none;padding:.5rem 1.2rem;border-radius:40px;cursor:pointer;font-size:.8rem;color:#5f5347;transition:.2s;}
+  .brand-tab:hover{background:#d2c0b0;}
+  .brand-tab.active{background:#b99f87;color:#fff;}
+
+  /* Product grid */
+  .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin-bottom:1.6rem;}
+  .product-card{background:#fff;border:1px solid #e7dbd0;border-radius:20px;padding:1rem;display:flex;flex-direction:column;gap:.6rem;transition:.2s;}
+  .product-card:hover{box-shadow:0 4px 14px rgba(0,0,0,.06);}
+  .product-img{width:100%;height:120px;border-radius:14px;background:#f1e8e0;border:1px solid #e2d4c6;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .product-img img{width:100%;height:100%;object-fit:cover;}
+  .product-name{font-size:.9rem;font-weight:600;color:#5f5347;line-height:1.35;}
+  .product-price{font-size:.85rem;color:#b99f87;font-weight:600;}
+  .add-btn{margin-top:auto;background:#b99f87;color:#fff;border:none;padding:.6rem 1rem;border-radius:40px;cursor:pointer;font-size:.8rem;font-weight:600;transition:.2s;}
+  .add-btn:hover{background:#9f8468;}
+  .add-btn.added{background:#7a9e7e;}
+
+  /* Cart summary */
+  .cart-box{background:#fff9f2;border:1px solid #e7dbd0;border-radius:24px;padding:1.2rem 1.4rem;margin-bottom:1.4rem;}
+  .cart-box h3{font-family:'Montserrat',sans-serif;font-size:.9rem;font-weight:600;color:#8f7e6b;margin-bottom:.8rem;}
+  .cart-item{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px dashed #e7dbd0;font-size:.82rem;color:#5f5347;}
+  .cart-item:last-child{border-bottom:none;}
+  .cart-item .qty{color:#b99f87;font-weight:600;}
+  .cart-item .remove{background:none;border:none;color:#c93b2b;cursor:pointer;font-size:.8rem;margin-left:.8rem;}
+  .cart-empty{color:#b7a99a;font-size:.82rem;text-align:center;padding:.6rem 0;}
+
+  /* Submit button */
+  .submit-wrap{text-align:center;margin:1.6rem 0;}
+  .submit-btn{background:#b99f87;color:#fff;border:none;padding:.9rem 2.6rem;border-radius:50px;cursor:pointer;font-size:1rem;font-weight:600;letter-spacing:.03em;transition:.2s;}
+  .submit-btn:hover{background:#9f8468;transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1);}
+  .submit-btn:disabled{background:#d2c0b0;cursor:not-allowed;transform:none;box-shadow:none;}
+
+  /* Order summary page */
+  .order-summary{display:none;}
+  .order-summary.show{display:block;}
+  .summary-card{background:#fff;border:1px solid #e7dbd0;border-radius:24px;padding:1.6rem 1.8rem;margin-bottom:1.4rem;}
+  .summary-card h2{font-family:'Montserrat',sans-serif;font-size:1.1rem;font-weight:600;color:#7f6e5d;margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:1px solid #e2d4c6;}
+  .summary-table{width:100%;border-collapse:collapse;font-size:.85rem;}
+  .summary-table th,.summary-table td{padding:.55rem .4rem;text-align:left;border-bottom:1px solid #f0e8e0;}
+  .summary-table th{background:#f5efe8;color:#5f5347;font-weight:600;font-size:.78rem;}
+  .summary-table td{color:#5f5347;}
+  .summary-table .price-col{text-align:right;}
+  .totals{margin-top:1rem;padding-top:1rem;border-top:2px solid #e2d4c6;}
+  .totals div{display:flex;justify-content:space-between;font-size:.88rem;color:#5f5347;margin-bottom:.4rem;}
+  .totals .grand{font-size:1.1rem;font-weight:700;color:#8f7e6b;border-top:1px solid #e2d4c6;padding-top:.6rem;margin-top:.4rem;}
+
+  /* Customer form */
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+  .form-group{display:flex;flex-direction:column;}
+  .form-group label{font-size:.75rem;font-weight:600;color:#8f7e6b;margin-bottom:.35rem;}
+  .form-group input,.form-group select{padding:.65rem .9rem;border:1px solid #e2d4c6;border-radius:14px;background:#fff;font-size:.85rem;color:#5f5347;}
+  .form-group input:focus,.form-group select:focus{outline:none;border-color:#b99f87;}
+  .form-group.full{grid-column:1 / -1;}
+  .radio-group{display:flex;gap:1.2rem;margin-top:.3rem;}
+  .radio-group label{display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:#5f5347;cursor:pointer;}
+
+  /* Shipping fields */
+  .shipping-fields{display:none;margin-top:1rem;}
+  .shipping-fields.show{display:block;}
+
+  /* Email button */
+  .email-wrap{text-align:center;margin:1.8rem 0 1rem;}
+  .email-btn{background:#b99f87;color:#fff;border:none;padding:.9rem 2.4rem;border-radius:50px;cursor:pointer;font-size:1rem;font-weight:600;transition:.2s;}
+  .email-btn:hover{background:#9f8468;transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1);}
+  .back-btn{background:transparent;border:1px solid #d2c0b0;color:#5f5347;padding:.7rem 1.6rem;border-radius:50px;cursor:pointer;font-size:.85rem;margin-right:.8rem;}
+  .back-btn:hover{background:#f5efe8;}
+
+  /* Note */
+  .note{font-size:.7rem;color:#ccbeaf;text-align:center;margin-top:1.2rem;line-height:1.6;}
+
+  @media(max-width:700px){
+    .form-row{grid-template-columns:1fr;}
+    .product-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ==================== 下单页 ==================== -->
+  <div id="orderPage">
+    <div class="header">
+      <h1>Order Products</h1>
+      <p>Browse by brand · Add to cart · Submit your order</p>
+    </div>
+
+    <!-- 品牌栏 -->
+    <div class="brand-bar">
+      <h2>🏷️ SELECT BRAND</h2>
+      <div class="brand-tabs" id="brandTabs"></div>
+    </div>
+
+    <!-- 产品网格 -->
+    <div class="product-grid" id="productGrid"></div>
+
+    <!-- 购物车 -->
+    <div class="cart-box">
+      <h3>🛒 YOUR CART</h3>
+      <div id="cartList"></div>
+    </div>
+
+    <!-- 提交按钮 -->
+    <div class="submit-wrap">
+      <button class="submit-btn" id="submitOrderBtn" disabled>Submit Order</button>
+    </div>
+  </div>
+
+  <!-- ==================== 统计页 ==================== -->
+  <div id="summaryPage" class="order-summary">
+    <div class="header">
+      <h1>Order Summary</h1>
+      <p>Review your order and submit</p>
+    </div>
+
+    <!-- 订单明细 -->
+    <div class="summary-card">
+      <h2>📋 Order Details</h2>
+      <table class="summary-table">
+        <thead>
+          <tr><th>Product</th><th>Brand</th><th class="price-col">Price</th></tr>
+        </thead>
+        <tbody id="summaryBody"></tbody>
+      </table>
+
+      <div class="totals" id="summaryTotals">
+        <div><span>Subtotal</span><span>$<span id="subtotal">0.00</span></span></div>
+        <div><span>GST (5%)</span><span>$<span id="gst">0.00</span></span></div>
+        <div><span>PST (7%)</span><span>$<span id="pst">0.00</span></span></div>
+        <div class="grand"><span>Total</span><span>$<span id="grandTotal">0.00</span></span></div>
+      </div>
+    </div>
+
+    <!-- 客户信息 -->
+    <div class="summary-card">
+      <h2>👤 Your Information</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name *</label>
+          <input type="text" id="customerName" placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label>Phone *</label>
+          <input type="tel" id="customerPhone" placeholder="Your phone number">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Pick up or Shipping *</label>
+        <div class="radio-group">
+          <label><input type="radio" name="delivery" value="pickup" checked> Pick up</label>
+          <label><input type="radio" name="delivery" value="shipping"> Shipping</label>
+        </div>
+      </div>
+
+      <!-- 邮寄地址（选 shipping 时显示） -->
+      <div class="shipping-fields" id="shippingFields">
+        <div class="form-row">
+          <div class="form-group full">
+            <label>Shipping Address *</label>
+            <input type="text" id="shippingAddress" placeholder="Street address">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>City *</label>
+            <input type="text" id="shippingCity" placeholder="City">
+          </div>
+          <div class="form-group">
+            <label>Postal Code *</label>
+            <input type="text" id="shippingPostal" placeholder="Postal code">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 按钮 -->
+    <div class="email-wrap">
+      <button class="back-btn" id="backToOrderBtn">← Back</button>
+      <button class="email-btn" id="emailToMiaBtn">📧 Email to Mia</button>
+    </div>
+
+    <p class="note">✦ Your order will be sent to mia.lu@dermapurec.com ✦</p>
+  </div>
+
+</div>
+
+<script>
+// ==================== 产品数据（客人看到的） ====================
+const PRODUCTS = [
+  { id:"clarify-cleanser", name:"Clarify Cleanser", brand:"FNL", price:50 },
+  { id:"cleanser", name:"Cleanser", brand:"Others", price:46 },
+  { id:"exo-gf", name:"Exo-GF Serum", brand:"FNL", price:275 },
+  { id:"exfoliating-pad", name:"Exfoliating Pad 10%", brand:"FNL", price:88 },
+  { id:"glycolic-lotion", name:"Glycolic Lotion 10%", brand:"FNL", price:98 },
+  { id:"ha5", name:"HA5", brand:"Others", price:196 },
+  { id:"lumivive-day", name:"Lumivive - Day", brand:"Others", price:285 },
+  { id:"lumivive-night", name:"Lumivive - Night", brand:"Others", price:285 },
+  { id:"lytera", name:"Lytera", brand:"Others", price:170 },
+  { id:"moisturizer", name:"Moisturizer", brand:"Others", price:155 },
+  { id:"retinol", name:"Retinol", brand:"Skinceuticals", price:66 },
+  { id:"retinol-fnl", name:"Retinol (FNL)", brand:"FNL", price:115 },
+  { id:"silymarin", name:"Silymarin", brand:"Skinceuticals", price:220 },
+  { id:"spf-powder", name:"SPF Powder Brush", brand:"ColorScience", price:93.90 },
+  { id:"spf50", name:"SPF50 Sheer Physical", brand:"Others", price:66 },
+  { id:"tns", name:"TNS+ Serum", brand:"Others", price:330 }
+].sort((a,b)=>a.name.localeCompare(b.name));
+
+// ==================== 状态 ====================
+let currentBrand = "all";
+let cart = [];  // [{ id, name, brand, price }]
+
+// ==================== 渲染品牌栏 ====================
+function renderBrandTabs() {
+  const brands = ["all", ...new Set(PRODUCTS.map(p => p.brand))].sort((a,b)=>{
+    if(a==="all") return -1;
+    if(b==="all") return 1;
+    return a.localeCompare(b);
+  });
+  const container = document.getElementById('brandTabs');
+  container.innerHTML = brands.map(b =>
+    `<button class="brand-tab ${b===currentBrand?'active':''}" data-brand="${b}">${b==='all'?'All':b}</button>`
+  ).join('');
+  container.querySelectorAll('.brand-tab').forEach(btn => {
+    btn.onclick = () => { currentBrand = btn.dataset.brand; renderBrandTabs(); renderProducts(); };
+  });
+}
+
+// ==================== 渲染产品网格 ====================
+function renderProducts() {
+  const filtered = currentBrand === "all"
+    ? PRODUCTS
+    : PRODUCTS.filter(p => p.brand === currentBrand);
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = filtered.map(p => {
+    const inCart = cart.some(c => c.id === p.id);
+    return `
+      <div class="product-card">
+        <div class="product-img">
+          <span style="font-size:2rem;color:#d2c0b0;">🧴</span>
+        </div>
+        <div class="product-name">${escapeHtml(p.name)}</div>
+        <div class="product-price">$${p.price.toFixed(2)}</div>
+        <button class="add-btn ${inCart?'added':''}" data-id="${p.id}" ${inCart?'disabled':''}>
+          ${inCart?'✓ Added':'+ Add to Cart'}
+        </button>
+      </div>
+    `;
+  }).join('');
+  grid.querySelectorAll('.add-btn').forEach(btn => {
+    btn.onclick = () => addToCart(btn.dataset.id);
+  });
+}
+
+// ==================== 购物车操作 ====================
+function addToCart(productId) {
+  const product = PRODUCTS.find(p => p.id === productId);
+  if (!product) return;
+  if (!cart.some(c => c.id === productId)) {
+    cart.push({ ...product });
+    renderProducts();
+    renderCart();
+  }
+}
+
+function removeFromCart(productId) {
+  cart = cart.filter(c => c.id !== productId);
+  renderProducts();
+  renderCart();
+}
+
+function renderCart() {
+  const container = document.getElementById('cartList');
+  if (cart.length === 0) {
+    container.innerHTML = '<div class="cart-empty">Your cart is empty. Add products above.</div>';
+    document.getElementById('submitOrderBtn').disabled = true;
+    return;
+  }
+  container.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <span>${escapeHtml(item.name)} <span class="qty">× 1</span></span>
+      <span>$${item.price.toFixed(2)}
+        <button class="remove" data-id="${item.id}">✕</button>
+      </span>
+    </div>
+  `).join('');
+  container.querySelectorAll('.remove').forEach(btn => {
+    btn.onclick = () => removeFromCart(btn.dataset.id);
+  });
+  document.getElementById('submitOrderBtn').disabled = false;
+}
+
+// ==================== 提交订单 → 统计页 ====================
+function submitOrder() {
+  if (cart.length === 0) return;
+
+  // 渲染明细
+  const tbody = document.getElementById('summaryBody');
+  tbody.innerHTML = cart.map(item => `
+    <tr>
+      <td>${escapeHtml(item.name)}</td>
+      <td>${escapeHtml(item.brand)}</td>
+      <td class="price-col">$${item.price.toFixed(2)}</td>
+    </tr>
+  `).join('');
+
+  // 计算
+  const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+  const gst = subtotal * 0.05;
+  const pst = subtotal * 0.07;
+  const total = subtotal + gst + pst;
+
+  document.getElementById('subtotal').innerText = subtotal.toFixed(2);
+  document.getElementById('gst').innerText = gst.toFixed(2);
+  document.getElementById('pst').innerText = pst.toFixed(2);
+  document.getElementById('grandTotal').innerText = total.toFixed(2);
+
+  // 切换页面
+  document.getElementById('orderPage').style.display = 'none';
+  document.getElementById('summaryPage').classList.add('show');
+  window.scrollTo(0, 0);
+}
+
+// ==================== 返回下单页 ====================
+function backToOrder() {
+  document.getElementById('summaryPage').classList.remove('show');
+  document.getElementById('orderPage').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+// ==================== Pick up / Shipping 切换 ====================
+document.querySelectorAll('input[name="delivery"]').forEach(radio => {
+  radio.onchange = () => {
+    const isShipping = document.querySelector('input[name="delivery"]:checked').value === 'shipping';
+    document.getElementById('shippingFields').classList.toggle('show', isShipping);
+  };
+});
+
+// ==================== Email to Mia ====================
+function emailToMia() {
+  const name = document.getElementById('customerName').value.trim();
+  const phone = document.getElementById('customerPhone').value.trim();
+  const delivery = document.querySelector('input[name="delivery"]:checked').value;
+
+  if (!name) { alert('Please enter your name.'); return; }
+  if (!phone) { alert('Please enter your phone number.'); return; }
+
+  let shippingInfo = '';
+  if (delivery === 'shipping') {
+    const address = document.getElementById('shippingAddress').value.trim();
+    const city = document.getElementById('shippingCity').value.trim();
+    const postal = document.getElementById('shippingPostal').value.trim();
+    if (!address || !city || !postal) {
+      alert('Please fill in your shipping address, city, and postal code.');
+      return;
+    }
+    shippingInfo = `Shipping Address: ${address}, ${city}, ${postal}`;
+  } else {
+    shippingInfo = 'Pick up';
+  }
+
+  const subtotal = parseFloat(document.getElementById('subtotal').innerText);
+  const gst = parseFloat(document.getElementById('gst').innerText);
+  const pst = parseFloat(document.getElementById('pst').innerText);
+  const total = parseFloat(document.getElementById('grandTotal').innerText);
+
+  let body = `New Product Order\n`;
+  body += `==============================\n\n`;
+  body += `Customer: ${name}\n`;
+  body += `Phone: ${phone}\n`;
+  body += `Delivery: ${shippingInfo}\n\n`;
+  body += `Order Items:\n`;
+  body += `------------------------------\n`;
+  cart.forEach(item => {
+    body += `${item.name} (${item.brand}) - $${item.price.toFixed(2)}\n`;
+  });
+  body += `------------------------------\n`;
+  body += `Subtotal: $${subtotal.toFixed(2)}\n`;
+  body += `GST (5%): $${gst.toFixed(2)}\n`;
+  body += `PST (7%): $${pst.toFixed(2)}\n`;
+  body += `Total: $${total.toFixed(2)}\n\n`;
+  body += `==============================\n`;
+  body += `Sent from Skin Care Order Page`;
+
+  const subject = `Product Order - ${name}`;
+  const mailto = `mailto:mia.lu@dermapurec.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
+}
+
+// ==================== 工具 ====================
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+}
+
+// ==================== 事件绑定 ====================
+document.getElementById('submitOrderBtn').onclick = submitOrder;
+document.getElementById('backToOrderBtn').onclick = backToOrder;
+document.getElementById('emailToMiaBtn').onclick = emailToMia;
+
+// ==================== 初始化 ====================
+renderBrandTabs();
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
