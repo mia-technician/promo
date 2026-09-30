@@ -157,7 +157,7 @@
   .back-btn{background:transparent;border:1px solid #d2c0b0;color:#5f5347;padding:.7rem 1.6rem;border-radius:50px;cursor:pointer;font-size:.85rem;margin-right:.8rem;}
   .back-btn:hover{background:#f5efe8;}
 
-  /* Note (footer) */
+  /* Footer note */
   .footer-note{font-size:.7rem;color:#ccbeaf;text-align:center;margin-top:1.2rem;line-height:1.6;}
 
   @media(max-width:700px){
@@ -333,6 +333,12 @@
 </div>
 
 <script>
+// ==================== 手动维护的缺货产品（不显示） ====================
+// 把要隐藏的产品 id 加进这个数组即可
+const OUT_OF_STOCK_IDS = [
+  "tns",
+];
+
 // ==================== Supabase ====================
 const SUPABASE_URL = "https://dmrskyskryrdclknezth.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtcnNreXNrcnlyZGNsa25lenRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNzE2MzgsImV4cCI6MjA4OTk0NzYzOH0.Dnced4YAY24fE6kLxOe9YuR6Wrgt8pYcqKcjMFWDrY8";
@@ -357,7 +363,8 @@ async function loadProducts() {
     return;
   }
 
-  PRODUCTS = data || [];
+  // 过滤掉手动隐藏的缺货产品
+  PRODUCTS = (data || []).filter(p => !OUT_OF_STOCK_IDS.includes(p.id));
   if (PRODUCTS.length === 0) {
     grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">No products available.</div>`;
     return;
