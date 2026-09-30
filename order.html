@@ -58,7 +58,7 @@
   }
   .add-btn:hover{background:#9f8468;}
 
-  /* 数量控制器 */
+  /* Quantity control */
   .qty-ctrl{
     margin-top:auto;
     display:flex;align-items:center;justify-content:space-between;
@@ -112,12 +112,43 @@
   .form-group input,.form-group select{padding:.65rem .9rem;border:1px solid #e2d4c6;border-radius:14px;background:#fff;font-size:.85rem;color:#5f5347;}
   .form-group input:focus,.form-group select:focus{outline:none;border-color:#b99f87;}
   .form-group.full{grid-column:1 / -1;}
-  .radio-group{display:flex;gap:1.2rem;margin-top:.3rem;}
+  .radio-group{display:flex;gap:1.2rem;margin-top:.3rem;flex-wrap:wrap;}
   .radio-group label{display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:#5f5347;cursor:pointer;}
+
+  /* Pickup address */
+  .pickup-address{
+    margin-top:.6rem;padding:.75rem 1rem;
+    background:#f5efe8;border:1px dashed #d2c0b0;border-radius:14px;
+    font-size:.82rem;color:#5f5347;line-height:1.6;
+  }
+  .pickup-address strong{color:#8f7e6b;font-weight:700;}
 
   /* Shipping fields */
   .shipping-fields{display:none;margin-top:1rem;}
   .shipping-fields.show{display:block;}
+
+  /* Payment options */
+  .payment-options{display:flex;flex-direction:column;gap:.6rem;margin-top:.3rem;}
+  .pay-option{
+    display:flex;flex-direction:column;
+    background:#fff9f2;border:1px solid #e7dbd0;border-radius:14px;
+    padding:.7rem .9rem;transition:.2s;
+  }
+  .pay-option:hover{border-color:#d2c0b0;}
+  .pay-option .pay-row{display:flex;align-items:center;gap:.6rem;cursor:pointer;}
+  .pay-option input[type="checkbox"]{cursor:pointer;}
+  .pay-option .pay-label{font-size:.83rem;color:#5f5347;font-weight:600;line-height:1.5;}
+  .pay-extra{display:none;margin-top:.5rem;}
+  .pay-extra.show{display:block;}
+
+  /* Note */
+  .note-textarea{
+    width:100%;min-height:110px;resize:vertical;
+    padding:.8rem .9rem;border:1px solid #e2d4c6;border-radius:14px;
+    background:#fff9f2;font-size:.85rem;color:#5f5347;
+    font-family:inherit;line-height:1.55;
+  }
+  .note-textarea:focus{outline:none;border-color:#b99f87;background:#fff;}
 
   /* Email button */
   .email-wrap{text-align:center;margin:1.8rem 0 1rem;}
@@ -126,8 +157,8 @@
   .back-btn{background:transparent;border:1px solid #d2c0b0;color:#5f5347;padding:.7rem 1.6rem;border-radius:50px;cursor:pointer;font-size:.85rem;margin-right:.8rem;}
   .back-btn:hover{background:#f5efe8;}
 
-  /* Note */
-  .note{font-size:.7rem;color:#ccbeaf;text-align:center;margin-top:1.2rem;line-height:1.6;}
+  /* Note (footer) */
+  .footer-note{font-size:.7rem;color:#ccbeaf;text-align:center;margin-top:1.2rem;line-height:1.6;}
 
   @media(max-width:700px){
     .form-row{grid-template-columns:1fr;}
@@ -138,44 +169,44 @@
 <body>
 <div class="app">
 
-  <!-- ==================== 下单页 ==================== -->
+  <!-- ==================== Order page ==================== -->
   <div id="orderPage">
     <div class="header">
       <h1>Order Products</h1>
       <p>Browse by brand · Add to cart · Submit your order</p>
     </div>
 
-    <!-- 品牌栏 -->
+    <!-- Brand bar -->
     <div class="brand-bar">
       <h2>🏷️ SELECT BRAND</h2>
       <div class="brand-tabs" id="brandTabs"></div>
     </div>
 
-    <!-- 产品网格 -->
+    <!-- Product grid -->
     <div class="product-grid" id="productGrid">
       <div class="loading" style="grid-column:1/-1;">Loading products…</div>
     </div>
 
-    <!-- 购物车 -->
+    <!-- Cart -->
     <div class="cart-box">
       <h3>🛒 YOUR CART</h3>
       <div id="cartList"></div>
     </div>
 
-    <!-- 提交按钮 -->
+    <!-- Submit -->
     <div class="submit-wrap">
       <button class="submit-btn" id="submitOrderBtn" disabled>Submit Order</button>
     </div>
   </div>
 
-  <!-- ==================== 统计页 ==================== -->
+  <!-- ==================== Summary page ==================== -->
   <div id="summaryPage" class="order-summary">
     <div class="header">
       <h1>Order Summary</h1>
       <p>Review your order and submit</p>
     </div>
 
-    <!-- 订单明细 -->
+    <!-- Order details -->
     <div class="summary-card">
       <h2>📋 Order Details</h2>
       <table class="summary-table">
@@ -193,7 +224,7 @@
       </div>
     </div>
 
-    <!-- 客户信息 -->
+    <!-- Customer info -->
     <div class="summary-card">
       <h2>👤 Your Information</h2>
       <div class="form-row">
@@ -213,9 +244,16 @@
           <label><input type="radio" name="delivery" value="pickup" checked> Pick up</label>
           <label><input type="radio" name="delivery" value="shipping"> Shipping</label>
         </div>
+
+        <!-- Pickup address -->
+        <div class="pickup-address" id="pickupAddress">
+          <strong>BC Laser</strong><br>
+          13805 104th Avenue, Suite #101<br>
+          Surrey B.C.
+        </div>
       </div>
 
-      <!-- 邮寄地址（选 shipping 时显示） -->
+      <!-- Shipping fields -->
       <div class="shipping-fields" id="shippingFields">
         <div class="form-row">
           <div class="form-group full">
@@ -236,13 +274,60 @@
       </div>
     </div>
 
-    <!-- 按钮 -->
-    <div class="email-wrap">
-      <button class="back-btn" id="backToOrderBtn">← Back</button>
-      <button class="email-btn" id="emailToMiaBtn">📧 Email to Mia</button>
+    <!-- Payment -->
+    <div class="summary-card">
+      <h2>💳 Payment Method</h2>
+      <p style="font-size:.78rem;color:#b7a99a;margin-bottom:.8rem;">You may select more than one.</p>
+
+      <div class="payment-options">
+        <!-- Option 1 -->
+        <div class="pay-option">
+          <label class="pay-row">
+            <input type="checkbox" id="paySkinFit" value="Skin Fit credit on file">
+            <span class="pay-label">Use Skin Fit credit on file first</span>
+          </label>
+        </div>
+
+        <!-- Option 2 -->
+        <div class="pay-option">
+          <label class="pay-row">
+            <input type="checkbox" id="payCreditCard" value="Credit Card on file">
+            <span class="pay-label">Use Credit Card on file</span>
+          </label>
+          <div class="pay-extra" id="creditCardExtra">
+            <input type="text" id="cardLast4" placeholder="Last 4 digits of card" maxlength="4"
+                   style="width:100%;padding:.6rem .9rem;border:1px solid #e2d4c6;border-radius:12px;font-size:.85rem;">
+          </div>
+        </div>
+
+        <!-- Option 3 -->
+        <div class="pay-option">
+          <label class="pay-row">
+            <input type="checkbox" id="payCall" value="Call to get credit card">
+            <span class="pay-label">Call me to get my credit card</span>
+          </label>
+          <div class="pay-extra" id="callExtra">
+            <input type="tel" id="callPhone" placeholder="Phone number to call"
+                   style="width:100%;padding:.6rem .9rem;border:1px solid #e2d4c6;border-radius:12px;font-size:.85rem;">
+          </div>
+        </div>
+      </div>
     </div>
 
-    <p class="note">✦ Your order will be sent to mia.lu@dermapurec.com ✦</p>
+    <!-- Note -->
+    <div class="summary-card">
+      <h2>📝 Note</h2>
+      <p style="font-size:.78rem;color:#b7a99a;margin-bottom:.8rem;">Have a question? Leave it here and Mia will get back to you.</p>
+      <textarea id="customerNote" class="note-textarea" placeholder="Type your questions here..."></textarea>
+    </div>
+
+    <!-- Buttons -->
+    <div class="email-wrap">
+      <button class="back-btn" id="backToOrderBtn">← Back</button>
+      <button class="email-btn" id="emailToMiaBtn">📧 Email Order to Mia</button>
+    </div>
+
+    <p class="footer-note">✦ Your order will be sent to mia.lu@dermapurec.com ✦</p>
   </div>
 
 </div>
@@ -253,12 +338,12 @@ const SUPABASE_URL = "https://dmrskyskryrdclknezth.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtcnNreXNrcnlyZGNsa25lenRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNzE2MzgsImV4cCI6MjA4OTk0NzYzOH0.Dnced4YAY24fE6kLxOe9YuR6Wrgt8pYcqKcjMFWDrY8";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// ==================== 状态 ====================
+// ==================== State ====================
 let PRODUCTS = [];
 let currentBrand = "all";
 let cart = [];  // [{ id, name, brand, price, image, qty }]
 
-// ==================== 从数据库加载产品 ====================
+// ==================== Load products from database ====================
 async function loadProducts() {
   const grid = document.getElementById('productGrid');
   const { data, error } = await supabaseClient
@@ -267,21 +352,21 @@ async function loadProducts() {
     .order('name', { ascending: true });
 
   if (error) {
-    console.error('加载产品失败:', error);
-    grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">⚠️ 无法加载产品，请刷新页面重试</div>`;
+    console.error('Failed to load products:', error);
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">⚠️ Unable to load products. Please refresh the page.</div>`;
     return;
   }
 
   PRODUCTS = data || [];
   if (PRODUCTS.length === 0) {
-    grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">暂无产品</div>`;
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">No products available.</div>`;
     return;
   }
   renderBrandTabs();
   renderProducts();
 }
 
-// ==================== 渲染品牌栏 ====================
+// ==================== Render brand tabs ====================
 function renderBrandTabs() {
   const brands = ["all", ...new Set(PRODUCTS.map(p => p.brand).filter(Boolean))].sort((a,b)=>{
     if(a==="all") return -1;
@@ -297,7 +382,7 @@ function renderBrandTabs() {
   });
 }
 
-// ==================== 渲染产品网格 ====================
+// ==================== Render product grid ====================
 function renderProducts() {
   const filtered = currentBrand === "all"
     ? PRODUCTS
@@ -305,7 +390,7 @@ function renderProducts() {
   const grid = document.getElementById('productGrid');
 
   if (filtered.length === 0) {
-    grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">该品牌暂无产品</div>`;
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">No products in this brand.</div>`;
     return;
   }
 
@@ -346,7 +431,7 @@ function renderProducts() {
   });
 }
 
-// ==================== 数量控制 ====================
+// ==================== Quantity control ====================
 function changeQty(productId, delta) {
   const product = PRODUCTS.find(p => p.id === productId);
   if (!product) return;
@@ -367,7 +452,7 @@ function removeFromCart(productId) {
   renderCart();
 }
 
-// ==================== 购物车 ====================
+// ==================== Cart ====================
 function renderCart() {
   const container = document.getElementById('cartList');
   if (cart.length === 0) {
@@ -389,7 +474,7 @@ function renderCart() {
   document.getElementById('submitOrderBtn').disabled = false;
 }
 
-// ==================== 提交订单 → 统计页 ====================
+// ==================== Submit order -> Summary page ====================
 function submitOrder() {
   if (cart.length === 0) return;
 
@@ -417,31 +502,42 @@ function submitOrder() {
   window.scrollTo(0, 0);
 }
 
-// ==================== 返回下单页 ====================
+// ==================== Back to order page ====================
 function backToOrder() {
   document.getElementById('summaryPage').classList.remove('show');
   document.getElementById('orderPage').style.display = 'block';
   window.scrollTo(0, 0);
 }
 
-// ==================== Pick up / Shipping 切换 ====================
+// ==================== Pick up / Shipping toggle ====================
 document.querySelectorAll('input[name="delivery"]').forEach(radio => {
   radio.onchange = () => {
     const isShipping = document.querySelector('input[name="delivery"]:checked').value === 'shipping';
     document.getElementById('shippingFields').classList.toggle('show', isShipping);
+    document.getElementById('pickupAddress').style.display = isShipping ? 'none' : 'block';
   };
 });
 
-// ==================== Email to Mia ====================
+// ==================== Payment extra fields toggle ====================
+document.getElementById('payCreditCard').onchange = (e) => {
+  document.getElementById('creditCardExtra').classList.toggle('show', e.target.checked);
+};
+document.getElementById('payCall').onchange = (e) => {
+  document.getElementById('callExtra').classList.toggle('show', e.target.checked);
+};
+
+// ==================== Email Order to Mia ====================
 function emailToMia() {
   const name = document.getElementById('customerName').value.trim();
   const phone = document.getElementById('customerPhone').value.trim();
   const delivery = document.querySelector('input[name="delivery"]:checked').value;
+  const note = document.getElementById('customerNote').value.trim();
 
   if (!name) { alert('Please enter your name.'); return; }
   if (!phone) { alert('Please enter your phone number.'); return; }
 
-  let shippingInfo = '';
+  // Delivery info
+  let deliveryInfo = '';
   if (delivery === 'shipping') {
     const address = document.getElementById('shippingAddress').value.trim();
     const city = document.getElementById('shippingCity').value.trim();
@@ -450,9 +546,35 @@ function emailToMia() {
       alert('Please fill in your shipping address, city, and postal code.');
       return;
     }
-    shippingInfo = `Shipping Address: ${address}, ${city}, ${postal}`;
+    deliveryInfo = `Shipping to: ${address}, ${city}, ${postal}`;
   } else {
-    shippingInfo = 'Pick up';
+    deliveryInfo = `Pick up at: BC Laser, 13805 104th Avenue, Suite #101, Surrey B.C.`;
+  }
+
+  // Payment info
+  const payments = [];
+  const paySkinFit = document.getElementById('paySkinFit');
+  const payCreditCard = document.getElementById('payCreditCard');
+  const payCall = document.getElementById('payCall');
+
+  if (paySkinFit.checked) {
+    payments.push('Use Skin Fit credit on file first');
+  }
+  if (payCreditCard.checked) {
+    const last4 = document.getElementById('cardLast4').value.trim();
+    if (!last4) { alert('Please enter the last 4 digits of your card.'); return; }
+    if (!/^\d{4}$/.test(last4)) { alert('Last 4 digits must be 4 numbers.'); return; }
+    payments.push(`Use Credit Card on file (ending ${last4})`);
+  }
+  if (payCall.checked) {
+    const callPhone = document.getElementById('callPhone').value.trim();
+    if (!callPhone) { alert('Please enter the phone number to call.'); return; }
+    payments.push(`Call customer for credit card (phone: ${callPhone})`);
+  }
+
+  if (payments.length === 0) {
+    alert('Please select at least one payment method.');
+    return;
   }
 
   const subtotal = parseFloat(document.getElementById('subtotal').innerText);
@@ -464,7 +586,8 @@ function emailToMia() {
   body += `==============================\n\n`;
   body += `Customer: ${name}\n`;
   body += `Phone: ${phone}\n`;
-  body += `Delivery: ${shippingInfo}\n\n`;
+  body += `Delivery: ${deliveryInfo}\n`;
+  body += `Payment: ${payments.join(' + ')}\n\n`;
   body += `Order Items:\n`;
   body += `------------------------------\n`;
   cart.forEach(item => {
@@ -475,6 +598,12 @@ function emailToMia() {
   body += `GST (5%): $${gst.toFixed(2)}\n`;
   body += `PST (7%): $${pst.toFixed(2)}\n`;
   body += `Total: $${total.toFixed(2)}\n\n`;
+  if (note) {
+    body += `Note from Customer:\n`;
+    body += `------------------------------\n`;
+    body += `${note}\n`;
+    body += `------------------------------\n\n`;
+  }
   body += `==============================\n`;
   body += `Sent from Skin Care Order Page`;
 
@@ -483,18 +612,18 @@ function emailToMia() {
   window.location.href = mailto;
 }
 
-// ==================== 工具 ====================
+// ==================== Helpers ====================
 function escapeHtml(str) {
   if (!str) return '';
   return String(str).replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
 }
 
-// ==================== 事件绑定 ====================
+// ==================== Event binding ====================
 document.getElementById('submitOrderBtn').onclick = submitOrder;
 document.getElementById('backToOrderBtn').onclick = backToOrder;
 document.getElementById('emailToMiaBtn').onclick = emailToMia;
 
-// ==================== 初始化 ====================
+// ==================== Init ====================
 loadProducts();
 renderCart();
 </script>
