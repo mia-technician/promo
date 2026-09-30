@@ -10,12 +10,10 @@
   body{background:#f5efe9;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:2rem 1rem;}
   .app{max-width:1100px;margin:0 auto;background:#faf7f2;border-radius:32px;border:1px solid #e8dfd4;padding:2rem 1.8rem;}
 
-  /* Header */
   .header{text-align:center;margin-bottom:1.6rem;}
   .header h1{font-family:'Montserrat',sans-serif;font-weight:300;font-size:1.7rem;color:#7f6e5d;letter-spacing:.06em;text-transform:uppercase;}
   .header p{font-size:.85rem;color:#b7a99a;margin-top:.4rem;}
 
-  /* Brand tabs */
   .brand-bar{background:#fff9f2;border-radius:24px;padding:1rem 1.3rem;margin-bottom:1.2rem;border:1px solid #e7dbd0;}
   .brand-bar h2{font-family:'Montserrat',sans-serif;font-size:.8rem;font-weight:600;color:#8f7e6b;margin-bottom:.7rem;letter-spacing:.04em;}
   .brand-tabs{display:flex;flex-wrap:wrap;gap:.5rem;}
@@ -23,10 +21,8 @@
   .brand-tab:hover{background:#d2c0b0;}
   .brand-tab.active{background:#b99f87;color:#fff;}
 
-  /* Loading / Empty */
   .loading,.empty{text-align:center;color:#b7a99a;font-size:.85rem;padding:2rem 0;}
 
-  /* Product grid */
   .product-grid{
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
@@ -46,9 +42,7 @@
     display:flex;align-items:center;justify-content:center;
     font-size:1.8rem;color:#d2c0b0;
   }
-  .product-img img{
-    width:100%;height:100%;object-fit:cover;display:block;
-  }
+  .product-img img{width:100%;height:100%;object-fit:cover;display:block;}
   .product-name{font-size:.78rem;font-weight:600;color:#5f5347;line-height:1.3;min-height:2.1em;}
   .product-price{font-size:.75rem;color:#b99f87;font-weight:600;}
   .add-btn{
@@ -58,7 +52,6 @@
   }
   .add-btn:hover{background:#9f8468;}
 
-  /* Variant select */
   .variant-select{
     width:100%;padding:.4rem .5rem;border:1px solid #e2d4c6;border-radius:10px;
     font-size:.72rem;color:#5f5347;background:#fff9f2;margin-top:auto;
@@ -66,7 +59,6 @@
   }
   .variant-select:focus{outline:none;border-color:#b99f87;}
 
-  /* Quantity control */
   .qty-ctrl{
     margin-top:auto;
     display:flex;align-items:center;justify-content:space-between;
@@ -80,12 +72,8 @@
     transition:.2s;
   }
   .qty-btn:hover{background:rgba(255,255,255,.4);}
-  .qty-num{
-    color:#fff;font-size:.8rem;font-weight:700;
-    min-width:22px;text-align:center;
-  }
+  .qty-num{color:#fff;font-size:.8rem;font-weight:700;min-width:22px;text-align:center;}
 
-  /* Cart summary */
   .cart-box{background:#fff9f2;border:1px solid #e7dbd0;border-radius:24px;padding:1.2rem 1.4rem;margin-bottom:1.4rem;}
   .cart-box h3{font-family:'Montserrat',sans-serif;font-size:.9rem;font-weight:600;color:#8f7e6b;margin-bottom:.8rem;}
   .cart-item{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px dashed #e7dbd0;font-size:.82rem;color:#5f5347;}
@@ -93,13 +81,11 @@
   .cart-item .remove{background:none;border:none;color:#c93b2b;cursor:pointer;font-size:.8rem;margin-left:.8rem;}
   .cart-empty{color:#b7a99a;font-size:.82rem;text-align:center;padding:.6rem 0;}
 
-  /* Submit button */
   .submit-wrap{text-align:center;margin:1.6rem 0;}
   .submit-btn{background:#b99f87;color:#fff;border:none;padding:.9rem 2.6rem;border-radius:50px;cursor:pointer;font-size:1rem;font-weight:600;letter-spacing:.03em;transition:.2s;}
   .submit-btn:hover{background:#9f8468;transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1);}
   .submit-btn:disabled{background:#d2c0b0;cursor:not-allowed;transform:none;box-shadow:none;}
 
-  /* Order summary page */
   .order-summary{display:none;}
   .order-summary.show{display:block;}
   .summary-card{background:#fff;border:1px solid #e7dbd0;border-radius:24px;padding:1.6rem 1.8rem;margin-bottom:1.4rem;}
@@ -113,7 +99,38 @@
   .totals div{display:flex;justify-content:space-between;font-size:.88rem;color:#5f5347;margin-bottom:.4rem;}
   .totals .grand{font-size:1.1rem;font-weight:700;color:#8f7e6b;border-top:1px solid #e2d4c6;padding-top:.6rem;margin-top:.4rem;}
 
-  /* Customer form */
+  .promo-list{display:flex;flex-direction:column;gap:.8rem;}
+  .promo-item{
+    display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;
+    background:#fff9f2;border:1px solid #e7dbd0;border-radius:16px;
+    padding:1rem 1.1rem;transition:.2s;flex-wrap:wrap;
+  }
+  .promo-item:hover{border-color:#d2c0b0;}
+  .promo-info{flex:1;min-width:200px;}
+  .promo-title{font-size:.85rem;font-weight:700;color:#5f5347;line-height:1.4;}
+  .promo-desc{font-size:.75rem;color:#b7a99a;line-height:1.55;margin-top:.3rem;}
+  .promo-action{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;}
+  .promo-apply-btn{
+    background:#b99f87;color:#fff;border:none;padding:.45rem 1.2rem;
+    border-radius:40px;cursor:pointer;font-size:.75rem;font-weight:600;
+    transition:.2s;white-space:nowrap;
+  }
+  .promo-apply-btn:hover{background:#9f8468;}
+  .promo-apply-btn.applied{background:#7a9e7e;cursor:default;}
+  .promo-extra{display:none;width:100%;margin-top:.6rem;}
+  .promo-extra.show{display:block;}
+  .promo-extra input{
+    width:100%;padding:.55rem .8rem;border:1px solid #e2d4c6;border-radius:12px;
+    font-size:.82rem;color:#5f5347;background:#fff;
+  }
+  .promo-extra input:focus{outline:none;border-color:#b99f87;}
+  .promo-msg{
+    font-size:.75rem;line-height:1.5;margin-top:.55rem;
+    padding:.5rem .8rem;border-radius:10px;
+  }
+  .promo-msg.ok{background:#e8f5e9;color:#2d6a4f;}
+  .promo-msg.no{background:#fdecea;color:#c93b2b;}
+
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
   .form-group{display:flex;flex-direction:column;}
   .form-group label{font-size:.75rem;font-weight:600;color:#8f7e6b;margin-bottom:.35rem;}
@@ -123,7 +140,6 @@
   .radio-group{display:flex;gap:1.2rem;margin-top:.3rem;flex-wrap:wrap;}
   .radio-group label{display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:#5f5347;cursor:pointer;}
 
-  /* Pickup address */
   .pickup-address{
     margin-top:.6rem;padding:.75rem 1rem;
     background:#f5efe8;border:1px dashed #d2c0b0;border-radius:14px;
@@ -131,11 +147,9 @@
   }
   .pickup-address strong{color:#8f7e6b;font-weight:700;}
 
-  /* Shipping fields */
   .shipping-fields{display:none;margin-top:1rem;}
   .shipping-fields.show{display:block;}
 
-  /* Payment options */
   .payment-options{display:flex;flex-direction:column;gap:.6rem;margin-top:.3rem;}
   .pay-option{
     display:flex;flex-direction:column;
@@ -149,7 +163,6 @@
   .pay-extra{display:none;margin-top:.5rem;}
   .pay-extra.show{display:block;}
 
-  /* Note */
   .note-textarea{
     width:100%;min-height:110px;resize:vertical;
     padding:.8rem .9rem;border:1px solid #e2d4c6;border-radius:14px;
@@ -158,14 +171,12 @@
   }
   .note-textarea:focus{outline:none;border-color:#b99f87;background:#fff;}
 
-  /* Email button */
   .email-wrap{text-align:center;margin:1.8rem 0 1rem;}
   .email-btn{background:#b99f87;color:#fff;border:none;padding:.9rem 2.4rem;border-radius:50px;cursor:pointer;font-size:1rem;font-weight:600;transition:.2s;}
   .email-btn:hover{background:#9f8468;transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1);}
   .back-btn{background:transparent;border:1px solid #d2c0b0;color:#5f5347;padding:.7rem 1.6rem;border-radius:50px;cursor:pointer;font-size:.85rem;margin-right:.8rem;}
   .back-btn:hover{background:#f5efe8;}
 
-  /* Footer note */
   .footer-note{font-size:.7rem;color:#ccbeaf;text-align:center;margin-top:1.2rem;line-height:1.6;}
 
   @media(max-width:700px){
@@ -184,24 +195,20 @@
       <p>Browse by brand · Add to cart · Submit your order</p>
     </div>
 
-    <!-- Brand bar -->
     <div class="brand-bar">
       <h2>🏷️ SELECT BRAND</h2>
       <div class="brand-tabs" id="brandTabs"></div>
     </div>
 
-    <!-- Product grid -->
     <div class="product-grid" id="productGrid">
       <div class="loading" style="grid-column:1/-1;">Loading products…</div>
     </div>
 
-    <!-- Cart -->
     <div class="cart-box">
       <h3>🛒 YOUR CART</h3>
       <div id="cartList"></div>
     </div>
 
-    <!-- Submit -->
     <div class="submit-wrap">
       <button class="submit-btn" id="submitOrderBtn" disabled>Submit Order</button>
     </div>
@@ -214,7 +221,6 @@
       <p>Review your order and submit</p>
     </div>
 
-    <!-- Order details -->
     <div class="summary-card">
       <h2>📋 Order Details</h2>
       <table class="summary-table">
@@ -226,9 +232,45 @@
 
       <div class="totals" id="summaryTotals">
         <div><span>Subtotal</span><span>$<span id="subtotal">0.00</span></span></div>
+        <div id="birthdayDiscountRow" style="display:none;color:#2d6a4f;font-weight:600;">
+          <span>🎂 Birthday Discount <span id="birthdayDiscountNote" style="font-size:.72rem;font-weight:400;color:#7a9e7e;"></span></span>
+          <span>−$<span id="birthdayDiscountAmount">0.00</span></span>
+        </div>
         <div><span>GST (5%)</span><span>$<span id="gst">0.00</span></span></div>
         <div><span>PST (7%)</span><span>$<span id="pst">0.00</span></span></div>
         <div class="grand"><span>Total</span><span>$<span id="grandTotal">0.00</span></span></div>
+      </div>
+    </div>
+
+    <!-- Promo -->
+    <div class="summary-card">
+      <h2>🎁 Promotions</h2>
+      <p style="font-size:.78rem;color:#b7a99a;margin-bottom:.8rem;">
+        Click Apply to check if you qualify.
+      </p>
+
+      <div class="promo-list" id="promoList">
+
+        <!-- Promo 1: Birthday -->
+        <div class="promo-item" data-promo="birthday">
+          <div class="promo-info">
+            <div class="promo-title">🎂 Birthday Promo</div>
+            <div class="promo-desc">
+              Order during your birthday month and get 20% off one of the most expensive FNL products in your cart.
+            </div>
+          </div>
+          <div class="promo-action">
+            <button class="promo-apply-btn" data-promo="birthday">Apply</button>
+          </div>
+          <div class="promo-extra" id="promoExtra-birthday">
+            <label style="font-size:.72rem;font-weight:600;color:#8f7e6b;display:block;margin-bottom:.3rem;">
+              Enter your birthday
+            </label>
+            <input type="date" id="birthdayInput">
+            <div class="promo-msg" id="promoMsg-birthday" style="display:none;"></div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -253,7 +295,6 @@
           <label><input type="radio" name="delivery" value="shipping"> Shipping</label>
         </div>
 
-        <!-- Pickup address -->
         <div class="pickup-address" id="pickupAddress">
           <strong>BC Laser</strong><br>
           13805 104th Avenue, Suite #101<br>
@@ -261,7 +302,6 @@
         </div>
       </div>
 
-      <!-- Shipping fields -->
       <div class="shipping-fields" id="shippingFields">
         <div class="form-row">
           <div class="form-group full">
@@ -288,7 +328,6 @@
       <p style="font-size:.78rem;color:#b7a99a;margin-bottom:.8rem;">You may select more than one.</p>
 
       <div class="payment-options">
-        <!-- Option 1 -->
         <div class="pay-option">
           <label class="pay-row">
             <input type="checkbox" id="paySkinFit" value="Skin Fit credit on file">
@@ -296,7 +335,6 @@
           </label>
         </div>
 
-        <!-- Option 2 -->
         <div class="pay-option">
           <label class="pay-row">
             <input type="checkbox" id="payCreditCard" value="Credit Card on file">
@@ -308,7 +346,6 @@
           </div>
         </div>
 
-        <!-- Option 3 -->
         <div class="pay-option">
           <label class="pay-row">
             <input type="checkbox" id="payCall" value="Call to get credit card">
@@ -329,7 +366,6 @@
       <textarea id="customerNote" class="note-textarea" placeholder="Type your questions here..."></textarea>
     </div>
 
-    <!-- Buttons -->
     <div class="email-wrap">
       <button class="back-btn" id="backToOrderBtn">← Back</button>
       <button class="email-btn" id="emailToMiaBtn">📧 Email Order to Mia</button>
@@ -347,14 +383,12 @@ const OUT_OF_STOCK_IDS = [
 ];
 
 // ==================== 手动维护的产品规格 ====================
-// price: 0 = 用数据库里该产品本身的价格
-// price > 0 = 该规格用这个价格
 const VARIANTS = {
-  "muogrlz59w67": [            // Scar Gel
+  "muogrlz59w67": [
     { label: "0.5 oz", price: 46 },
     { label: "2 oz",   price: 108 }
   ],
-  "spf-powder": [              // Brush-on Shield SPF50
+  "spf-powder": [
     { label: "Fair",   price: 0 },
     { label: "Medium", price: 0 },
     { label: "Tan",    price: 0 },
@@ -362,20 +396,20 @@ const VARIANTS = {
     { label: "Glow",   price: 0 },
     { label: "Bronze", price: 0 }
   ],
-  "mnjsuovn5cop": [            // Face Shield
+  "mnjsuovn5cop": [
     { label: "Original", price: 0 },
     { label: "Glow",     price: 0 },
     { label: "Bronze",   price: 0 },
     { label: "Matt",     price: 0 }
   ],
-  "mnjq6bvkuiy3": [            // Flex
+  "mnjq6bvkuiy3": [
     { label: "Fair",   price: 0 },
     { label: "Light",  price: 0 },
     { label: "Medium", price: 0 },
     { label: "Tan",    price: 0 },
     { label: "Deep",   price: 0 }
   ],
-  "mnjpvvqqd30e": [            // No Show
+  "mnjpvvqqd30e": [
     { label: "50ml", price: 66 },
     { label: "78ml", price: 96 }
   ]
@@ -389,9 +423,10 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // ==================== State ====================
 let PRODUCTS = [];
 let currentBrand = "all";
-let cart = [];  // [{ key, productId, name, brand, price, image, qty }]
+let cart = [];
+let appliedPromos = { birthday: null };
 
-// ==================== Load products from database ====================
+// ==================== Load products ====================
 async function loadProducts() {
   const grid = document.getElementById('productGrid');
   const { data, error } = await supabaseClient
@@ -414,7 +449,7 @@ async function loadProducts() {
   renderProducts();
 }
 
-// ==================== Render brand tabs ====================
+// ==================== Brand tabs ====================
 function renderBrandTabs() {
   const brands = ["all", ...new Set(PRODUCTS.map(p => p.brand).filter(Boolean))].sort((a,b)=>{
     if(a==="all") return -1;
@@ -430,7 +465,7 @@ function renderBrandTabs() {
   });
 }
 
-// ==================== 取规格价格 ====================
+// ==================== Variant price ====================
 function getVariantPrice(product, variantIndex) {
   const variants = VARIANTS[product.id];
   if (variants && variants.length > 0) {
@@ -440,7 +475,7 @@ function getVariantPrice(product, variantIndex) {
   return Number(product.price || 0);
 }
 
-// ==================== Render product grid ====================
+// ==================== Product grid ====================
 function renderProducts() {
   const filtered = currentBrand === "all"
     ? PRODUCTS
@@ -455,49 +490,37 @@ function renderProducts() {
   grid.innerHTML = filtered.map(p => {
     const variants = VARIANTS[p.id];
     const hasVariants = variants && variants.length > 0;
-
-    // 该产品已加购总数（所有规格合计）
-    const totalQty = cart
-      .filter(c => c.productId === p.id)
-      .reduce((sum, c) => sum + c.qty, 0);
+    const totalQty = cart.filter(c => c.productId === p.id).reduce((s, c) => s + c.qty, 0);
 
     const imgTag = p.image
       ? `<img src="${p.image}" alt="${escapeHtml(p.name)}" loading="lazy"
              onerror="this.style.display='none';this.parentElement.innerHTML='🧴';">`
       : '🧴';
 
-    const displayPrice = hasVariants
-      ? getVariantPrice(p, 0)
-      : Number(p.price || 0);
+    const displayPrice = hasVariants ? getVariantPrice(p, 0) : Number(p.price || 0);
 
     let actionHtml = '';
-
     if (hasVariants) {
       if (totalQty === 0) {
         const options = variants.map((v, i) => {
           const vp = Number(v.price) > 0 ? Number(v.price) : Number(p.price || 0);
           return `<option value="${i}">${escapeHtml(v.label)} - $${vp.toFixed(2)}</option>`;
         }).join('');
-        actionHtml = `
-          <select class="variant-select" data-id="${p.id}">${options}</select>
-          <button class="add-btn" data-id="${p.id}">+ Add</button>
-        `;
+        actionHtml = `<select class="variant-select" data-id="${p.id}">${options}</select>
+                      <button class="add-btn" data-id="${p.id}">+ Add</button>`;
       } else {
-        actionHtml = `
-          <div class="qty-ctrl">
+        actionHtml = `<div class="qty-ctrl">
             <button class="qty-btn" data-id="${p.id}" data-action="minus">−</button>
             <span class="qty-num">${totalQty}</span>
             <button class="qty-btn" data-id="${p.id}" data-action="plus">+</button>
-          </div>
-        `;
+          </div>`;
       }
     } else {
-      const qty = totalQty;
-      actionHtml = qty === 0
+      actionHtml = totalQty === 0
         ? `<button class="add-btn" data-id="${p.id}">+ Add</button>`
         : `<div class="qty-ctrl">
              <button class="qty-btn" data-id="${p.id}" data-action="minus">−</button>
-             <span class="qty-num">${qty}</span>
+             <span class="qty-num">${totalQty}</span>
              <button class="qty-btn" data-id="${p.id}" data-action="plus">+</button>
            </div>`;
     }
@@ -512,7 +535,6 @@ function renderProducts() {
     `;
   }).join('');
 
-  // Add 按钮
   grid.querySelectorAll('.add-btn').forEach(btn => {
     btn.onclick = () => {
       const card = btn.closest('.product-card');
@@ -521,8 +543,6 @@ function renderProducts() {
       addToCart(btn.dataset.id, vi);
     };
   });
-
-  // 数量加减
   grid.querySelectorAll('.qty-btn').forEach(btn => {
     btn.onclick = () => {
       const delta = btn.dataset.action === 'plus' ? +1 : -1;
@@ -531,7 +551,7 @@ function renderProducts() {
   });
 }
 
-// ==================== Add to cart（支持规格） ====================
+// ==================== Cart ====================
 function addToCart(productId, variantIndex) {
   const product = PRODUCTS.find(p => p.id === productId);
   if (!product) return;
@@ -551,40 +571,25 @@ function addToCart(productId, variantIndex) {
 
   const key = displayName;
   const item = cart.find(c => c.key === key);
-
-  if (item) {
-    item.qty += 1;
-  } else {
-    cart.push({
-      key: key,
-      productId: product.id,
-      name: displayName,
-      brand: product.brand,
-      price: price,
-      image: product.image,
-      qty: 1
-    });
-  }
+  if (item) item.qty += 1;
+  else cart.push({
+    key, productId: product.id, name: displayName,
+    brand: product.brand, price, image: product.image, qty: 1
+  });
 
   renderProducts();
   renderCart();
 }
 
-// ==================== 调整某产品总数量 ====================
 function changeProductQty(productId, delta) {
   const items = cart.filter(c => c.productId === productId);
   if (items.length === 0) return;
-
-  if (delta > 0) {
-    items[0].qty += 1;
-  } else {
+  if (delta > 0) items[0].qty += 1;
+  else {
     const last = items[items.length - 1];
     last.qty -= 1;
-    if (last.qty <= 0) {
-      cart = cart.filter(c => c !== last);
-    }
+    if (last.qty <= 0) cart = cart.filter(c => c !== last);
   }
-
   renderProducts();
   renderCart();
 }
@@ -595,7 +600,6 @@ function removeFromCart(key) {
   renderCart();
 }
 
-// ==================== Cart ====================
 function renderCart() {
   const container = document.getElementById('cartList');
   if (cart.length === 0) {
@@ -617,9 +621,102 @@ function renderCart() {
   document.getElementById('submitOrderBtn').disabled = false;
 }
 
-// ==================== Submit order -> Summary page ====================
+// ==================== Birthday 折扣判断 ====================
+// 规则：生日当月下单，购物车里最贵的一个 FNL 产品打 20% off
+// 多个并列最贵只选其中一个；折扣按单价 × 20%，只打 1 件
+function checkBirthdayPromo() {
+  const bdayInput = document.getElementById('birthdayInput').value;
+  if (!bdayInput) {
+    return { ok: false, discount: 0, message: 'Please enter your birthday.' };
+  }
+  const bday = new Date(bdayInput + 'T00:00:00');
+  const today = new Date();
+  if (bday.getMonth() !== today.getMonth()) {
+    return { ok: false, discount: 0, message: 'Sorry, this promo only applies during your birthday month.' };
+  }
+  const fnlItems = cart.filter(c => (c.brand || '').toUpperCase() === 'FNL');
+  if (fnlItems.length === 0) {
+    return { ok: false, discount: 0, message: 'No FNL product in your cart. Add one to qualify.' };
+  }
+  // 找最贵的一个（同价只取第一个）
+  let most = fnlItems[0];
+  for (const it of fnlItems) {
+    if (Number(it.price) > Number(most.price)) most = it;
+  }
+  // 只打 1 件的折扣
+  const discount = Number(most.price) * 0.20;
+  return {
+    ok: true, discount,
+    message: `20% off 1 × "${most.name}" — you save $${discount.toFixed(2)}!`,
+    itemKey: most.key
+  };
+}
+
+// ==================== Apply Promo ====================
+function applyPromo(promoKey) {
+  const btn = document.querySelector(`.promo-apply-btn[data-promo="${promoKey}"]`);
+  const extra = document.getElementById(`promoExtra-${promoKey}`);
+  const msg = document.getElementById(`promoMsg-${promoKey}`);
+
+  if (!extra.classList.contains('show')) {
+    extra.classList.add('show');
+    msg.style.display = 'none';
+    return;
+  }
+
+  if (promoKey === 'birthday') {
+    const result = checkBirthdayPromo();
+    msg.style.display = 'block';
+    if (result.ok) {
+      appliedPromos.birthday = result.discount;
+      msg.className = 'promo-msg ok';
+      msg.innerText = result.message;
+      btn.classList.add('applied');
+      btn.innerText = 'Applied ✓';
+    } else {
+      appliedPromos.birthday = null;
+      msg.className = 'promo-msg no';
+      msg.innerText = result.message;
+    }
+    updateTotals();
+  }
+}
+
+// ==================== 计算总额 ====================
+function updateTotals() {
+  const rawSubtotal = cart.reduce((sum, item) => sum + Number(item.price) * item.qty, 0);
+
+  const bdayDiscount = appliedPromos.birthday || 0;
+  const subtotal = Math.max(0, rawSubtotal - bdayDiscount);
+  const gst = subtotal * 0.05;
+  const pst = subtotal * 0.07;
+  const total = subtotal + gst + pst;
+
+  document.getElementById('subtotal').innerText = rawSubtotal.toFixed(2);
+  document.getElementById('gst').innerText = gst.toFixed(2);
+  document.getElementById('pst').innerText = pst.toFixed(2);
+  document.getElementById('grandTotal').innerText = total.toFixed(2);
+
+  const row = document.getElementById('birthdayDiscountRow');
+  if (bdayDiscount > 0) {
+    row.style.display = 'flex';
+    document.getElementById('birthdayDiscountAmount').innerText = bdayDiscount.toFixed(2);
+    document.getElementById('birthdayDiscountNote').innerText = '(20% off 1 FNL item)';
+  } else {
+    row.style.display = 'none';
+  }
+}
+
+// ==================== Submit -> Summary ====================
 function submitOrder() {
   if (cart.length === 0) return;
+  appliedPromos.birthday = null;
+  document.querySelectorAll('.promo-msg').forEach(m => m.style.display = 'none');
+  document.querySelectorAll('.promo-extra').forEach(e => e.classList.remove('show'));
+  document.querySelectorAll('.promo-apply-btn').forEach(b => {
+    b.classList.remove('applied');
+    b.innerText = 'Apply';
+  });
 
   const tbody = document.getElementById('summaryBody');
   tbody.innerHTML = cart.map(item => `
@@ -630,29 +727,20 @@ function submitOrder() {
     </tr>
   `).join('');
 
-  const subtotal = cart.reduce((sum, item) => sum + Number(item.price) * item.qty, 0);
-  const gst = subtotal * 0.05;
-  const pst = subtotal * 0.07;
-  const total = subtotal + gst + pst;
-
-  document.getElementById('subtotal').innerText = subtotal.toFixed(2);
-  document.getElementById('gst').innerText = gst.toFixed(2);
-  document.getElementById('pst').innerText = pst.toFixed(2);
-  document.getElementById('grandTotal').innerText = total.toFixed(2);
+  updateTotals();
 
   document.getElementById('orderPage').style.display = 'none';
   document.getElementById('summaryPage').classList.add('show');
   window.scrollTo(0, 0);
 }
 
-// ==================== Back to order page ====================
 function backToOrder() {
   document.getElementById('summaryPage').classList.remove('show');
   document.getElementById('orderPage').style.display = 'block';
   window.scrollTo(0, 0);
 }
 
-// ==================== Pick up / Shipping toggle ====================
+// ==================== Pick up / Shipping ====================
 document.querySelectorAll('input[name="delivery"]').forEach(radio => {
   radio.onchange = () => {
     const isShipping = document.querySelector('input[name="delivery"]:checked').value === 'shipping';
@@ -661,7 +749,7 @@ document.querySelectorAll('input[name="delivery"]').forEach(radio => {
   };
 });
 
-// ==================== Payment extra fields toggle ====================
+// ==================== Payment 额外输入 ====================
 document.getElementById('payCreditCard').onchange = (e) => {
   document.getElementById('creditCardExtra').classList.toggle('show', e.target.checked);
 };
@@ -669,7 +757,12 @@ document.getElementById('payCall').onchange = (e) => {
   document.getElementById('callExtra').classList.toggle('show', e.target.checked);
 };
 
-// ==================== Email Order to Mia ====================
+// ==================== Apply 按钮绑定 ====================
+document.querySelectorAll('.promo-apply-btn').forEach(btn => {
+  btn.onclick = () => applyPromo(btn.dataset.promo);
+});
+
+// ==================== Email ====================
 function emailToMia() {
   const name = document.getElementById('customerName').value.trim();
   const phone = document.getElementById('customerPhone').value.trim();
@@ -694,31 +787,22 @@ function emailToMia() {
   }
 
   const payments = [];
-  const paySkinFit = document.getElementById('paySkinFit');
-  const payCreditCard = document.getElementById('payCreditCard');
-  const payCall = document.getElementById('payCall');
-
-  if (paySkinFit.checked) {
-    payments.push('Use Skin Fit credit on file first');
-  }
-  if (payCreditCard.checked) {
+  if (document.getElementById('paySkinFit').checked) payments.push('Use Skin Fit credit on file first');
+  if (document.getElementById('payCreditCard').checked) {
     const last4 = document.getElementById('cardLast4').value.trim();
     if (!last4) { alert('Please enter the last 4 digits of your card.'); return; }
     if (!/^\d{4}$/.test(last4)) { alert('Last 4 digits must be 4 numbers.'); return; }
     payments.push(`Use Credit Card on file (ending ${last4})`);
   }
-  if (payCall.checked) {
+  if (document.getElementById('payCall').checked) {
     const callPhone = document.getElementById('callPhone').value.trim();
     if (!callPhone) { alert('Please enter the phone number to call.'); return; }
     payments.push(`Call customer for credit card (phone: ${callPhone})`);
   }
+  if (payments.length === 0) { alert('Please select at least one payment method.'); return; }
 
-  if (payments.length === 0) {
-    alert('Please select at least one payment method.');
-    return;
-  }
-
-  const subtotal = parseFloat(document.getElementById('subtotal').innerText);
+  const rawSubtotal = parseFloat(document.getElementById('subtotal').innerText);
+  const bdayDiscount = appliedPromos.birthday || 0;
   const gst = parseFloat(document.getElementById('gst').innerText);
   const pst = parseFloat(document.getElementById('pst').innerText);
   const total = parseFloat(document.getElementById('grandTotal').innerText);
@@ -735,22 +819,21 @@ function emailToMia() {
     body += `${item.name} (${item.brand || ''}) - $${Number(item.price).toFixed(2)} × ${item.qty} = $${(Number(item.price) * item.qty).toFixed(2)}\n`;
   });
   body += `------------------------------\n`;
-  body += `Subtotal: $${subtotal.toFixed(2)}\n`;
+  body += `Subtotal: $${rawSubtotal.toFixed(2)}\n`;
+  if (bdayDiscount > 0) {
+    const bdayVal = document.getElementById('birthdayInput').value;
+    body += `🎂 Birthday Discount (${bdayVal}, 20% off 1 most expensive FNL item): -$${bdayDiscount.toFixed(2)}\n`;
+  }
   body += `GST (5%): $${gst.toFixed(2)}\n`;
   body += `PST (7%): $${pst.toFixed(2)}\n`;
   body += `Total: $${total.toFixed(2)}\n\n`;
   if (note) {
-    body += `Note from Customer:\n`;
-    body += `------------------------------\n`;
-    body += `${note}\n`;
-    body += `------------------------------\n\n`;
+    body += `Note from Customer:\n------------------------------\n${note}\n------------------------------\n\n`;
   }
-  body += `==============================\n`;
-  body += `Sent from Skin Care Order Page`;
+  body += `==============================\nSent from Skin Care Order Page`;
 
   const subject = `Product Order - ${name}`;
-  const mailto = `mailto:mia.lu@dermapurec.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  window.location.href = mailto;
+  window.location.href = `mailto:mia.lu@dermapurec.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 // ==================== Helpers ====================
