@@ -58,6 +58,14 @@
   }
   .add-btn:hover{background:#9f8468;}
 
+  /* Variant select */
+  .variant-select{
+    width:100%;padding:.4rem .5rem;border:1px solid #e2d4c6;border-radius:10px;
+    font-size:.72rem;color:#5f5347;background:#fff9f2;margin-top:auto;
+    cursor:pointer;
+  }
+  .variant-select:focus{outline:none;border-color:#b99f87;}
+
   /* Quantity control */
   .qty-ctrl{
     margin-top:auto;
@@ -334,10 +342,44 @@
 
 <script>
 // ==================== 手动维护的缺货产品（不显示） ====================
-// 把要隐藏的产品 id 加进这个数组即可
 const OUT_OF_STOCK_IDS = [
   "tns",
 ];
+
+// ==================== 手动维护的产品规格 ====================
+// price: 0 = 用数据库里该产品本身的价格
+// price > 0 = 该规格用这个价格
+const VARIANTS = {
+  "muogrlz59w67": [            // Scar Gel
+    { label: "0.5 oz", price: 46 },
+    { label: "2 oz",   price: 108 }
+  ],
+  "spf-powder": [              // Brush-on Shield SPF50
+    { label: "Fair",   price: 0 },
+    { label: "Medium", price: 0 },
+    { label: "Tan",    price: 0 },
+    { label: "Deep",   price: 0 },
+    { label: "Glow",   price: 0 },
+    { label: "Bronze", price: 0 }
+  ],
+  "mnjsuovn5cop": [            // Face Shield
+    { label: "Original", price: 0 },
+    { label: "Glow",     price: 0 },
+    { label: "Bronze",   price: 0 },
+    { label: "Matt",     price: 0 }
+  ],
+  "mnjq6bvkuiy3": [            // Flex
+    { label: "Fair",   price: 0 },
+    { label: "Light",  price: 0 },
+    { label: "Medium", price: 0 },
+    { label: "Tan",    price: 0 },
+    { label: "Deep",   price: 0 }
+  ],
+  "mnjpvvqqd30e": [            // No Show
+    { label: "50ml", price: 66 },
+    { label: "78ml", price: 96 }
+  ]
+};
 
 // ==================== Supabase ====================
 const SUPABASE_URL = "https://dmrskyskryrdclknezth.supabase.co";
@@ -347,7 +389,7 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // ==================== State ====================
 let PRODUCTS = [];
 let currentBrand = "all";
-let cart = [];  // [{ id, name, brand, price, image, qty }]
+let cart = [];  // [{ key, productId, name, brand, price, image, qty }]
 
 // ==================== Load products from database ====================
 async function loadProducts() {
@@ -363,7 +405,6 @@ async function loadProducts() {
     return;
   }
 
-  // 过滤掉手动隐藏的缺货产品
   PRODUCTS = (data || []).filter(p => !OUT_OF_STOCK_IDS.includes(p.id));
   if (PRODUCTS.length === 0) {
     grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">No products available.</div>`;
@@ -389,6 +430,16 @@ function renderBrandTabs() {
   });
 }
 
+// ==================== 取规格价格 ====================
+function getVariantPrice(product, variantIndex) {
+  const variants = VARIANTS[product.id];
+  if (variants && variants.length > 0) {
+    const v = variants[variantIndex || 0];
+    if (v && Number(v.price) > 0) return Number(v.price);
+  }
+  return Number(product.price || 0);
+}
+
 // ==================== Render product grid ====================
 function renderProducts() {
   const filtered = currentBrand === "all"
@@ -402,59 +453,144 @@ function renderProducts() {
   }
 
   grid.innerHTML = filtered.map(p => {
-    const cartItem = cart.find(c => c.id === p.id);
-    const qty = cartItem ? cartItem.qty : 0;
+    const variants = VARIANTS[p.id];
+    const hasVariants = variants && variants.length > 0;
+
+    // 该产品已加购总数（所有规格合计）
+    const totalQty = cart
+      .filter(c => c.productId === p.id)
+      .reduce((sum, c) => sum + c.qty, 0);
+
     const imgTag = p.image
       ? `<img src="${p.image}" alt="${escapeHtml(p.name)}" loading="lazy"
              onerror="this.style.display='none';this.parentElement.innerHTML='🧴';">`
       : '🧴';
 
-    const actionHtml = qty === 0
-      ? `<button class="add-btn" data-id="${p.id}">+ Add</button>`
-      : `<div class="qty-ctrl">
-           <button class="qty-btn" data-id="${p.id}" data-action="minus">−</button>
-           <span class="qty-num">${qty}</span>
-           <button class="qty-btn" data-id="${p.id}" data-action="plus">+</button>
-         </div>`;
+    const displayPrice = hasVariants
+      ? getVariantPrice(p, 0)
+      : Number(p.price || 0);
+
+    let actionHtml = '';
+
+    if (hasVariants) {
+      if (totalQty === 0) {
+        const options = variants.map((v, i) => {
+          const vp = Number(v.price) > 0 ? Number(v.price) : Number(p.price || 0);
+          return `<option value="${i}">${escapeHtml(v.label)} - $${vp.toFixed(2)}</option>`;
+        }).join('');
+        actionHtml = `
+          <select class="variant-select" data-id="${p.id}">${options}</select>
+          <button class="add-btn" data-id="${p.id}">+ Add</button>
+        `;
+      } else {
+        actionHtml = `
+          <div class="qty-ctrl">
+            <button class="qty-btn" data-id="${p.id}" data-action="minus">−</button>
+            <span class="qty-num">${totalQty}</span>
+            <button class="qty-btn" data-id="${p.id}" data-action="plus">+</button>
+          </div>
+        `;
+      }
+    } else {
+      const qty = totalQty;
+      actionHtml = qty === 0
+        ? `<button class="add-btn" data-id="${p.id}">+ Add</button>`
+        : `<div class="qty-ctrl">
+             <button class="qty-btn" data-id="${p.id}" data-action="minus">−</button>
+             <span class="qty-num">${qty}</span>
+             <button class="qty-btn" data-id="${p.id}" data-action="plus">+</button>
+           </div>`;
+    }
 
     return `
       <div class="product-card">
         <div class="product-img">${imgTag}</div>
         <div class="product-name">${escapeHtml(p.name)}</div>
-        <div class="product-price">$${Number(p.price || 0).toFixed(2)}</div>
+        <div class="product-price">$${displayPrice.toFixed(2)}</div>
         ${actionHtml}
       </div>
     `;
   }).join('');
 
+  // Add 按钮
   grid.querySelectorAll('.add-btn').forEach(btn => {
-    btn.onclick = () => changeQty(btn.dataset.id, +1);
+    btn.onclick = () => {
+      const card = btn.closest('.product-card');
+      const select = card.querySelector('.variant-select');
+      const vi = select ? Number(select.value) : null;
+      addToCart(btn.dataset.id, vi);
+    };
   });
+
+  // 数量加减
   grid.querySelectorAll('.qty-btn').forEach(btn => {
     btn.onclick = () => {
       const delta = btn.dataset.action === 'plus' ? +1 : -1;
-      changeQty(btn.dataset.id, delta);
+      changeProductQty(btn.dataset.id, delta);
     };
   });
 }
 
-// ==================== Quantity control ====================
-function changeQty(productId, delta) {
+// ==================== Add to cart（支持规格） ====================
+function addToCart(productId, variantIndex) {
   const product = PRODUCTS.find(p => p.id === productId);
   if (!product) return;
-  const item = cart.find(c => c.id === productId);
-  if (!item) {
-    if (delta > 0) cart.push({ ...product, qty: 1 });
-  } else {
-    item.qty += delta;
-    if (item.qty <= 0) cart = cart.filter(c => c.id !== productId);
+
+  const variants = VARIANTS[productId];
+  let displayName = product.name;
+  let price = Number(product.price || 0);
+
+  if (variants && variants.length > 0) {
+    const vi = variantIndex != null ? variantIndex : 0;
+    const v = variants[vi];
+    if (v) {
+      displayName = `${product.name} - ${v.label}`;
+      if (Number(v.price) > 0) price = Number(v.price);
+    }
   }
+
+  const key = displayName;
+  const item = cart.find(c => c.key === key);
+
+  if (item) {
+    item.qty += 1;
+  } else {
+    cart.push({
+      key: key,
+      productId: product.id,
+      name: displayName,
+      brand: product.brand,
+      price: price,
+      image: product.image,
+      qty: 1
+    });
+  }
+
   renderProducts();
   renderCart();
 }
 
-function removeFromCart(productId) {
-  cart = cart.filter(c => c.id !== productId);
+// ==================== 调整某产品总数量 ====================
+function changeProductQty(productId, delta) {
+  const items = cart.filter(c => c.productId === productId);
+  if (items.length === 0) return;
+
+  if (delta > 0) {
+    items[0].qty += 1;
+  } else {
+    const last = items[items.length - 1];
+    last.qty -= 1;
+    if (last.qty <= 0) {
+      cart = cart.filter(c => c !== last);
+    }
+  }
+
+  renderProducts();
+  renderCart();
+}
+
+function removeFromCart(key) {
+  cart = cart.filter(c => c.key !== key);
   renderProducts();
   renderCart();
 }
@@ -471,12 +607,12 @@ function renderCart() {
     <div class="cart-item">
       <span>${escapeHtml(item.name)} <span style="color:#b99f87;font-weight:600;">× ${item.qty}</span></span>
       <span>$${(Number(item.price) * item.qty).toFixed(2)}
-        <button class="remove" data-id="${item.id}">✕</button>
+        <button class="remove" data-key="${escapeHtml(item.key)}">✕</button>
       </span>
     </div>
   `).join('');
   container.querySelectorAll('.remove').forEach(btn => {
-    btn.onclick = () => removeFromCart(btn.dataset.id);
+    btn.onclick = () => removeFromCart(btn.dataset.key);
   });
   document.getElementById('submitOrderBtn').disabled = false;
 }
@@ -543,7 +679,6 @@ function emailToMia() {
   if (!name) { alert('Please enter your name.'); return; }
   if (!phone) { alert('Please enter your phone number.'); return; }
 
-  // Delivery info
   let deliveryInfo = '';
   if (delivery === 'shipping') {
     const address = document.getElementById('shippingAddress').value.trim();
@@ -558,7 +693,6 @@ function emailToMia() {
     deliveryInfo = `Pick up at: BC Laser, 13805 104th Avenue, Suite #101, Surrey B.C.`;
   }
 
-  // Payment info
   const payments = [];
   const paySkinFit = document.getElementById('paySkinFit');
   const payCreditCard = document.getElementById('payCreditCard');
