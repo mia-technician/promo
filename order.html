@@ -232,10 +232,17 @@
 
       <div class="totals" id="summaryTotals">
         <div><span>Subtotal</span><span>$<span id="subtotal">0.00</span></span></div>
+
+        <div id="groupDiscountRow" style="display:none;color:#2d6a4f;font-weight:600;">
+          <span>🏷️ Group Discount <span style="font-size:.72rem;font-weight:400;color:#7a9e7e;">(15% off eligible items)</span></span>
+          <span>−$<span id="groupDiscountAmount">0.00</span></span>
+        </div>
+
         <div id="birthdayDiscountRow" style="display:none;color:#2d6a4f;font-weight:600;">
           <span>🎂 Birthday Discount <span id="birthdayDiscountNote" style="font-size:.72rem;font-weight:400;color:#7a9e7e;"></span></span>
           <span>−$<span id="birthdayDiscountAmount">0.00</span></span>
         </div>
+
         <div><span>GST (5%)</span><span>$<span id="gst">0.00</span></span></div>
         <div><span>PST (7%)</span><span>$<span id="pst">0.00</span></span></div>
         <div class="grand"><span>Total</span><span>$<span id="grandTotal">0.00</span></span></div>
@@ -243,7 +250,7 @@
     </div>
 
     <!-- Promo -->
-    <div class="summary-card">
+    <div class="summary-card" id="promoCard">
       <h2>🎁 Promotions</h2>
       <p style="font-size:.78rem;color:#b7a99a;margin-bottom:.8rem;">
         Click Apply to check if you qualify.
@@ -377,12 +384,10 @@
 </div>
 
 <script>
-// ==================== 手动维护的缺货产品（不显示） ====================
-const OUT_OF_STOCK_IDS = [
-  "tns",
-];
+// ==================== 缺货隐藏 ====================
+const OUT_OF_STOCK_IDS = ["tns"];
 
-// ==================== 手动维护的产品规格 ====================
+// ==================== 产品规格 ====================
 const VARIANTS = {
   "muogrlz59w67": [
     { label: "0.5 oz", price: 46 },
@@ -420,6 +425,10 @@ const VARIANTS = {
   ]
 };
 
+// ==================== Group 折扣规则（隐藏） ====================
+const GROUP_EXCLUDED_BRAND = "SKINBETTER";
+const GROUP_EXCLUDED_PRODUCT_KEYWORD = "LATISSE";
+
 // ==================== Supabase ====================
 const SUPABASE_URL = "https://dmrskyskryrdclknezth.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtcnNreXNrcnlyZGNsa25lenRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNzE2MzgsImV4cCI6MjA4OTk0NzYzOH0.Dnced4YAY24fE6kLxOe9YuR6Wrgt8pYcqKcjMFWDrY8";
@@ -427,11 +436,11 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ==================== State ====================
 let PRODUCTS = [];
-let currentBrand = "";   // 稍后由 renderBrandTabs 自动选第一个品牌
+let currentBrand = "";
 let cart = [];
 let appliedPromos = { birthday: null };
 
-// ==================== Load products ====================
+// ==================== 加载产品 ====================
 async function loadProducts() {
   const grid = document.getElementById('productGrid');
   const { data, error } = await supabaseClient
@@ -454,10 +463,9 @@ async function loadProducts() {
   renderProducts();
 }
 
-// ==================== Brand tabs ====================
+// ==================== 品牌栏 ====================
 function renderBrandTabs() {
   const brands = [...new Set(PRODUCTS.map(p => p.brand).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
-  // 如果当前品牌不在列表里（比如初始的空值），默认选中第一个
   if (!brands.includes(currentBrand)) {
     currentBrand = brands[0] || "";
   }
@@ -470,7 +478,7 @@ function renderBrandTabs() {
   });
 }
 
-// ==================== Variant price ====================
+// ==================== 规格价格 ====================
 function getVariantPrice(product, variantIndex) {
   const variants = VARIANTS[product.id];
   if (variants && variants.length > 0) {
@@ -480,7 +488,7 @@ function getVariantPrice(product, variantIndex) {
   return Number(product.price || 0);
 }
 
-// ==================== Product grid ====================
+// ==================== 产品网格 ====================
 function renderProducts() {
   const filtered = PRODUCTS.filter(p => p.brand === currentBrand);
   const grid = document.getElementById('productGrid');
@@ -554,7 +562,7 @@ function renderProducts() {
   });
 }
 
-// ==================== Cart ====================
+// ==================== 购物车 ====================
 function addToCart(productId, variantIndex) {
   const product = PRODUCTS.find(p => p.id === productId);
   if (!product) return;
@@ -624,6 +632,25 @@ function renderCart() {
   document.getElementById('submitOrderBtn').disabled = false;
 }
 
+// ==================== Group 折扣判断 ====================
+function isGroupOrder() {
+  const name = (document.getElementById('customerName')?.value || '').trim().toLowerCase();
+  return name.startsWith('group');
+}
+
+function calculateGroupDiscount() {
+  if (!isGroupOrder()) return 0;
+  let discount = 0;
+  cart.forEach(item => {
+    const brand = (item.brand || '').toUpperCase();
+    const name = (item.name || '').toUpperCase();
+    if (brand === GROUP_EXCLUDED_BRAND) return;
+    if (name.includes(GROUP_EXCLUDED_PRODUCT_KEYWORD)) return;
+    discount += Number(item.price) * item.qty * 0.15;
+  });
+  return discount;
+}
+
 // ==================== Birthday 折扣判断 ====================
 function checkBirthdayPromo() {
   const bdayInput = document.getElementById('birthdayInput').value;
@@ -653,6 +680,10 @@ function checkBirthdayPromo() {
 
 // ==================== Apply Promo ====================
 function applyPromo(promoKey) {
+  if (isGroupOrder()) {
+    alert('Group discount is active. Other promotions cannot be combined.');
+    return;
+  }
   const btn = document.querySelector(`.promo-apply-btn[data-promo="${promoKey}"]`);
   const extra = document.getElementById(`promoExtra-${promoKey}`);
   const msg = document.getElementById(`promoMsg-${promoKey}`);
@@ -684,9 +715,13 @@ function applyPromo(promoKey) {
 // ==================== 计算总额 ====================
 function updateTotals() {
   const rawSubtotal = cart.reduce((sum, item) => sum + Number(item.price) * item.qty, 0);
+  const groupActive = isGroupOrder();
 
-  const bdayDiscount = appliedPromos.birthday || 0;
-  const subtotal = Math.max(0, rawSubtotal - bdayDiscount);
+  const groupDiscount = groupActive ? calculateGroupDiscount() : 0;
+  const bdayDiscount = groupActive ? 0 : (appliedPromos.birthday || 0);
+
+  const totalDiscount = groupDiscount + bdayDiscount;
+  const subtotal = Math.max(0, rawSubtotal - totalDiscount);
   const gst = subtotal * 0.05;
   const pst = subtotal * 0.07;
   const total = subtotal + gst + pst;
@@ -696,26 +731,30 @@ function updateTotals() {
   document.getElementById('pst').innerText = pst.toFixed(2);
   document.getElementById('grandTotal').innerText = total.toFixed(2);
 
-  const row = document.getElementById('birthdayDiscountRow');
+  const groupRow = document.getElementById('groupDiscountRow');
+  if (groupDiscount > 0) {
+    groupRow.style.display = 'flex';
+    document.getElementById('groupDiscountAmount').innerText = groupDiscount.toFixed(2);
+  } else {
+    groupRow.style.display = 'none';
+  }
+
+  const bdayRow = document.getElementById('birthdayDiscountRow');
   if (bdayDiscount > 0) {
-    row.style.display = 'flex';
+    bdayRow.style.display = 'flex';
     document.getElementById('birthdayDiscountAmount').innerText = bdayDiscount.toFixed(2);
     document.getElementById('birthdayDiscountNote').innerText = '(20% off 1 FNL item)';
   } else {
-    row.style.display = 'none';
+    bdayRow.style.display = 'none';
   }
+
+  // Group 生效时隐藏 Promo 区
+  document.getElementById('promoCard').style.display = groupActive ? 'none' : 'block';
 }
 
 // ==================== Submit -> Summary ====================
 function submitOrder() {
   if (cart.length === 0) return;
-  appliedPromos.birthday = null;
-  document.querySelectorAll('.promo-msg').forEach(m => m.style.display = 'none');
-  document.querySelectorAll('.promo-extra').forEach(e => e.classList.remove('show'));
-  document.querySelectorAll('.promo-apply-btn').forEach(b => {
-    b.classList.remove('applied');
-    b.innerText = 'Apply';
-  });
 
   const tbody = document.getElementById('summaryBody');
   tbody.innerHTML = cart.map(item => `
@@ -755,6 +794,21 @@ document.getElementById('payCreditCard').onchange = (e) => {
 document.getElementById('payCall').onchange = (e) => {
   document.getElementById('callExtra').classList.toggle('show', e.target.checked);
 };
+
+// ==================== 姓名变化 ====================
+document.getElementById('customerName').addEventListener('input', () => {
+  // 如果变成 Group 订单，清掉已 Apply 的生日折扣
+  if (isGroupOrder() && appliedPromos.birthday) {
+    appliedPromos.birthday = null;
+    const btn = document.querySelector('.promo-apply-btn[data-promo="birthday"]');
+    if (btn) { btn.classList.remove('applied'); btn.innerText = 'Apply'; }
+    const extra = document.getElementById('promoExtra-birthday');
+    if (extra) extra.classList.remove('show');
+    const msg = document.getElementById('promoMsg-birthday');
+    if (msg) msg.style.display = 'none';
+  }
+  updateTotals();
+});
 
 // ==================== Apply 按钮绑定 ====================
 document.querySelectorAll('.promo-apply-btn').forEach(btn => {
@@ -801,7 +855,8 @@ function emailToMia() {
   if (payments.length === 0) { alert('Please select at least one payment method.'); return; }
 
   const rawSubtotal = parseFloat(document.getElementById('subtotal').innerText);
-  const bdayDiscount = appliedPromos.birthday || 0;
+  const groupDiscount = parseFloat(document.getElementById('groupDiscountAmount').innerText) || 0;
+  const bdayDiscount = parseFloat(document.getElementById('birthdayDiscountAmount').innerText) || 0;
   const gst = parseFloat(document.getElementById('gst').innerText);
   const pst = parseFloat(document.getElementById('pst').innerText);
   const total = parseFloat(document.getElementById('grandTotal').innerText);
@@ -819,6 +874,9 @@ function emailToMia() {
   });
   body += `------------------------------\n`;
   body += `Subtotal: $${rawSubtotal.toFixed(2)}\n`;
+  if (groupDiscount > 0) {
+    body += `🏷️ Group Discount (15% off eligible items): -$${groupDiscount.toFixed(2)}\n`;
+  }
   if (bdayDiscount > 0) {
     const bdayVal = document.getElementById('birthdayInput').value;
     body += `🎂 Birthday Discount (${bdayVal}, 20% off 1 most expensive FNL item): -$${bdayDiscount.toFixed(2)}\n`;
