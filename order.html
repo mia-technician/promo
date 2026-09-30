@@ -4,42 +4,84 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Order Products · Skin Care</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:#f5efe9;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:2rem 1rem;}
   .app{max-width:1100px;margin:0 auto;background:#faf7f2;border-radius:32px;border:1px solid #e8dfd4;padding:2rem 1.8rem;}
 
   /* Header */
-  .header{text-align:center;margin-bottom:1.8rem;}
+  .header{text-align:center;margin-bottom:1.6rem;}
   .header h1{font-family:'Montserrat',sans-serif;font-weight:300;font-size:1.7rem;color:#7f6e5d;letter-spacing:.06em;text-transform:uppercase;}
   .header p{font-size:.85rem;color:#b7a99a;margin-top:.4rem;}
 
   /* Brand tabs */
-  .brand-bar{background:#fff9f2;border-radius:24px;padding:1.1rem 1.4rem;margin-bottom:1.4rem;border:1px solid #e7dbd0;}
-  .brand-bar h2{font-family:'Montserrat',sans-serif;font-size:.85rem;font-weight:600;color:#8f7e6b;margin-bottom:.8rem;letter-spacing:.04em;}
-  .brand-tabs{display:flex;flex-wrap:wrap;gap:.6rem;}
-  .brand-tab{background:#e9dfd4;border:none;padding:.5rem 1.2rem;border-radius:40px;cursor:pointer;font-size:.8rem;color:#5f5347;transition:.2s;}
+  .brand-bar{background:#fff9f2;border-radius:24px;padding:1rem 1.3rem;margin-bottom:1.2rem;border:1px solid #e7dbd0;}
+  .brand-bar h2{font-family:'Montserrat',sans-serif;font-size:.8rem;font-weight:600;color:#8f7e6b;margin-bottom:.7rem;letter-spacing:.04em;}
+  .brand-tabs{display:flex;flex-wrap:wrap;gap:.5rem;}
+  .brand-tab{background:#e9dfd4;border:none;padding:.45rem 1rem;border-radius:40px;cursor:pointer;font-size:.78rem;color:#5f5347;transition:.2s;}
   .brand-tab:hover{background:#d2c0b0;}
   .brand-tab.active{background:#b99f87;color:#fff;}
 
+  /* Loading / Empty */
+  .loading,.empty{text-align:center;color:#b7a99a;font-size:.85rem;padding:2rem 0;}
+
   /* Product grid */
-  .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin-bottom:1.6rem;}
-  .product-card{background:#fff;border:1px solid #e7dbd0;border-radius:20px;padding:1rem;display:flex;flex-direction:column;gap:.6rem;transition:.2s;}
+  .product-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+    gap:.7rem;
+    margin-bottom:1.6rem;
+  }
+  .product-card{
+    background:#fff;border:1px solid #e7dbd0;border-radius:16px;
+    padding:.7rem;display:flex;flex-direction:column;gap:.4rem;
+    transition:.2s;
+  }
   .product-card:hover{box-shadow:0 4px 14px rgba(0,0,0,.06);}
-  .product-img{width:100%;height:120px;border-radius:14px;background:#f1e8e0;border:1px solid #e2d4c6;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-  .product-img img{width:100%;height:100%;object-fit:cover;}
-  .product-name{font-size:.9rem;font-weight:600;color:#5f5347;line-height:1.35;}
-  .product-price{font-size:.85rem;color:#b99f87;font-weight:600;}
-  .add-btn{margin-top:auto;background:#b99f87;color:#fff;border:none;padding:.6rem 1rem;border-radius:40px;cursor:pointer;font-size:.8rem;font-weight:600;transition:.2s;}
+  .product-img{
+    width:100%;aspect-ratio:1 / 1;
+    border-radius:12px;background:#f1e8e0;
+    border:1px solid #e2d4c6;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.8rem;color:#d2c0b0;
+  }
+  .product-img img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .product-name{font-size:.78rem;font-weight:600;color:#5f5347;line-height:1.3;min-height:2.1em;}
+  .product-price{font-size:.75rem;color:#b99f87;font-weight:600;}
+  .add-btn{
+    margin-top:auto;background:#b99f87;color:#fff;border:none;
+    padding:.4rem .6rem;border-radius:30px;cursor:pointer;
+    font-size:.7rem;font-weight:600;transition:.2s;
+  }
   .add-btn:hover{background:#9f8468;}
-  .add-btn.added{background:#7a9e7e;}
+
+  /* 数量控制器 */
+  .qty-ctrl{
+    margin-top:auto;
+    display:flex;align-items:center;justify-content:space-between;
+    background:#b99f87;border-radius:30px;padding:.25rem .35rem;
+  }
+  .qty-btn{
+    background:rgba(255,255,255,.25);color:#fff;border:none;
+    width:24px;height:24px;border-radius:50%;cursor:pointer;
+    font-size:.9rem;font-weight:700;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+    transition:.2s;
+  }
+  .qty-btn:hover{background:rgba(255,255,255,.4);}
+  .qty-num{
+    color:#fff;font-size:.8rem;font-weight:700;
+    min-width:22px;text-align:center;
+  }
 
   /* Cart summary */
   .cart-box{background:#fff9f2;border:1px solid #e7dbd0;border-radius:24px;padding:1.2rem 1.4rem;margin-bottom:1.4rem;}
   .cart-box h3{font-family:'Montserrat',sans-serif;font-size:.9rem;font-weight:600;color:#8f7e6b;margin-bottom:.8rem;}
   .cart-item{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px dashed #e7dbd0;font-size:.82rem;color:#5f5347;}
   .cart-item:last-child{border-bottom:none;}
-  .cart-item .qty{color:#b99f87;font-weight:600;}
   .cart-item .remove{background:none;border:none;color:#c93b2b;cursor:pointer;font-size:.8rem;margin-left:.8rem;}
   .cart-empty{color:#b7a99a;font-size:.82rem;text-align:center;padding:.6rem 0;}
 
@@ -89,7 +131,7 @@
 
   @media(max-width:700px){
     .form-row{grid-template-columns:1fr;}
-    .product-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
+    .product-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));}
   }
 </style>
 </head>
@@ -110,7 +152,9 @@
     </div>
 
     <!-- 产品网格 -->
-    <div class="product-grid" id="productGrid"></div>
+    <div class="product-grid" id="productGrid">
+      <div class="loading" style="grid-column:1/-1;">Loading products…</div>
+    </div>
 
     <!-- 购物车 -->
     <div class="cart-box">
@@ -204,33 +248,42 @@
 </div>
 
 <script>
-// ==================== 产品数据（客人看到的） ====================
-const PRODUCTS = [
-  { id:"clarify-cleanser", name:"Clarify Cleanser", brand:"FNL", price:50 },
-  { id:"cleanser", name:"Cleanser", brand:"Others", price:46 },
-  { id:"exo-gf", name:"Exo-GF Serum", brand:"FNL", price:275 },
-  { id:"exfoliating-pad", name:"Exfoliating Pad 10%", brand:"FNL", price:88 },
-  { id:"glycolic-lotion", name:"Glycolic Lotion 10%", brand:"FNL", price:98 },
-  { id:"ha5", name:"HA5", brand:"Others", price:196 },
-  { id:"lumivive-day", name:"Lumivive - Day", brand:"Others", price:285 },
-  { id:"lumivive-night", name:"Lumivive - Night", brand:"Others", price:285 },
-  { id:"lytera", name:"Lytera", brand:"Others", price:170 },
-  { id:"moisturizer", name:"Moisturizer", brand:"Others", price:155 },
-  { id:"retinol", name:"Retinol", brand:"Skinceuticals", price:66 },
-  { id:"retinol-fnl", name:"Retinol (FNL)", brand:"FNL", price:115 },
-  { id:"silymarin", name:"Silymarin", brand:"Skinceuticals", price:220 },
-  { id:"spf-powder", name:"SPF Powder Brush", brand:"ColorScience", price:93.90 },
-  { id:"spf50", name:"SPF50 Sheer Physical", brand:"Others", price:66 },
-  { id:"tns", name:"TNS+ Serum", brand:"Others", price:330 }
-].sort((a,b)=>a.name.localeCompare(b.name));
+// ==================== Supabase ====================
+const SUPABASE_URL = "https://dmrskyskryrdclknezth.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtcnNreXNrcnlyZGNsa25lenRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNzE2MzgsImV4cCI6MjA4OTk0NzYzOH0.Dnced4YAY24fE6kLxOe9YuR6Wrgt8pYcqKcjMFWDrY8";
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ==================== 状态 ====================
+let PRODUCTS = [];
 let currentBrand = "all";
-let cart = [];  // [{ id, name, brand, price }]
+let cart = [];  // [{ id, name, brand, price, image, qty }]
+
+// ==================== 从数据库加载产品 ====================
+async function loadProducts() {
+  const grid = document.getElementById('productGrid');
+  const { data, error } = await supabaseClient
+    .from('products')
+    .select('id, name, brand, price, image')
+    .order('name', { ascending: true });
+
+  if (error) {
+    console.error('加载产品失败:', error);
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">⚠️ 无法加载产品，请刷新页面重试</div>`;
+    return;
+  }
+
+  PRODUCTS = data || [];
+  if (PRODUCTS.length === 0) {
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">暂无产品</div>`;
+    return;
+  }
+  renderBrandTabs();
+  renderProducts();
+}
 
 // ==================== 渲染品牌栏 ====================
 function renderBrandTabs() {
-  const brands = ["all", ...new Set(PRODUCTS.map(p => p.brand))].sort((a,b)=>{
+  const brands = ["all", ...new Set(PRODUCTS.map(p => p.brand).filter(Boolean))].sort((a,b)=>{
     if(a==="all") return -1;
     if(b==="all") return 1;
     return a.localeCompare(b);
@@ -250,35 +303,62 @@ function renderProducts() {
     ? PRODUCTS
     : PRODUCTS.filter(p => p.brand === currentBrand);
   const grid = document.getElementById('productGrid');
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">该品牌暂无产品</div>`;
+    return;
+  }
+
   grid.innerHTML = filtered.map(p => {
-    const inCart = cart.some(c => c.id === p.id);
+    const cartItem = cart.find(c => c.id === p.id);
+    const qty = cartItem ? cartItem.qty : 0;
+    const imgTag = p.image
+      ? `<img src="${p.image}" alt="${escapeHtml(p.name)}" loading="lazy"
+             onerror="this.style.display='none';this.parentElement.innerHTML='🧴';">`
+      : '🧴';
+
+    const actionHtml = qty === 0
+      ? `<button class="add-btn" data-id="${p.id}">+ Add</button>`
+      : `<div class="qty-ctrl">
+           <button class="qty-btn" data-id="${p.id}" data-action="minus">−</button>
+           <span class="qty-num">${qty}</span>
+           <button class="qty-btn" data-id="${p.id}" data-action="plus">+</button>
+         </div>`;
+
     return `
       <div class="product-card">
-        <div class="product-img">
-          <span style="font-size:2rem;color:#d2c0b0;">🧴</span>
-        </div>
+        <div class="product-img">${imgTag}</div>
         <div class="product-name">${escapeHtml(p.name)}</div>
-        <div class="product-price">$${p.price.toFixed(2)}</div>
-        <button class="add-btn ${inCart?'added':''}" data-id="${p.id}" ${inCart?'disabled':''}>
-          ${inCart?'✓ Added':'+ Add to Cart'}
-        </button>
+        <div class="product-price">$${Number(p.price || 0).toFixed(2)}</div>
+        ${actionHtml}
       </div>
     `;
   }).join('');
+
   grid.querySelectorAll('.add-btn').forEach(btn => {
-    btn.onclick = () => addToCart(btn.dataset.id);
+    btn.onclick = () => changeQty(btn.dataset.id, +1);
+  });
+  grid.querySelectorAll('.qty-btn').forEach(btn => {
+    btn.onclick = () => {
+      const delta = btn.dataset.action === 'plus' ? +1 : -1;
+      changeQty(btn.dataset.id, delta);
+    };
   });
 }
 
-// ==================== 购物车操作 ====================
-function addToCart(productId) {
+// ==================== 数量控制 ====================
+function changeQty(productId, delta) {
   const product = PRODUCTS.find(p => p.id === productId);
   if (!product) return;
-  if (!cart.some(c => c.id === productId)) {
-    cart.push({ ...product });
-    renderProducts();
-    renderCart();
+  const item = cart.find(c => c.id === productId);
+  if (!item) {
+    if (delta > 0) cart.push({ ...product, qty: 1 });
+  } else {
+    item.qty += delta;
+    if (item.qty <= 0) cart = cart.filter(c => c.id !== productId);
   }
+  renderProducts();
+  renderCart();
 }
 
 function removeFromCart(productId) {
@@ -287,6 +367,7 @@ function removeFromCart(productId) {
   renderCart();
 }
 
+// ==================== 购物车 ====================
 function renderCart() {
   const container = document.getElementById('cartList');
   if (cart.length === 0) {
@@ -296,8 +377,8 @@ function renderCart() {
   }
   container.innerHTML = cart.map(item => `
     <div class="cart-item">
-      <span>${escapeHtml(item.name)} <span class="qty">× 1</span></span>
-      <span>$${item.price.toFixed(2)}
+      <span>${escapeHtml(item.name)} <span style="color:#b99f87;font-weight:600;">× ${item.qty}</span></span>
+      <span>$${(Number(item.price) * item.qty).toFixed(2)}
         <button class="remove" data-id="${item.id}">✕</button>
       </span>
     </div>
@@ -312,18 +393,16 @@ function renderCart() {
 function submitOrder() {
   if (cart.length === 0) return;
 
-  // 渲染明细
   const tbody = document.getElementById('summaryBody');
   tbody.innerHTML = cart.map(item => `
     <tr>
       <td>${escapeHtml(item.name)}</td>
-      <td>${escapeHtml(item.brand)}</td>
-      <td class="price-col">$${item.price.toFixed(2)}</td>
+      <td>${escapeHtml(item.brand || '')}</td>
+      <td class="price-col">$${Number(item.price).toFixed(2)} × ${item.qty} = $${(Number(item.price) * item.qty).toFixed(2)}</td>
     </tr>
   `).join('');
 
-  // 计算
-  const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+  const subtotal = cart.reduce((sum, item) => sum + Number(item.price) * item.qty, 0);
   const gst = subtotal * 0.05;
   const pst = subtotal * 0.07;
   const total = subtotal + gst + pst;
@@ -333,7 +412,6 @@ function submitOrder() {
   document.getElementById('pst').innerText = pst.toFixed(2);
   document.getElementById('grandTotal').innerText = total.toFixed(2);
 
-  // 切换页面
   document.getElementById('orderPage').style.display = 'none';
   document.getElementById('summaryPage').classList.add('show');
   window.scrollTo(0, 0);
@@ -390,7 +468,7 @@ function emailToMia() {
   body += `Order Items:\n`;
   body += `------------------------------\n`;
   cart.forEach(item => {
-    body += `${item.name} (${item.brand}) - $${item.price.toFixed(2)}\n`;
+    body += `${item.name} (${item.brand || ''}) - $${Number(item.price).toFixed(2)} × ${item.qty} = $${(Number(item.price) * item.qty).toFixed(2)}\n`;
   });
   body += `------------------------------\n`;
   body += `Subtotal: $${subtotal.toFixed(2)}\n`;
@@ -408,7 +486,7 @@ function emailToMia() {
 // ==================== 工具 ====================
 function escapeHtml(str) {
   if (!str) return '';
-  return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+  return String(str).replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
 }
 
 // ==================== 事件绑定 ====================
@@ -417,8 +495,7 @@ document.getElementById('backToOrderBtn').onclick = backToOrder;
 document.getElementById('emailToMiaBtn').onclick = emailToMia;
 
 // ==================== 初始化 ====================
-renderBrandTabs();
-renderProducts();
+loadProducts();
 renderCart();
 </script>
 </body>
