@@ -451,7 +451,7 @@
       <button class="email-btn" id="openEmailBtn" style="display:none;">📧 2. Open Email</button>
     </div>
 
-    <p class="footer-note">Order will be sent to mia.lu@dermapurec.com</p>
+    <p class="footer-note">Order will be sent to mia.lu@dermapure.com</p>
   </div>
 
 </div>
@@ -1288,7 +1288,7 @@ function emailToMia() {
 
   const body = buildOrderBody();
   const subject = `Product Order - ${name}`;
-  const mailto = 'mailto:mia.lu@dermapurec.com'
+  const mailto = 'mailto:mia.lu@dermapure.com'
     + '?subject=' + encodeURIComponent(subject)
     + '&body=' + encodeURIComponent(body).replace(/%0A/g, '%0D%0A');
 
@@ -1352,7 +1352,7 @@ function fallbackCopy(text) {
     document.execCommand('copy');
     alert('Order copied to clipboard.\n\nNext: click "2. Open Email", then in the message body long press and paste.');
   } catch (e) {
-    alert('Copy failed. Please take a screenshot and send it to mia.lu@dermapurec.com');
+    alert('Copy failed. Please take a screenshot and send it to mia.lu@dermapure.com');
   }
   document.body.removeChild(ta);
 }
@@ -1360,7 +1360,7 @@ function fallbackCopy(text) {
 // ==================== 手机端：第2步打开空白邮件 ====================
 function openBlankEmail() {
   const subject = 'Product Order';
-  const mailto = 'mailto:mia.lu@dermapurec.com'
+  const mailto = 'mailto:mia.lu@dermapure.com'
     + '?subject=' + encodeURIComponent(subject);
   window.location.href = mailto;
 }
