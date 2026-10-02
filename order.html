@@ -196,9 +196,9 @@
   .note-textarea:focus{outline:none;border-color:#b99f87;background:#fff;}
 
   .email-wrap{text-align:center;margin:1.8rem 0 1rem;}
-  .email-btn{background:#b99f87;color:#fff;border:none;padding:.9rem 2.4rem;border-radius:50px;cursor:pointer;font-size:1rem;font-weight:600;transition:.2s;}
+  .email-btn{background:#b99f87;color:#fff;border:none;padding:.9rem 2.4rem;border-radius:50px;cursor:pointer;font-size:1rem;font-weight:600;transition:.2s;margin:0 .3rem;}
   .email-btn:hover{background:#9f8468;transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1);}
-  .back-btn{background:transparent;border:1px solid #d2c0b0;color:#5f5347;padding:.7rem 1.6rem;border-radius:50px;cursor:pointer;font-size:.85rem;margin-right:.8rem;}
+  .back-btn{background:transparent;border:1px solid #d2c0b0;color:#5f5347;padding:.7rem 1.6rem;border-radius:50px;cursor:pointer;font-size:.85rem;margin:0 .3rem;}
   .back-btn:hover{background:#f5efe8;}
 
   .footer-note{font-size:.7rem;color:#ccbeaf;text-align:center;margin-top:1.2rem;line-height:1.6;}
@@ -442,6 +442,7 @@
     <div class="email-wrap">
       <button class="back-btn" id="backToOrderBtn">← Back</button>
       <button class="email-btn" id="emailToMiaBtn">📧 Email Order to Mia</button>
+      <button class="back-btn" id="copyOrderBtn">📋 Copy Order</button>
     </div>
 
     <p class="footer-note">✦ Your order will be sent to mia.lu@dermapurec.com ✦</p>
@@ -812,16 +813,16 @@ function calculateAnnualSaleDiscount() {
   let giftMsg = '';
   if (countedTotal >= ANNUAL_SALE_TIER3_THRESHOLD) {
     tier = 3;
-    giftMsg = ` 🏆 Tier 3 unlocked: FREE SkinBetter Travel Gift Pack ($400 value) + complimentary express microdermabrasion facial + entry into lucky draw for a SkinCeuticals basket ($500 value).`;
+    giftMsg = ` Tier 3 unlocked: FREE SkinBetter Travel Gift Pack ($400 value) + complimentary express microdermabrasion facial + entry into lucky draw for a SkinCeuticals basket ($500 value).`;
   } else if (countedTotal >= ANNUAL_SALE_TIER2_THRESHOLD) {
     tier = 2;
-    giftMsg = ` 🎁 Tier 2 unlocked: FREE SkinCeuticals gift.`;
+    giftMsg = ` Tier 2 unlocked: FREE SkinCeuticals gift.`;
   }
 
   return {
     discount,
     tier,
-    message: `🎉 20% off ${totalQty} eligible item(s) — you save $${discount.toFixed(2)}!${giftMsg}`
+    message: `20% off ${totalQty} eligible item(s) — you save $${discount.toFixed(2)}!${giftMsg}`
   };
 }
 
@@ -865,7 +866,7 @@ function checkBirthdayPromo() {
   const discount = Number(most.price) * 0.20;
   return {
     ok: true, discount,
-    message: `20% off 1 × "${most.name}" — you save $${discount.toFixed(2)}!`,
+    message: `20% off 1 x "${most.name}" — you save $${discount.toFixed(2)}!`,
     itemKey: most.key
   };
 }
@@ -891,7 +892,7 @@ function checkRepurchasePromo() {
   if (eligibleTotal >= REPURCHASE_THRESHOLD) {
     return {
       ok: true,
-      message: `🎉 You qualify for a ${REPURCHASE_GIFT}! Eligible product total: $${eligibleTotal.toFixed(2)}. Subject to Mia verifying that your last purchase was within 90 days. Your free Microdermabrasion Facial can be booked after Mia confirms your order.`
+      message: `You qualify for a ${REPURCHASE_GIFT}! Eligible product total: $${eligibleTotal.toFixed(2)}. Subject to Mia verifying that your last purchase was within 90 days. Your free Microdermabrasion Facial can be booked after Mia confirms your order.`
     };
   } else {
     const diff = REPURCHASE_THRESHOLD - eligibleTotal;
@@ -904,8 +905,6 @@ function checkRepurchasePromo() {
 
 // ==================== Apply Promo ====================
 function applyPromo(promoKey) {
-  console.log('applyPromo clicked:', promoKey);
-
   if (isGroupOrder()) {
     alert('Group discount is active. Other promotions cannot be combined.');
     return;
@@ -913,18 +912,11 @@ function applyPromo(promoKey) {
 
   // ===== Annual Sale：单击直接判断 =====
   if (promoKey === 'annualSale') {
-    console.log('Annual Sale clicked, cart:', cart);
-
     const btn = document.querySelector('.promo-apply-btn[data-promo="annualSale"]');
     const msg = document.getElementById('promoMsg-annualSale');
     const extra = document.getElementById('promoExtra-annualSale');
+    if (!btn || !msg || !extra) return;
 
-    if (!btn || !msg || !extra) {
-      console.error('Annual Sale elements missing');
-      return;
-    }
-
-    // 清掉其它互斥 promo
     appliedPromos.birthday = null;
     repurchaseEligible = false;
     ['birthday', 'repurchase90'].forEach(k => {
@@ -936,11 +928,8 @@ function applyPromo(promoKey) {
       if (e) e.classList.remove('show');
     });
 
-    // 打开并立即判断
     extra.classList.add('show');
     const result = checkAnnualSale();
-    console.log('Annual Sale result:', result);
-
     msg.style.display = 'block';
 
     if (result.ok) {
@@ -962,11 +951,10 @@ function applyPromo(promoKey) {
     return;
   }
 
-  // ===== 其它 promo：保持两步逻辑 =====
+  // ===== 其它 promo：两步逻辑 =====
   const btn = document.querySelector(`.promo-apply-btn[data-promo="${promoKey}"]`);
   const extra = document.getElementById(`promoExtra-${promoKey}`);
   const msg = document.getElementById(`promoMsg-${promoKey}`);
-
   if (!btn || !extra || !msg) return;
 
   if (!extra.classList.contains('show')) {
@@ -1160,32 +1148,24 @@ document.getElementById('customerName').addEventListener('input', () => {
 });
 
 // ==================== Apply 按钮绑定 ====================
-// 用事件委托，避免元素未绑定时点击无反应
 document.getElementById('promoList').addEventListener('click', (e) => {
   const btn = e.target.closest('.promo-apply-btn');
   if (!btn) return;
   applyPromo(btn.dataset.promo);
 });
 
-// ==================== Email ====================
-function emailToMia() {
+// ==================== 生成订单正文 ====================
+function buildOrderBody() {
   const name = document.getElementById('customerName').value.trim();
   const phone = document.getElementById('customerPhone').value.trim();
   const delivery = document.querySelector('input[name="delivery"]:checked').value;
   const note = document.getElementById('customerNote').value.trim();
-
-  if (!name) { alert('Please enter your name.'); return; }
-  if (!phone) { alert('Please enter your phone number.'); return; }
 
   let deliveryInfo = '';
   if (delivery === 'shipping') {
     const address = document.getElementById('shippingAddress').value.trim();
     const city = document.getElementById('shippingCity').value.trim();
     const postal = document.getElementById('shippingPostal').value.trim();
-    if (!address || !city || !postal) {
-      alert('Please fill in your shipping address, city, and postal code.');
-      return;
-    }
     deliveryInfo = `Shipping to: ${address}, ${city}, ${postal}`;
   } else {
     deliveryInfo = `Pick up at: BC Laser, 13805 104th Avenue, Suite #101, Surrey B.C.`;
@@ -1195,16 +1175,12 @@ function emailToMia() {
   if (document.getElementById('paySkinFit').checked) payments.push('Use Skin Fit credit on file first');
   if (document.getElementById('payCreditCard').checked) {
     const last4 = document.getElementById('cardLast4').value.trim();
-    if (!last4) { alert('Please enter the last 4 digits of your card.'); return; }
-    if (!/^\d{4}$/.test(last4)) { alert('Last 4 digits must be 4 numbers.'); return; }
     payments.push(`Use Credit Card on file (ending ${last4})`);
   }
   if (document.getElementById('payCall').checked) {
     const callPhone = document.getElementById('callPhone').value.trim();
-    if (!callPhone) { alert('Please enter the phone number to call.'); return; }
     payments.push(`Call customer for credit card (phone: ${callPhone})`);
   }
-  if (payments.length === 0) { alert('Please select at least one payment method.'); return; }
 
   const rawSubtotal = parseFloat(document.getElementById('subtotal').innerText);
   const annualSaleDisc = parseFloat(document.getElementById('annualSaleDiscountAmount').innerText) || 0;
@@ -1214,7 +1190,8 @@ function emailToMia() {
   const pst = parseFloat(document.getElementById('pst').innerText);
   const total = parseFloat(document.getElementById('grandTotal').innerText);
 
-  let body = `New Product Order\n`;
+  let body = '';
+  body += `New Product Order\n`;
   body += `==============================\n\n`;
   body += `Customer: ${name}\n`;
   body += `Phone: ${phone}\n`;
@@ -1223,14 +1200,14 @@ function emailToMia() {
   body += `Order Items:\n`;
   body += `------------------------------\n`;
   cart.forEach(item => {
-    body += `${item.name} (${item.brand || ''}) - $${Number(item.price).toFixed(2)} × ${item.qty} = $${(Number(item.price) * item.qty).toFixed(2)}\n`;
+    body += `${item.name} (${item.brand || ''}) - $${Number(item.price).toFixed(2)} x ${item.qty} = $${(Number(item.price) * item.qty).toFixed(2)}\n`;
   });
   body += `------------------------------\n`;
   body += `Subtotal: $${rawSubtotal.toFixed(2)}\n`;
 
   if (annualSaleDisc > 0) {
     const tierText = annualSaleTier === 3 ? 'Tier 3' : annualSaleTier === 2 ? 'Tier 2' : 'Tier 1';
-    body += `🎉 2026 Annual Sale (${tierText}, 20% off eligible items): -$${annualSaleDisc.toFixed(2)}\n`;
+    body += `2026 Annual Sale (${tierText}, 20% off eligible items): -$${annualSaleDisc.toFixed(2)}\n`;
     if (annualSaleTier === 2) {
       body += `   Gift: FREE SkinCeuticals gift (after-discount & pre-tax total reached $750)\n`;
     }
@@ -1241,11 +1218,11 @@ function emailToMia() {
     }
   }
   if (groupDiscount > 0) {
-    body += `🏷️ Group Discount (15% off eligible items): -$${groupDiscount.toFixed(2)}\n`;
+    body += `Group Discount (15% off eligible items): -$${groupDiscount.toFixed(2)}\n`;
   }
   if (bdayDiscount > 0) {
     const bdayVal = document.getElementById('birthdayInput').value;
-    body += `🎂 Birthday Discount (${bdayVal}, 20% off 1 most expensive FNL item): -$${bdayDiscount.toFixed(2)}\n`;
+    body += `Birthday Discount (${bdayVal}, 20% off 1 most expensive FNL item): -$${bdayDiscount.toFixed(2)}\n`;
   }
   body += `GST (5%): $${gst.toFixed(2)}\n`;
   body += `PST (7%): $${pst.toFixed(2)}\n`;
@@ -1253,7 +1230,7 @@ function emailToMia() {
 
   if (repurchaseEligible) {
     const eligibleTotal = getEligibleRepurchaseTotal();
-    body += `🏷️ 90 Days Repurchase Program: Applied\n`;
+    body += `90 Days Repurchase Program: Applied\n`;
     body += `   Eligible regular-priced product total: $${eligibleTotal.toFixed(2)}\n`;
     body += `   Gift: ${REPURCHASE_GIFT}\n`;
     body += `   Note: Please verify that the customer's last purchase was within 90 days. Free Microdermabrasion to be booked after order confirmation.\n\n`;
@@ -1262,10 +1239,89 @@ function emailToMia() {
   if (note) {
     body += `Note from Customer:\n------------------------------\n${note}\n------------------------------\n\n`;
   }
-  body += `==============================\nSent from Skin Care Order Page`;
+  body += `==============================\n`;
+  body += `Sent from Skin Care Order Page`;
 
+  return body;
+}
+
+// ==================== Email ====================
+function emailToMia() {
+  const name = document.getElementById('customerName').value.trim();
+  const phone = document.getElementById('customerPhone').value.trim();
+  const delivery = document.querySelector('input[name="delivery"]:checked').value;
+
+  if (!name) { alert('Please enter your name.'); return; }
+  if (!phone) { alert('Please enter your phone number.'); return; }
+
+  if (delivery === 'shipping') {
+    const address = document.getElementById('shippingAddress').value.trim();
+    const city = document.getElementById('shippingCity').value.trim();
+    const postal = document.getElementById('shippingPostal').value.trim();
+    if (!address || !city || !postal) {
+      alert('Please fill in your shipping address, city, and postal code.');
+      return;
+    }
+  }
+
+  if (document.getElementById('payCreditCard').checked) {
+    const last4 = document.getElementById('cardLast4').value.trim();
+    if (!last4) { alert('Please enter the last 4 digits of your card.'); return; }
+    if (!/^\d{4}$/.test(last4)) { alert('Last 4 digits must be 4 numbers.'); return; }
+  }
+  if (document.getElementById('payCall').checked) {
+    const callPhone = document.getElementById('callPhone').value.trim();
+    if (!callPhone) { alert('Please enter the phone number to call.'); return; }
+  }
+  if (!document.getElementById('paySkinFit').checked &&
+      !document.getElementById('payCreditCard').checked &&
+      !document.getElementById('payCall').checked) {
+    alert('Please select at least one payment method.');
+    return;
+  }
+
+  const body = buildOrderBody();
   const subject = `Product Order - ${name}`;
-  window.location.href = `mailto:mia.lu@dermapurec.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  const mailto = 'mailto:mia.lu@dermapurec.com'
+    + '?subject=' + encodeURIComponent(subject)
+    + '&body=' + encodeURIComponent(body).replace(/%0A/g, '%0D%0A');
+
+  try {
+    window.location.href = mailto;
+  } catch (e) {
+    copyOrderText();
+  }
+}
+
+// ==================== Copy Order 备用 ====================
+function copyOrderText() {
+  const body = buildOrderBody();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(body).then(() => {
+      alert('Order copied to clipboard.\nPlease paste it into an email to mia.lu@dermapurec.com');
+    }).catch(() => {
+      fallbackCopy(body);
+    });
+  } else {
+    fallbackCopy(body);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    alert('Order copied to clipboard.\nPlease paste it into an email to mia.lu@dermapurec.com');
+  } catch (e) {
+    alert('Copy failed. Please take a screenshot and send it to mia.lu@dermapurec.com');
+  }
+  document.body.removeChild(ta);
 }
 
 // ==================== Helpers ====================
@@ -1278,6 +1334,7 @@ function escapeHtml(str) {
 document.getElementById('submitOrderBtn').onclick = submitOrder;
 document.getElementById('backToOrderBtn').onclick = backToOrder;
 document.getElementById('emailToMiaBtn').onclick = emailToMia;
+document.getElementById('copyOrderBtn').onclick = copyOrderText;
 
 // ==================== Init ====================
 loadProducts();
