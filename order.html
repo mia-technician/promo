@@ -206,6 +206,7 @@
   @media(max-width:700px){
     .form-row{grid-template-columns:1fr;}
     .product-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));}
+    .email-btn,.back-btn{display:block;width:100%;margin:6px 0;}
   }
 </style>
 </head>
@@ -441,11 +442,16 @@
 
     <div class="email-wrap">
       <button class="back-btn" id="backToOrderBtn">← Back</button>
-      <button class="email-btn" id="emailToMiaBtn">📧 Email Order to Mia</button>
-      <button class="back-btn" id="copyOrderBtn">📋 Copy Order</button>
+
+      <!-- 电脑端：一个按钮 -->
+      <button class="email-btn" id="emailToMiaBtn" style="display:none;">📧 Email Order to Mia</button>
+
+      <!-- 手机端：两个按钮 -->
+      <button class="email-btn" id="copyOrderBtn" style="display:none;">📋 1. Copy Order</button>
+      <button class="email-btn" id="openEmailBtn" style="display:none;">📧 2. Open Email</button>
     </div>
 
-    <p class="footer-note">✦ Your order will be sent to mia.lu@dermapurec.com ✦</p>
+    <p class="footer-note">Order will be sent to mia.lu@dermapurec.com</p>
   </div>
 
 </div>
@@ -1245,7 +1251,7 @@ function buildOrderBody() {
   return body;
 }
 
-// ==================== Email ====================
+// ==================== 电脑端：一步发送 ====================
 function emailToMia() {
   const name = document.getElementById('customerName').value.trim();
   const phone = document.getElementById('customerPhone').value.trim();
@@ -1282,27 +1288,54 @@ function emailToMia() {
 
   const body = buildOrderBody();
   const subject = `Product Order - ${name}`;
-
   const mailto = 'mailto:mia.lu@dermapurec.com'
     + '?subject=' + encodeURIComponent(subject)
     + '&body=' + encodeURIComponent(body).replace(/%0A/g, '%0D%0A');
 
-  try {
-    window.location.href = mailto;
-  } catch (e) {
-    copyOrderText();
-  }
+  window.location.href = mailto;
 }
 
-// ==================== Copy Order 备用 ====================
+// ==================== 手机端：第1步复制正文 ====================
 function copyOrderText() {
+  const name = document.getElementById('customerName').value.trim();
+  const phone = document.getElementById('customerPhone').value.trim();
+  const delivery = document.querySelector('input[name="delivery"]:checked').value;
+
+  if (!name) { alert('Please enter your name.'); return; }
+  if (!phone) { alert('Please enter your phone number.'); return; }
+
+  if (delivery === 'shipping') {
+    const address = document.getElementById('shippingAddress').value.trim();
+    const city = document.getElementById('shippingCity').value.trim();
+    const postal = document.getElementById('shippingPostal').value.trim();
+    if (!address || !city || !postal) {
+      alert('Please fill in your shipping address, city, and postal code.');
+      return;
+    }
+  }
+
+  if (document.getElementById('payCreditCard').checked) {
+    const last4 = document.getElementById('cardLast4').value.trim();
+    if (!last4) { alert('Please enter the last 4 digits of your card.'); return; }
+    if (!/^\d{4}$/.test(last4)) { alert('Last 4 digits must be 4 numbers.'); return; }
+  }
+  if (document.getElementById('payCall').checked) {
+    const callPhone = document.getElementById('callPhone').value.trim();
+    if (!callPhone) { alert('Please enter the phone number to call.'); return; }
+  }
+  if (!document.getElementById('paySkinFit').checked &&
+      !document.getElementById('payCreditCard').checked &&
+      !document.getElementById('payCall').checked) {
+    alert('Please select at least one payment method.');
+    return;
+  }
+
   const body = buildOrderBody();
+  const done = () => {
+    alert('Order copied to clipboard.\n\nNext: click "2. Open Email", then in the message body long press and paste.');
+  };
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(body).then(() => {
-      alert('Order copied to clipboard.\nPlease paste it into an email to mia.lu@dermapurec.com');
-    }).catch(() => {
-      fallbackCopy(body);
-    });
+    navigator.clipboard.writeText(body).then(done).catch(() => fallbackCopy(body));
   } else {
     fallbackCopy(body);
   }
@@ -1317,11 +1350,33 @@ function fallbackCopy(text) {
   ta.select();
   try {
     document.execCommand('copy');
-    alert('Order copied to clipboard.\nPlease paste it into an email to mia.lu@dermapurec.com');
+    alert('Order copied to clipboard.\n\nNext: click "2. Open Email", then in the message body long press and paste.');
   } catch (e) {
     alert('Copy failed. Please take a screenshot and send it to mia.lu@dermapurec.com');
   }
   document.body.removeChild(ta);
+}
+
+// ==================== 手机端：第2步打开空白邮件 ====================
+function openBlankEmail() {
+  const subject = 'Product Order';
+  const mailto = 'mailto:mia.lu@dermapurec.com'
+    + '?subject=' + encodeURIComponent(subject);
+  window.location.href = mailto;
+}
+
+// ==================== 根据设备显示按钮 ====================
+function setupEmailButtons() {
+  const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  if (isMobile) {
+    document.getElementById('emailToMiaBtn').style.display = 'none';
+    document.getElementById('copyOrderBtn').style.display = 'inline-block';
+    document.getElementById('openEmailBtn').style.display = 'inline-block';
+  } else {
+    document.getElementById('emailToMiaBtn').style.display = 'inline-block';
+    document.getElementById('copyOrderBtn').style.display = 'none';
+    document.getElementById('openEmailBtn').style.display = 'none';
+  }
 }
 
 // ==================== Helpers ====================
@@ -1335,10 +1390,12 @@ document.getElementById('submitOrderBtn').onclick = submitOrder;
 document.getElementById('backToOrderBtn').onclick = backToOrder;
 document.getElementById('emailToMiaBtn').onclick = emailToMia;
 document.getElementById('copyOrderBtn').onclick = copyOrderText;
+document.getElementById('openEmailBtn').onclick = openBlankEmail;
 
 // ==================== Init ====================
 loadProducts();
 renderCart();
+setupEmailButtons();
 </script>
 </body>
 </html>
