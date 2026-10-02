@@ -52,6 +52,7 @@
     display:flex;
     gap:24px;
     align-items:flex-start;
+    text-align:left;
     transition:transform .25s ease, box-shadow .25s ease;
   }
   .tier-card:hover{
@@ -79,7 +80,7 @@
   .tier-badge.t3{background:linear-gradient(135deg,#c78fe0 0%,#9451b6 100%);}
 
   /* 右侧内容 */
-  .tier-content{flex:1;min-width:0;}
+  .tier-content{flex:1;min-width:0;text-align:left;}
   .tier-title{
     font-family:'Cormorant Garamond',serif;
     font-size:1.6rem;
@@ -87,20 +88,22 @@
     color:#2c2824;
     line-height:1.25;
     margin-bottom:6px;
+    text-align:left;
   }
   .tier-sub{
     font-size:.85rem;
     color:#b99f87;
     font-weight:600;
     letter-spacing:.04em;
-    text-transform:uppercase;
     margin-bottom:12px;
+    text-align:left;
   }
   .tier-desc{
     font-size:.9rem;
     color:#5a4f43;
     line-height:1.7;
     margin-bottom:12px;
+    text-align:left;
   }
   .tier-desc strong{color:#2c2824;}
 
@@ -110,6 +113,7 @@
     flex-direction:column;
     gap:8px;
     margin-top:12px;
+    text-align:left;
   }
   .tier-gifts li{
     display:flex;
@@ -118,6 +122,7 @@
     font-size:.88rem;
     color:#5a4f43;
     line-height:1.55;
+    text-align:left;
   }
   .tier-gifts li i{
     color:#c4a47c;
@@ -147,6 +152,7 @@
     font-size:.88rem;
     color:#5a4f43;
     line-height:1.75;
+    text-align:left;
   }
   .info-note strong{color:#2c2824;}
   .info-note .row{
@@ -154,6 +160,7 @@
     align-items:flex-start;
     gap:10px;
     margin-bottom:10px;
+    text-align:left;
   }
   .info-note .row:last-child{margin-bottom:0;}
   .info-note .row i{color:#c4a47c;margin-top:4px;flex:0 0 16px;}
@@ -220,8 +227,10 @@
   <h1>Annual Client Appreciation</h1>
   <p>2026 Exclusive Offers · Limited Inventory & Gifts</p>
   <p class="intro">
-    It’s that time of year again! <br>We’re excited to share our Annual Client Appreciation offers with you.<br>
-    Due to limited inventory and gift quantities<br>VIP clients can pre-order early to secure your preferred products & gifts before they run out.
+    It’s that time of year again!<br>
+    We’re excited to share our Annual Client Appreciation offers with you.<br>
+    Due to limited inventory and gift quantities,<br>
+    VIP clients can pre-order early to secure your preferred products & gifts before they run out.
   </p>
 </section>
 
@@ -230,6 +239,8 @@
   <!-- ============ SKINCARE PROMOTION ============ -->
   <div class="section-header">
     <h2>✨ Skincare Promotion ✨</h2>
+    <div class="divider"></div>
+  </div>
 
   <div class="tier-list">
 
@@ -252,8 +263,8 @@
       <div class="tier-content">
         <div class="tier-title">Silver — Purchase over $750</div>
         <div class="tier-desc">
-          Purchase over <strong>$750</strong> pre-tax / after discounts.
-          <br>SkinBetter purchases count toward this Tier.
+          Purchase over <strong>$750</strong> pre-tax / after discounts.<br>
+          SkinBetter purchases count toward this Tier.
         </div>
         <ul class="tier-gifts">
           <li><i class="fas fa-gift"></i> Receive a <strong>SkinCeuticals Gift</strong></li>
@@ -267,8 +278,8 @@
       <div class="tier-content">
         <div class="tier-title">Gold — Purchase over $950</div>
         <div class="tier-desc">
-          Purchase over <strong>$950</strong> pre-tax / after discounts.
-          <br>SkinBetter purchases count toward this Tier.
+          Purchase over <strong>$950</strong> pre-tax / after discounts.<br>
+          SkinBetter purchases count toward this Tier.
         </div>
         <ul class="tier-gifts">
           <li><i class="fas fa-gift"></i> Receive a <strong>SkinBetter Deluxe Travel Gift</strong> ($400 value)</li>
