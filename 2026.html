@@ -18,22 +18,18 @@
   .container{max-width:960px;margin:0 auto;padding:0 24px;}
 
   /* ============ Hero ============ */
-.hero{
-  background:#5a4c3e;
-  color:#f7f0e4;
-  text-align:center;
-  padding:72px 20px 64px;
-}
+  .hero{
+    background:#5a4c3e;
+    color:#f7f0e4;
+    text-align:center;
+    padding:72px 20px 64px;
+  }
   .hero h1{
     font-family:'Cormorant Garamond',serif;
     font-size:3.2rem;font-weight:600;letter-spacing:.02em;margin-bottom:16px;
     color:#f7f0e4;
   }
   .hero p{font-size:1rem;opacity:.9;max-width:620px;margin:0 auto;}
-  .hero .intro{
-    font-size:.95rem;opacity:.82;max-width:620px;margin:18px auto 0;
-    line-height:1.7;
-  }
 
   /* ============ Section header ============ */
   .section-header{text-align:center;margin:56px 0 28px;}
@@ -63,7 +59,6 @@
     box-shadow:0 10px 24px rgba(0,0,0,.06);
   }
 
-  /* 左侧等级徽章 */
   .tier-badge{
     flex:0 0 72px;
     height:72px;
@@ -82,7 +77,6 @@
   .tier-badge.t2{background:linear-gradient(135deg,#8fa6d9 0%,#5e79b5 100%);}
   .tier-badge.t3{background:linear-gradient(135deg,#c78fe0 0%,#9451b6 100%);}
 
-  /* 右侧内容 */
   .tier-content{flex:1;min-width:0;text-align:left;}
   .tier-title{
     font-family:'Cormorant Garamond',serif;
@@ -169,7 +163,7 @@
   .info-note .row i{color:#c4a47c;margin-top:4px;flex:0 0 16px;}
 
   /* ============ CTA ============ */
-  .cta-wrap{text-align:center;margin:48px 0 16px;}
+  .cta-wrap{text-align:center;margin:36px 0 16px;}
   .cta-btn{
     display:inline-block;
     background:#b99f87;
@@ -189,14 +183,6 @@
     box-shadow:0 10px 22px rgba(185,159,135,.45);
   }
 
-  .contact-note{
-    text-align:center;
-    font-size:.85rem;
-    color:#9b8b7c;
-    margin-top:18px;
-    line-height:1.8;
-  }
-
   /* ============ Footer ============ */
   .footer{
     text-align:center;
@@ -212,7 +198,6 @@
     .container{padding:0 16px;}
     .hero h1{font-size:2rem;}
     .hero{padding:52px 16px 44px;}
-    .hero .intro{font-size:.88rem;}
     .section-header{margin:40px 0 20px;}
     .section-header h2{font-size:1.6rem;}
     .tier-card{flex-direction:column;gap:16px;padding:22px 22px;}
@@ -288,6 +273,24 @@
 
   </div>
 
+  <!-- ============ 取货 / 运费 / CTA（移到 Treatments 上方） ============ -->
+  <div class="info-note">
+    <div class="row">
+      <i class="fas fa-calendar-check"></i>
+      <div><strong>Product pick up date:</strong> Wednesday, October 21st (10am – 5pm)</div>
+    </div>
+    <div class="row">
+      <i class="fas fa-truck"></i>
+      <div><strong>FREE SHIPPING</strong> over $75. Due to high volume orders, delivery may be delayed.</div>
+    </div>
+  </div>
+
+  <div class="cta-wrap">
+    <a class="cta-btn" href="https://mia-technician.github.io/promo/order.html" target="_blank">
+      🛍️ View the Product Menu & Place Order
+    </a>
+  </div>
+
   <!-- ============ NON-PHYSICIAN TREATMENTS ============ -->
   <div class="section-header">
     <h2>✨ Mix & Match Non-Physician Treatments Packages ✨</h2>
@@ -335,25 +338,6 @@
       </div>
     </div>
 
-  </div>
-
-  <!-- ============ 注意事项 ============ -->
-  <div class="info-note">
-    <div class="row">
-      <i class="fas fa-calendar-check"></i>
-      <div><strong>Product pick up date:</strong> Wednesday, October 21st (10am – 5pm)</div>
-    </div>
-    <div class="row">
-      <i class="fas fa-truck"></i>
-      <div><strong>FREE SHIPPING</strong> over $75. Due to high volume orders, delivery may be delayed.</div>
-    </div>
-  </div>
-
-  <!-- ============ CTA ============ -->
-  <div class="cta-wrap">
-    <a class="cta-btn" href="https://mia-technician.github.io/promo/order.html" target="_blank">
-      🛍️ View the Product Menu & Place Order
-    </a>
   </div>
 
 </div>
