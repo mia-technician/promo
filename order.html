@@ -124,9 +124,15 @@
     padding:1rem 1.1rem;transition:.2s;flex-wrap:wrap;
   }
   .promo-item:hover{border-color:#d2c0b0;}
+  .promo-item.featured{
+    background:linear-gradient(135deg,#fff9f2 0%,#fdf3e7 100%);
+    border:2px solid #d9c5b0;
+  }
   .promo-info{flex:1;min-width:200px;}
   .promo-title{font-size:.85rem;font-weight:700;color:#5f5347;line-height:1.4;}
   .promo-desc{font-size:.75rem;color:#b7a99a;line-height:1.55;margin-top:.3rem;}
+  .promo-desc ul{margin-top:.4rem;padding-left:1.1rem;}
+  .promo-desc li{margin-bottom:.2rem;}
   .promo-action{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;}
   .promo-apply-btn{
     background:#b99f87;color:#fff;border:none;padding:.45rem 1.2rem;
@@ -236,7 +242,7 @@
   <div id="summaryPage" class="order-summary">
     <div class="header">
       <h1>Order Summary</h1>
-      <p>Review your order and submit, No need to pay right now. Mia will confirm your order & proceed.</p>
+      <p>Review your order and submit. No need to pay right now. Mia will confirm your order & proceed.</p>
     </div>
 
     <div class="summary-card">
@@ -250,6 +256,11 @@
 
       <div class="totals" id="summaryTotals">
         <div><span>Subtotal</span><span>$<span id="subtotal">0.00</span></span></div>
+
+        <div id="annualSaleDiscountRow" style="display:none;color:#2d6a4f;font-weight:600;">
+          <span>🎉 2026 Annual Sale <span id="annualSaleDiscountNote" style="font-size:.72rem;font-weight:400;color:#7a9e7e;"></span></span>
+          <span>−$<span id="annualSaleDiscountAmount">0.00</span></span>
+        </div>
 
         <div id="groupDiscountRow" style="display:none;color:#2d6a4f;font-weight:600;">
           <span>🏷️ Group Discount <span style="font-size:.72rem;font-weight:400;color:#7a9e7e;">(15% off eligible items)</span></span>
@@ -275,6 +286,28 @@
       </p>
 
       <div class="promo-list" id="promoList">
+
+        <!-- Promo 0: 2026 Annual Sale -->
+        <div class="promo-item featured" data-promo="annualSale">
+          <div class="promo-info">
+            <div class="promo-title">🎉 2026 Annual Sale</div>
+            <div class="promo-desc">
+              Limited-time offer · Ends Oct 24, 2026 · Limited products & gifts, first come first served.
+              <ul>
+                <li><strong>Tier 1:</strong> Buy 3+ eligible items, get 20% off (SkinBetter and Latisse excluded).</li>
+                <li><strong>Tier 2:</strong> After-discount, pre-tax order total reaches $750 → FREE SkinCeuticals gift.</li>
+                <li><strong>Tier 3:</strong> After-discount, pre-tax order total reaches $950 → FREE SkinBetter Travel Gift Pack ($400 value) + complimentary express microdermabrasion facial + entry into lucky draw for a SkinCeuticals basket ($500 value).</li>
+              </ul>
+              Cannot be combined with Birthday or 90 Days promos.
+            </div>
+          </div>
+          <div class="promo-action">
+            <button class="promo-apply-btn" data-promo="annualSale">Apply</button>
+          </div>
+          <div class="promo-extra" id="promoExtra-annualSale">
+            <div class="promo-msg" id="promoMsg-annualSale" style="display:none;"></div>
+          </div>
+        </div>
 
         <!-- Promo 1: Birthday -->
         <div class="promo-item" data-promo="birthday">
@@ -472,10 +505,16 @@ const GROUP_EXCLUDED_BRAND = "SKINBETTER";
 const GROUP_EXCLUDED_PRODUCT_KEYWORD = "LATISSE";
 
 // ==================== 90 天回购规则 ====================
-// 门槛：原价购买的产品小计（税前）≥ $500
-// 特价产品不算；Group 折扣生效时此 Promo 不可用
 const REPURCHASE_THRESHOLD = 500;
 const REPURCHASE_GIFT = "FREE Microdermabrasion Facial (valued $200)";
+
+// ==================== 2026 Annual Sale 规则 ====================
+const ANNUAL_SALE_EXCLUDED_BRAND = "SKINBETTER";
+const ANNUAL_SALE_EXCLUDED_PRODUCT_KEYWORD = "LATISSE";
+const ANNUAL_SALE_TIER1_MIN_QTY = 3;
+const ANNUAL_SALE_TIER1_PERCENT = 0.20;
+const ANNUAL_SALE_TIER2_THRESHOLD = 750;
+const ANNUAL_SALE_TIER3_THRESHOLD = 950;
 
 // ==================== Supabase ====================
 const SUPABASE_URL = "https://dmrskyskryrdclknezth.supabase.co";
@@ -488,6 +527,9 @@ let currentBrand = "";
 let cart = [];
 let appliedPromos = { birthday: null };
 let repurchaseEligible = false;
+let annualSaleApplied = false;
+let annualSaleDiscount = 0;
+let annualSaleTier = 0;
 
 // ==================== 加载产品 ====================
 async function loadProducts() {
@@ -725,6 +767,83 @@ function calculateGroupDiscount() {
   return discount;
 }
 
+// ==================== 2026 Annual Sale 判断 ====================
+function isAnnualSaleEligibleItem(item) {
+  const brand = (item.brand || '').toUpperCase();
+  const name = (item.name || '').toUpperCase();
+  if (brand === ANNUAL_SALE_EXCLUDED_BRAND) return false;
+  if (name.includes(ANNUAL_SALE_EXCLUDED_PRODUCT_KEYWORD)) return false;
+  return true;
+}
+
+function isCountedForTierTotal(item) {
+  const name = (item.name || '').toUpperCase();
+  if (name.includes(ANNUAL_SALE_EXCLUDED_PRODUCT_KEYWORD)) return false;
+  return true;
+}
+
+function calculateAnnualSaleDiscount() {
+  const eligibleItems = cart.filter(isAnnualSaleEligibleItem);
+  const totalQty = eligibleItems.reduce((s, it) => s + it.qty, 0);
+  const eligibleSubtotal = eligibleItems.reduce((s, it) => s + Number(it.price) * it.qty, 0);
+
+  if (totalQty < ANNUAL_SALE_TIER1_MIN_QTY) {
+    return {
+      discount: 0,
+      tier: 0,
+      message: `Add ${ANNUAL_SALE_TIER1_MIN_QTY - totalQty} more eligible item(s) to unlock 20% off (Tier 1). SkinBetter and Latisse excluded.`
+    };
+  }
+
+  const discount = eligibleSubtotal * ANNUAL_SALE_TIER1_PERCENT;
+
+  // Tier 2/3：整单折后税前总额（SkinBetter 原价计入，Latisse 不计入）
+  let countedTotal = 0;
+  cart.forEach(item => {
+    if (!isCountedForTierTotal(item)) return;
+    const itemTotal = Number(item.price) * item.qty;
+    if (isAnnualSaleEligibleItem(item)) {
+      countedTotal += itemTotal * (1 - ANNUAL_SALE_TIER1_PERCENT);
+    } else {
+      countedTotal += itemTotal;
+    }
+  });
+
+  let tier = 1;
+  let giftMsg = '';
+  if (countedTotal >= ANNUAL_SALE_TIER3_THRESHOLD) {
+    tier = 3;
+    giftMsg = ` 🏆 Tier 3 unlocked: FREE SkinBetter Travel Gift Pack ($400 value) + complimentary express microdermabrasion facial + entry into lucky draw for a SkinCeuticals basket ($500 value).`;
+  } else if (countedTotal >= ANNUAL_SALE_TIER2_THRESHOLD) {
+    tier = 2;
+    giftMsg = ` 🎁 Tier 2 unlocked: FREE SkinCeuticals gift.`;
+  }
+
+  return {
+    discount,
+    tier,
+    message: `🎉 20% off ${totalQty} eligible item(s) — you save $${discount.toFixed(2)}!${giftMsg}`
+  };
+}
+
+function checkAnnualSale() {
+  if (isGroupOrder()) {
+    return { ok: false, discount: 0, tier: 0, message: '2026 Annual Sale cannot be combined with the Group discount.' };
+  }
+  if (appliedPromos.birthday) {
+    return { ok: false, discount: 0, tier: 0, message: '2026 Annual Sale cannot be combined with the Birthday promo. Remove the Birthday promo first.' };
+  }
+  if (repurchaseEligible) {
+    return { ok: false, discount: 0, tier: 0, message: '2026 Annual Sale cannot be combined with the 90 Days Repurchase promo. Remove that promo first.' };
+  }
+
+  const result = calculateAnnualSaleDiscount();
+  if (result.tier === 0) {
+    return { ok: false, discount: 0, tier: 0, message: result.message };
+  }
+  return { ok: true, discount: result.discount, tier: result.tier, message: result.message };
+}
+
 // ==================== Birthday 折扣判断 ====================
 function checkBirthdayPromo() {
   const bdayInput = document.getElementById('birthdayInput').value;
@@ -753,24 +872,21 @@ function checkBirthdayPromo() {
 }
 
 // ==================== 90 天回购判断 ====================
-// 只统计原价购买的产品（特价产品不算）
-// 返回符合条件产品的小计（税前）
 function getEligibleRepurchaseTotal() {
   let total = 0;
   cart.forEach(item => {
-    if (item.isSale) return;   // 特价产品不算
+    if (item.isSale) return;
     total += Number(item.price) * item.qty;
   });
   return total;
 }
 
 function checkRepurchasePromo() {
-  // Group 生效时不可用
   if (isGroupOrder()) {
-    return {
-      ok: false,
-      message: 'This promo cannot be combined with the Group discount.'
-    };
+    return { ok: false, message: 'This promo cannot be combined with the Group discount.' };
+  }
+  if (annualSaleApplied) {
+    return { ok: false, message: 'This promo cannot be combined with the 2026 Annual Sale. Remove Annual Sale first.' };
   }
   const eligibleTotal = getEligibleRepurchaseTotal();
   if (eligibleTotal >= REPURCHASE_THRESHOLD) {
@@ -789,13 +905,70 @@ function checkRepurchasePromo() {
 
 // ==================== Apply Promo ====================
 function applyPromo(promoKey) {
+  console.log('applyPromo clicked:', promoKey);
+
   if (isGroupOrder()) {
     alert('Group discount is active. Other promotions cannot be combined.');
     return;
   }
+
+  // ===== Annual Sale：单击直接判断 =====
+  if (promoKey === 'annualSale') {
+    console.log('Annual Sale clicked, cart:', cart);
+
+    const btn = document.querySelector('.promo-apply-btn[data-promo="annualSale"]');
+    const msg = document.getElementById('promoMsg-annualSale');
+    const extra = document.getElementById('promoExtra-annualSale');
+
+    if (!btn || !msg || !extra) {
+      console.error('Annual Sale elements missing');
+      return;
+    }
+
+    // 清掉其它互斥 promo
+    appliedPromos.birthday = null;
+    repurchaseEligible = false;
+    ['birthday', 'repurchase90'].forEach(k => {
+      const b = document.querySelector(`.promo-apply-btn[data-promo="${k}"]`);
+      if (b) { b.classList.remove('applied'); b.innerText = 'Apply'; }
+      const m = document.getElementById(`promoMsg-${k}`);
+      if (m) m.style.display = 'none';
+      const e = document.getElementById(`promoExtra-${k}`);
+      if (e) e.classList.remove('show');
+    });
+
+    // 打开并立即判断
+    extra.classList.add('show');
+    const result = checkAnnualSale();
+    console.log('Annual Sale result:', result);
+
+    msg.style.display = 'block';
+
+    if (result.ok) {
+      annualSaleApplied = true;
+      annualSaleDiscount = result.discount;
+      annualSaleTier = result.tier;
+      msg.className = 'promo-msg ok';
+      msg.innerText = result.message;
+      btn.classList.add('applied');
+      btn.innerText = 'Applied ✓';
+    } else {
+      annualSaleApplied = false;
+      annualSaleDiscount = 0;
+      annualSaleTier = 0;
+      msg.className = 'promo-msg no';
+      msg.innerText = result.message;
+    }
+    updateTotals();
+    return;
+  }
+
+  // ===== 其它 promo：保持两步逻辑 =====
   const btn = document.querySelector(`.promo-apply-btn[data-promo="${promoKey}"]`);
   const extra = document.getElementById(`promoExtra-${promoKey}`);
   const msg = document.getElementById(`promoMsg-${promoKey}`);
+
+  if (!btn || !extra || !msg) return;
 
   if (!extra.classList.contains('show')) {
     extra.classList.add('show');
@@ -804,6 +977,17 @@ function applyPromo(promoKey) {
   }
 
   if (promoKey === 'birthday') {
+    if (annualSaleApplied) {
+      annualSaleApplied = false;
+      annualSaleDiscount = 0;
+      annualSaleTier = 0;
+      const ab = document.querySelector('.promo-apply-btn[data-promo="annualSale"]');
+      if (ab) { ab.classList.remove('applied'); ab.innerText = 'Apply'; }
+      const am = document.getElementById('promoMsg-annualSale');
+      if (am) am.style.display = 'none';
+      const ae = document.getElementById('promoExtra-annualSale');
+      if (ae) ae.classList.remove('show');
+    }
     const result = checkBirthdayPromo();
     msg.style.display = 'block';
     if (result.ok) {
@@ -821,6 +1005,17 @@ function applyPromo(promoKey) {
   }
 
   if (promoKey === 'repurchase90') {
+    if (annualSaleApplied) {
+      annualSaleApplied = false;
+      annualSaleDiscount = 0;
+      annualSaleTier = 0;
+      const ab = document.querySelector('.promo-apply-btn[data-promo="annualSale"]');
+      if (ab) { ab.classList.remove('applied'); ab.innerText = 'Apply'; }
+      const am = document.getElementById('promoMsg-annualSale');
+      if (am) am.style.display = 'none';
+      const ae = document.getElementById('promoExtra-annualSale');
+      if (ae) ae.classList.remove('show');
+    }
     const result = checkRepurchasePromo();
     msg.style.display = 'block';
     if (result.ok) {
@@ -834,6 +1029,7 @@ function applyPromo(promoKey) {
       msg.className = 'promo-msg no';
       msg.innerText = result.message;
     }
+    updateTotals();
   }
 }
 
@@ -842,10 +1038,11 @@ function updateTotals() {
   const rawSubtotal = cart.reduce((sum, item) => sum + Number(item.price) * item.qty, 0);
   const groupActive = isGroupOrder();
 
+  const annualDisc = (annualSaleApplied && !groupActive) ? annualSaleDiscount : 0;
   const groupDiscount = groupActive ? calculateGroupDiscount() : 0;
-  const bdayDiscount = groupActive ? 0 : (appliedPromos.birthday || 0);
+  const bdayDiscount = (groupActive || annualSaleApplied) ? 0 : (appliedPromos.birthday || 0);
 
-  const totalDiscount = groupDiscount + bdayDiscount;
+  const totalDiscount = annualDisc + groupDiscount + bdayDiscount;
   const subtotal = Math.max(0, rawSubtotal - totalDiscount);
   const gst = subtotal * 0.05;
   const pst = subtotal * 0.07;
@@ -855,6 +1052,16 @@ function updateTotals() {
   document.getElementById('gst').innerText = gst.toFixed(2);
   document.getElementById('pst').innerText = pst.toFixed(2);
   document.getElementById('grandTotal').innerText = total.toFixed(2);
+
+  const asRow = document.getElementById('annualSaleDiscountRow');
+  if (annualDisc > 0) {
+    asRow.style.display = 'flex';
+    document.getElementById('annualSaleDiscountAmount').innerText = annualDisc.toFixed(2);
+    const tierLabel = annualSaleTier === 3 ? '(Tier 3 · 20% off)' : annualSaleTier === 2 ? '(Tier 2 · 20% off)' : '(Tier 1 · 20% off)';
+    document.getElementById('annualSaleDiscountNote').innerText = tierLabel;
+  } else {
+    asRow.style.display = 'none';
+  }
 
   const groupRow = document.getElementById('groupDiscountRow');
   if (groupDiscount > 0) {
@@ -930,12 +1137,35 @@ document.getElementById('customerName').addEventListener('input', () => {
     const msg = document.getElementById('promoMsg-birthday');
     if (msg) msg.style.display = 'none';
   }
+  if (isGroupOrder() && annualSaleApplied) {
+    annualSaleApplied = false;
+    annualSaleDiscount = 0;
+    annualSaleTier = 0;
+    const ab = document.querySelector('.promo-apply-btn[data-promo="annualSale"]');
+    if (ab) { ab.classList.remove('applied'); ab.innerText = 'Apply'; }
+    const am = document.getElementById('promoMsg-annualSale');
+    if (am) am.style.display = 'none';
+    const ae = document.getElementById('promoExtra-annualSale');
+    if (ae) ae.classList.remove('show');
+  }
+  if (isGroupOrder() && repurchaseEligible) {
+    repurchaseEligible = false;
+    const rb = document.querySelector('.promo-apply-btn[data-promo="repurchase90"]');
+    if (rb) { rb.classList.remove('applied'); rb.innerText = 'Apply'; }
+    const rm = document.getElementById('promoMsg-repurchase90');
+    if (rm) rm.style.display = 'none';
+    const re = document.getElementById('promoExtra-repurchase90');
+    if (re) re.classList.remove('show');
+  }
   updateTotals();
 });
 
 // ==================== Apply 按钮绑定 ====================
-document.querySelectorAll('.promo-apply-btn').forEach(btn => {
-  btn.onclick = () => applyPromo(btn.dataset.promo);
+// 用事件委托，避免元素未绑定时点击无反应
+document.getElementById('promoList').addEventListener('click', (e) => {
+  const btn = e.target.closest('.promo-apply-btn');
+  if (!btn) return;
+  applyPromo(btn.dataset.promo);
 });
 
 // ==================== Email ====================
@@ -978,6 +1208,7 @@ function emailToMia() {
   if (payments.length === 0) { alert('Please select at least one payment method.'); return; }
 
   const rawSubtotal = parseFloat(document.getElementById('subtotal').innerText);
+  const annualSaleDisc = parseFloat(document.getElementById('annualSaleDiscountAmount').innerText) || 0;
   const groupDiscount = parseFloat(document.getElementById('groupDiscountAmount').innerText) || 0;
   const bdayDiscount = parseFloat(document.getElementById('birthdayDiscountAmount').innerText) || 0;
   const gst = parseFloat(document.getElementById('gst').innerText);
@@ -997,6 +1228,19 @@ function emailToMia() {
   });
   body += `------------------------------\n`;
   body += `Subtotal: $${rawSubtotal.toFixed(2)}\n`;
+
+  if (annualSaleDisc > 0) {
+    const tierText = annualSaleTier === 3 ? 'Tier 3' : annualSaleTier === 2 ? 'Tier 2' : 'Tier 1';
+    body += `🎉 2026 Annual Sale (${tierText}, 20% off eligible items): -$${annualSaleDisc.toFixed(2)}\n`;
+    if (annualSaleTier === 2) {
+      body += `   Gift: FREE SkinCeuticals gift (after-discount & pre-tax total reached $750)\n`;
+    }
+    if (annualSaleTier === 3) {
+      body += `   Gift: FREE SkinBetter Travel Gift Pack ($400 value)\n`;
+      body += `   Gift: complimentary express microdermabrasion facial\n`;
+      body += `   Gift: entry into lucky draw for SkinCeuticals basket ($500 value)\n`;
+    }
+  }
   if (groupDiscount > 0) {
     body += `🏷️ Group Discount (15% off eligible items): -$${groupDiscount.toFixed(2)}\n`;
   }
