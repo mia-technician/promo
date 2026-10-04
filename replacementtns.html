@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Dr. Shah's Recommendation | TNS Advanced+ & Retinol Replacement</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:#faf8f5;
+    font-family:'Inter',sans-serif;
+    color:#2c2824;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .container{max-width:860px;margin:0 auto;padding:0 24px;}
+
+  /* ============ Hero ============ */
+  .hero{
+    background:#5a4c3e;
+    color:#f7f0e4;
+    text-align:center;
+    padding:72px 20px 64px;
+  }
+  .hero .badge{
+    display:inline-block;
+    background:rgba(247,240,228,.15);
+    color:#f7f0e4;
+    font-size:.75rem;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    padding:6px 18px;
+    border-radius:999px;
+    margin-bottom:20px;
+  }
+  .hero h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:2.8rem;
+    font-weight:600;
+    letter-spacing:.01em;
+    margin-bottom:16px;
+    color:#f7f0e4;
+    line-height:1.2;
+  }
+  .hero p{
+    font-size:.95rem;
+    opacity:.88;
+    max-width:640px;
+    margin:0 auto;
+    line-height:1.75;
+  }
+
+  /* ============ Section ============ */
+  .section{margin:56px 0;}
+  .section h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.7rem;
+    font-weight:600;
+    color:#2c2824;
+    margin-bottom:16px;
+    line-height:1.3;
+  }
+  .section p{
+    font-size:.95rem;
+    color:#4a4540;
+    line-height:1.8;
+    margin-bottom:16px;
+  }
+  .section p:last-child{margin-bottom:0;}
+  .section strong{color:#2c2824;font-weight:600;}
+
+  .divider{
+    width:56px;height:2px;background:#c4a47c;
+    margin:24px auto;
+  }
+
+  /* ============ Transition 对比卡片 ============ */
+  .transition{
+    display:flex;
+    align-items:stretch;
+    gap:20px;
+    margin:32px 0;
+  }
+  .transition-card{
+    flex:1;
+    background:#fffdf9;
+    border:1px solid #eee5dc;
+    border-radius:22px;
+    padding:26px 24px;
+    text-align:center;
+  }
+  .transition-card.old{background:#f7f3ee;}
+  .transition-card.new{
+    background:linear-gradient(135deg,#fff9f2 0%,#fdf3e7 100%);
+    border:2px solid #d9c5b0;
+    box-shadow:0 8px 22px rgba(185,159,135,.15);
+  }
+  .transition-label{
+    font-size:.7rem;
+    font-weight:800;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#b7a99a;
+    margin-bottom:12px;
+  }
+  .transition-card.new .transition-label{color:#b99f87;}
+  .transition-card h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.35rem;
+    font-weight:600;
+    color:#2c2824;
+    margin-bottom:10px;
+    line-height:1.35;
+  }
+  .transition-card p{
+    font-size:.85rem;
+    color:#7a6e62;
+    line-height:1.6;
+    margin:0;
+  }
+  .transition-arrow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.6rem;
+    color:#c4a47c;
+    flex:0 0 40px;
+  }
+
+  /* ============ 对比列表 ============ */
+  .compare-list{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    margin-top:24px;
+  }
+  .compare-item{
+    background:#fffdf9;
+    border:1px solid #eee5dc;
+    border-radius:20px;
+    padding:24px 26px;
+  }
+  .compare-item h4{
+    font-size:1rem;
+    font-weight:700;
+    color:#2c2824;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .compare-item h4 i{color:#c4a47c;}
+  .compare-item p{
+    font-size:.9rem;
+    color:#4a4540;
+    line-height:1.75;
+    margin-bottom:10px;
+  }
+  .compare-item p:last-child{margin-bottom:0;}
+
+  /* ============ Highlight Box ============ */
+  .highlight{
+    background:linear-gradient(135deg,#fff9f2 0%,#fdf3e7 100%);
+    border:2px solid #d9c5b0;
+    border-radius:24px;
+    padding:32px 30px;
+    margin:40px 0;
+    text-align:center;
+  }
+  .highlight .label{
+    font-size:.7rem;
+    font-weight:800;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#b99f87;
+    margin-bottom:14px;
+  }
+  .highlight h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.9rem;
+    font-weight:600;
+    color:#2c2824;
+    margin-bottom:8px;
+    line-height:1.3;
+  }
+  .highlight p{
+    font-size:.9rem;
+    color:#5a4f43;
+    line-height:1.7;
+    max-width:600px;
+    margin:0 auto;
+  }
+
+  /* ============ Feature list ============ */
+  .feature-list{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:16px;
+  }
+  .feature-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    font-size:.9rem;
+    color:#4a4540;
+    line-height:1.7;
+  }
+  .feature-list li i{
+    color:#c4a47c;
+    margin-top:5px;
+    flex:0 0 18px;
+  }
+
+  /* ============ CTA ============ */
+  .cta-wrap{text-align:center;margin:56px 0 32px;}
+  .cta-btn{
+    display:inline-block;
+    background:#b99f87;
+    color:#fff;
+    padding:16px 44px;
+    border-radius:50px;
+    font-size:1rem;
+    font-weight:600;
+    text-decoration:none;
+    letter-spacing:.03em;
+    transition:all .2s;
+    box-shadow:0 6px 16px rgba(185,159,135,.35);
+  }
+  .cta-btn:hover{
+    background:#9f8468;
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(185,159,135,.45);
+  }
+  .cta-note{
+    font-size:.88rem;
+    color:#7a6e62;
+    margin-top:22px;
+    line-height:1.9;
+  }
+  .cta-note a{
+    color:#b99f87;
+    text-decoration:none;
+    font-weight:600;
+  }
+  .cta-note a:hover{
+    text-decoration:underline;
+  }
+
+  /* ============ Footer ============ */
+  .footer{
+    text-align:center;
+    padding:44px 24px;
+    border-top:1px solid #e8dfd5;
+    color:#9b8b7c;
+    font-size:.75rem;
+    margin-top:56px;
+  }
+
+  /* ============ 响应式 ============ */
+  @media(max-width:700px){
+    .container{padding:0 16px;}
+    .hero{padding:52px 18px 44px;}
+    .hero h1{font-size:1.9rem;}
+    .hero p{font-size:.88rem;}
+    .section{margin:40px 0;}
+    .section h2{font-size:1.45rem;}
+    .section p{font-size:.9rem;}
+    .transition{flex-direction:column;gap:12px;}
+    .transition-arrow{transform:rotate(90deg);flex:0 0 auto;padding:6px 0;}
+    .compare-item{padding:20px 20px;}
+    .highlight{padding:26px 22px;}
+    .highlight h3{font-size:1.6rem;}
+    .cta-btn{width:100%;padding:15px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="badge">Updated Recommendation</div>
+  <h1>A Revised Anti-Aging Routine from Dr. Shah</h1>
+  <p>
+    Because SkinMedica TNS Advanced+ is currently not readily available in Canada,
+    Dr. Shah has prepared a revised recommendation for clients who have been using and loving
+    TNS Advanced+ and SkinMedica Retinol.
+  </p>
+</section>
+
+<div class="container">
+
+  <!-- ============ Why the change ============ -->
+  <div class="section">
+    <h2>Why we're making this change</h2>
+    <p>
+      SkinMedica TNS Advanced+ is currently <strong>not readily available in Canada</strong>.
+      For clients who have been using TNS Advanced+ and SkinMedica Retinol, Dr. Shah now recommends
+      replacing them with <strong>Functionalab EXO-GF + SkinBetter AlphaRet</strong>.
+    </p>
+    <p>
+      The new combination shares some important similarities with the original routine,
+      but also brings more advanced technologies into your skincare regimen.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ============ Transition overview ============ -->
+  <div class="section">
+    <h2>The revised routine</h2>
+
+    <div class="transition">
+      <div class="transition-card old">
+        <div class="transition-label">Previous Routine</div>
+        <h3>SkinMedica TNS Advanced+<br>+ SkinMedica Retinol</h3>
+        <p>Growth-factor-based rejuvenation + retinol-driven skin renewal.</p>
+      </div>
+      <div class="transition-arrow">→</div>
+      <div class="transition-card new">
+        <div class="transition-label">New Routine</div>
+        <h3>Functionalab EXO-GF<br>+ SkinBetter AlphaRet</h3>
+        <p>Exosome + growth-factor + NAD⁺ technology + advanced retinoid / AHA technology.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ============ Detailed comparison ============ -->
+  <div class="section">
+    <h2>How the new combination compares</h2>
+
+    <div class="compare-list">
+
+      <div class="compare-item">
+        <h4><i class="fas fa-leaf"></i> Functionalab EXO-GF</h4>
+        <p>
+          <strong>EXO-GF is the closest replacement for the regenerative role of TNS Advanced+.</strong>
+          TNS Advanced+ uses growth factors, peptides and supporting ingredients to improve the appearance
+          of firmness, fine lines, tone and texture.
+        </p>
+        <p>
+          EXO-GF takes a different and more advanced biotechnology approach by combining
+          <strong>exosomes, growth factors and NAD⁺</strong> to support skin renewal, firmness, density
+          and overall skin rejuvenation.
+        </p>
+      </div>
+
+      <div class="compare-item">
+        <h4><i class="fas fa-flask"></i> SkinBetter AlphaRet</h4>
+        <p>
+          SkinMedica Retinol Complex uses retinol with niacinamide, squalane, ceramides,
+          antioxidants and peptides.
+        </p>
+        <p>
+          <strong>AlphaRet</strong> uses a proprietary combination of a retinoid and AHA,
+          a peptide blend, ceramides, squalane, niacinamide, hyaluronic acid, and antioxidants
+          including vitamins C and E and CoQ10.
+        </p>
+        <p>
+          This makes AlphaRet a more comprehensive formulation: it combines retinoid renewal,
+          AHA exfoliation, peptide support, hydration and barrier support, and antioxidant protection
+          in one product. The advantage is not simply that AlphaRet is "stronger" — it's that SkinBetter
+          has developed a more sophisticated delivery and formulation approach to balance efficacy and
+          tolerability, making it an excellent option for consistent, long-term anti-aging use.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ Highlight ============ -->
+  <div class="highlight">
+    <div class="label">Not a Like-for-Like Replacement</div>
+    <h3>A more comprehensive &amp; advanced approach</h3>
+    <p>
+      The new routine is not simply a like-for-like replacement. Because these are different
+      technologies, we wouldn't describe the new combination as a direct ingredient-for-ingredient
+      equivalent. Instead, we consider it a more comprehensive and technologically advanced
+      anti-aging approach — addressing both regenerative support and active skin renewal.
+    </p>
+  </div>
+
+  <!-- ============ Why it works ============ -->
+  <div class="section">
+    <h2>Why this combination works</h2>
+
+    <ul class="feature-list">
+      <li>
+        <i class="fas fa-check-circle"></i>
+        <span><strong>Regenerative support:</strong> EXO-GF's exosome, growth factor and NAD⁺ technology supports skin renewal, firmness and density.</span>
+      </li>
+      <li>
+        <i class="fas fa-check-circle"></i>
+        <span><strong>Active renewal:</strong> AlphaRet's retinoid / AHA formulation supports cell turnover and smoother texture.</span>
+      </li>
+      <li>
+        <i class="fas fa-check-circle"></i>
+        <span><strong>Peptide + antioxidant support:</strong> Additional peptides, vitamins C &amp; E, and CoQ10 help protect and support the skin.</span>
+      </li>
+      <li>
+        <i class="fas fa-check-circle"></i>
+        <span><strong>Hydration &amp; barrier support:</strong> Ceramides, squalane, niacinamide and hyaluronic acid help maintain a healthy barrier.</span>
+      </li>
+      <li>
+        <i class="fas fa-check-circle"></i>
+        <span><strong>Balanced for long-term use:</strong> A sophisticated delivery and formulation approach balances efficacy with tolerability.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ============ Closing ============ -->
+  <div class="section">
+    <p>
+      We are making the change because TNS Advanced+ is no longer readily available in Canada,
+      and this gives us an opportunity to move you to an equally targeted — and in some aspects
+      more advanced — skincare combination.
+    </p>
+    <p>
+      <strong>EXO-GF + AlphaRet would be an excellent next step</strong> for maintaining and further
+      supporting your skin's firmness, texture, tone and overall rejuvenated appearance.
+    </p>
+  </div>
+
+  <!-- ============ CTA ============ -->
+  <div class="cta-wrap">
+    <a class="cta-btn" href="https://mia-technician.github.io/promo/order.html" target="_blank">
+      🛍️ View the Product Menu &amp; Place Order
+    </a>
+    <p class="cta-note">
+      Questions? Contact Mia directly:<br>
+      📞 Call / Text: <a href="tel:6045802464">604-580-2464</a><br>
+      ✉️ Email: <a href="mailto:mia@dermapure.com">mia@dermapure.com</a>
+    </p>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>✦ Dr. Shah's Recommendation ✦</p>
+  <p style="margin-top:8px;">© 2026 Mia @ BC Laser</p>
+</footer>
+
+</body>
+</html>
