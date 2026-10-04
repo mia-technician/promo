@@ -89,8 +89,10 @@
     background:#fffdf9;
     border:1px solid #eee5dc;
     border-radius:22px;
-    padding:26px 24px;
+    padding:26px 22px;
     text-align:center;
+    display:flex;
+    flex-direction:column;
   }
   .transition-card.old{background:#f7f3ee;}
   .transition-card.new{
@@ -104,12 +106,40 @@
     letter-spacing:.14em;
     text-transform:uppercase;
     color:#b7a99a;
-    margin-bottom:12px;
+    margin-bottom:16px;
   }
   .transition-card.new .transition-label{color:#b99f87;}
+
+  /* 产品图片区 */
+  .product-imgs{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    margin-bottom:18px;
+  }
+  .product-imgs .img-box{
+    flex:1;
+    max-width:120px;
+    aspect-ratio:1 / 1;
+    background:#f1e8e0;
+    border:1px solid #e2d4c6;
+    border-radius:14px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:6px;
+  }
+  .product-imgs .img-box img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+  }
+
   .transition-card h3{
     font-family:'Cormorant Garamond',serif;
-    font-size:1.35rem;
+    font-size:1.25rem;
     font-weight:600;
     color:#2c2824;
     margin-bottom:10px;
@@ -142,7 +172,26 @@
     border:1px solid #eee5dc;
     border-radius:20px;
     padding:24px 26px;
+    display:flex;
+    gap:22px;
+    align-items:flex-start;
   }
+  .compare-item .compare-img{
+    flex:0 0 100px;
+    height:100px;
+    background:#f1e8e0;
+    border:1px solid #e2d4c6;
+    border-radius:14px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:6px;
+  }
+  .compare-item .compare-img img{
+    width:100%;height:100%;object-fit:contain;display:block;
+  }
+  .compare-item .compare-text{flex:1;min-width:0;}
   .compare-item h4{
     font-size:1rem;
     font-weight:700;
@@ -242,14 +291,8 @@
     margin-top:22px;
     line-height:1.9;
   }
-  .cta-note a{
-    color:#b99f87;
-    text-decoration:none;
-    font-weight:600;
-  }
-  .cta-note a:hover{
-    text-decoration:underline;
-  }
+  .cta-note a{color:#b99f87;text-decoration:none;font-weight:600;}
+  .cta-note a:hover{text-decoration:underline;}
 
   /* ============ Footer ============ */
   .footer{
@@ -272,7 +315,9 @@
     .section p{font-size:.9rem;}
     .transition{flex-direction:column;gap:12px;}
     .transition-arrow{transform:rotate(90deg);flex:0 0 auto;padding:6px 0;}
-    .compare-item{padding:20px 20px;}
+    .product-imgs .img-box{max-width:100px;}
+    .compare-item{flex-direction:column;padding:20px 20px;gap:14px;}
+    .compare-item .compare-img{flex:0 0 90px;width:90px;height:90px;}
     .highlight{padding:26px 22px;}
     .highlight h3{font-size:1.6rem;}
     .cta-btn{width:100%;padding:15px 20px;}
@@ -310,17 +355,39 @@
     <h2>The revised routine</h2>
 
     <div class="transition">
+
+      <!-- Old Routine -->
       <div class="transition-card old">
         <div class="transition-label">Previous Routine</div>
+        <div class="product-imgs">
+          <div class="img-box">
+            <img src="https://static.wixstatic.com/media/11a6e1_8eb00266d932471483652b5a40828272~mv2.jpg" alt="SkinMedica TNS Advanced+">
+          </div>
+          <div class="img-box">
+            <img src="https://static.wixstatic.com/media/11a6e1_4f3763842728442482947369cfee0b18~mv2.png" alt="SkinMedica Retinol Complex">
+          </div>
+        </div>
         <h3>SkinMedica TNS Advanced+<br>+ SkinMedica Retinol</h3>
         <p>Growth-factor-based rejuvenation + retinol-driven skin renewal.</p>
       </div>
+
       <div class="transition-arrow">→</div>
+
+      <!-- New Routine -->
       <div class="transition-card new">
         <div class="transition-label">New Routine</div>
+        <div class="product-imgs">
+          <div class="img-box">
+            <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/product-images/exogf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJwcm9kdWN0LWltYWdlcy9leG9nZiIsImlhdCI6MTc3NzYwNjUxMiwiZXhwIjo0ODk5NjcwNTEyfQ.JubnI1SLidif6R10T_77fRcfPuPeVHOwQof0he4R6tY" alt="Functionalab EXO-GF">
+          </div>
+          <div class="img-box">
+            <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/product-images/alpharetovernight?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJwcm9kdWN0LWltYWdlcy9hbHBoYXJldG92ZXJuaWdodCIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODU1MjQzNTUsImV4cCI6NDkwNzU4ODM1NX0.VP6eFHEz9ZLr87ZzIMY7uscERexx5kn71nhvX3MYxf8" alt="SkinBetter AlphaRet">
+          </div>
+        </div>
         <h3>Functionalab EXO-GF<br>+ SkinBetter AlphaRet</h3>
         <p>Exosome + growth-factor + NAD⁺ technology + advanced retinoid / AHA technology.</p>
       </div>
+
     </div>
   </div>
 
@@ -333,37 +400,47 @@
     <div class="compare-list">
 
       <div class="compare-item">
-        <h4><i class="fas fa-leaf"></i> Functionalab EXO-GF</h4>
-        <p>
-          <strong>EXO-GF is the closest replacement for the regenerative role of TNS Advanced+.</strong>
-          TNS Advanced+ uses growth factors, peptides and supporting ingredients to improve the appearance
-          of firmness, fine lines, tone and texture.
-        </p>
-        <p>
-          EXO-GF takes a different and more advanced biotechnology approach by combining
-          <strong>exosomes, growth factors and NAD⁺</strong> to support skin renewal, firmness, density
-          and overall skin rejuvenation.
-        </p>
+        <div class="compare-img">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/product-images/exogf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJwcm9kdWN0LWltYWdlcy9leG9nZiIsImlhdCI6MTc3NzYwNjUxMiwiZXhwIjo0ODk5NjcwNTEyfQ.JubnI1SLidif6R10T_77fRcfPuPeVHOwQof0he4R6tY" alt="Functionalab EXO-GF">
+        </div>
+        <div class="compare-text">
+          <h4><i class="fas fa-leaf"></i> Functionalab EXO-GF</h4>
+          <p>
+            <strong>EXO-GF is the closest replacement for the regenerative role of TNS Advanced+.</strong>
+            TNS Advanced+ uses growth factors, peptides and supporting ingredients to improve the appearance
+            of firmness, fine lines, tone and texture.
+          </p>
+          <p>
+            EXO-GF takes a different and more advanced biotechnology approach by combining
+            <strong>exosomes, growth factors and NAD⁺</strong> to support skin renewal, firmness, density
+            and overall skin rejuvenation.
+          </p>
+        </div>
       </div>
 
       <div class="compare-item">
-        <h4><i class="fas fa-flask"></i> SkinBetter AlphaRet</h4>
-        <p>
-          SkinMedica Retinol Complex uses retinol with niacinamide, squalane, ceramides,
-          antioxidants and peptides.
-        </p>
-        <p>
-          <strong>AlphaRet</strong> uses a proprietary combination of a retinoid and AHA,
-          a peptide blend, ceramides, squalane, niacinamide, hyaluronic acid, and antioxidants
-          including vitamins C and E and CoQ10.
-        </p>
-        <p>
-          This makes AlphaRet a more comprehensive formulation: it combines retinoid renewal,
-          AHA exfoliation, peptide support, hydration and barrier support, and antioxidant protection
-          in one product. The advantage is not simply that AlphaRet is "stronger" — it's that SkinBetter
-          has developed a more sophisticated delivery and formulation approach to balance efficacy and
-          tolerability, making it an excellent option for consistent, long-term anti-aging use.
-        </p>
+        <div class="compare-img">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/product-images/alpharetovernight?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJwcm9kdWN0LWltYWdlcy9hbHBoYXJldG92ZXJuaWdodCIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODU1MjQzNTUsImV4cCI6NDkwNzU4ODM1NX0.VP6eFHEz9ZLr87ZzIMY7uscERexx5kn71nhvX3MYxf8" alt="SkinBetter AlphaRet">
+        </div>
+        <div class="compare-text">
+          <h4><i class="fas fa-flask"></i> SkinBetter AlphaRet</h4>
+          <p>
+            SkinMedica Retinol Complex uses retinol with niacinamide, squalane, ceramides,
+            antioxidants and peptides.
+          </p>
+          <p>
+            <strong>AlphaRet</strong> uses a proprietary combination of a retinoid and AHA,
+            a peptide blend, ceramides, squalane, niacinamide, hyaluronic acid, and antioxidants
+            including vitamins C and E and CoQ10.
+          </p>
+          <p>
+            This makes AlphaRet a more comprehensive formulation: it combines retinoid renewal,
+            AHA exfoliation, peptide support, hydration and barrier support, and antioxidant protection
+            in one product. The advantage is not simply that AlphaRet is "stronger" — it's that SkinBetter
+            has developed a more sophisticated delivery and formulation approach to balance efficacy and
+            tolerability, making it an excellent option for consistent, long-term anti-aging use.
+          </p>
+        </div>
       </div>
 
     </div>
