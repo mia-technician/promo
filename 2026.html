@@ -40,6 +40,27 @@
   .section-header .divider{width:56px;height:2px;background:#c4a47c;margin:12px auto;}
   .section-header p{color:#7a6e62;font-size:.85rem;}
 
+  /* ============ TNS replacement link ============ */
+  .tns-link-wrap{
+    text-align:center;
+    margin:0 0 28px;
+  }
+  .tns-link{
+    display:inline-block;
+    font-size:.88rem;
+    color:#b99f87;
+    font-weight:600;
+    text-decoration:none;
+    border-bottom:1px dashed #d9c5b0;
+    padding-bottom:2px;
+    transition:all .2s;
+  }
+  .tns-link:hover{
+    color:#8f7e6b;
+    border-bottom-color:#b99f87;
+  }
+  .tns-link i{margin-right:6px;}
+
   /* ============ Tier 卡片 ============ */
   .tier-list{display:flex;flex-direction:column;gap:20px;margin:28px 0;}
 
@@ -205,6 +226,7 @@
     .tier-title{font-size:1.35rem;}
     .info-note{padding:18px 20px;font-size:.85rem;}
     .cta-btn{width:100%;padding:15px 20px;}
+    .tns-link{font-size:.82rem;}
   }
 </style>
 </head>
@@ -222,6 +244,13 @@
   <div class="section-header">
     <h2>✨ Skincare Promotion ✨</h2>
     <div class="divider"></div>
+  </div>
+
+  <!-- TNS Replacement Link -->
+  <div class="tns-link-wrap">
+    <a class="tns-link" href="https://mia-technician.github.io/promo/tns-replacement.html" target="_blank">
+      <i class="fas fa-file-alt"></i>Using TNS Advanced+ &amp; Retinol? Read Dr. Shah's Updated Recommendation →
+    </a>
   </div>
 
   <div class="tier-list">
@@ -273,7 +302,7 @@
 
   </div>
 
-  <!-- ============ 取货 / 运费 / CTA（移到 Treatments 上方） ============ -->
+  <!-- ============ 取货 / 运费 / CTA ============ -->
   <div class="info-note">
     <div class="row">
       <i class="fas fa-calendar-check"></i>
