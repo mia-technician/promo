@@ -9,15 +9,13 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:#faf8f5;font-family:'Inter',sans-serif;color:#2c2824;line-height:1.65;-webkit-font-smoothing:antialiased;}
-  .container{max-width:1420px;margin:0 auto;padding:0 20px;}
+  .container{max-width:960px;margin:0 auto;padding:0 20px;}
 
-  /* Hero */
   .hero{background:#5a4c3e;color:#f7f0e4;text-align:center;padding:64px 20px 56px;}
   .hero .badge{display:inline-block;background:rgba(247,240,228,.15);color:#f7f0e4;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 18px;border-radius:999px;margin-bottom:18px;}
   .hero h1{font-family:'Cormorant Garamond',serif;font-size:2.3rem;font-weight:600;margin-bottom:12px;color:#f7f0e4;line-height:1.2;}
   .hero p{font-size:.9rem;opacity:.85;max-width:720px;margin:0 auto;line-height:1.7;}
 
-  /* 图例 */
   .legend{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 24px;font-size:.76rem;color:#7a6e62;}
   .legend span{display:inline-flex;align-items:center;gap:6px;background:#fffdf9;border:1px solid #eee5dc;border-radius:999px;padding:5px 13px;}
   .legend .dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
@@ -27,64 +25,52 @@
   .legend .dot.oily{background:#e6c258;}
   .legend .dot.fol{background:#7a9e7e;}
 
-  /* 表格 */
   .table-wrap{overflow-x:auto;border-radius:18px;border:1px solid #eee5dc;background:#fffdf9;box-shadow:0 6px 18px rgba(0,0,0,.04);-webkit-overflow-scrolling:touch;margin:0 0 32px;}
-  table{width:100%;border-collapse:collapse;font-size:.76rem;min-width:1380px;}
-  th,td{padding:11px 9px;text-align:center;border-bottom:1px solid #f0e8e0;vertical-align:middle;line-height:1.55;}
-  thead th{background:#f5efe8;color:#5f5347;font-weight:700;font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;position:sticky;top:0;}
+  table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:720px;}
+  th,td{padding:14px 12px;text-align:center;border-bottom:1px solid #f0e8e0;vertical-align:middle;line-height:1.55;}
+  thead th{background:#f5efe8;color:#5f5347;font-weight:700;font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;position:sticky;top:0;}
   thead th.left{text-align:left;}
   tbody tr:last-child td{border-bottom:none;}
   tbody tr:nth-child(even){background:#fdfaf6;}
 
-  /* 品牌列 */
-  td.brand{font-weight:700;color:#2c2824;min-width:115px;vertical-align:top;border-right:1px solid #eee5dc;text-align:left;}
-  td.brand .brand-name{display:block;font-size:.88rem;margin-bottom:3px;}
-  td.brand .brand-type{font-size:.66rem;color:#9b8b7c;font-weight:500;line-height:1.45;}
+  td.brand{font-weight:700;color:#2c2824;min-width:150px;vertical-align:middle;border-right:1px solid #eee5dc;text-align:left;}
+  td.brand .brand-name{display:block;font-size:.92rem;margin-bottom:3px;}
+  td.brand .brand-type{font-size:.68rem;color:#9b8b7c;font-weight:500;line-height:1.45;}
 
-  /* 浓度列 */
-  td.conc{font-weight:600;color:#5f5347;white-space:nowrap;font-size:.78rem;}
-  td.conc .conc-tag{display:inline-block;background:#f5efe8;border-radius:8px;padding:3px 8px;font-size:.72rem;font-weight:700;}
+  td.conc{font-weight:600;color:#5f5347;white-space:nowrap;font-size:.82rem;}
+  td.conc .conc-tag{display:inline-block;background:#f5efe8;border-radius:8px;padding:3px 10px;font-size:.74rem;font-weight:700;}
 
-  /* 星级列 */
-  td.stars{white-space:nowrap;font-size:.92rem;letter-spacing:.5px;}
+  td.stars{white-space:nowrap;font-size:1rem;letter-spacing:.5px;}
   td.stars.tol{color:#2d6a4f;}
   td.stars.str{color:#c93b2b;}
   td.stars.dry{color:#5e79b5;}
   td.stars.oily{color:#c19a2a;}
   td.stars.fol{color:#5c8a60;}
 
-  /* 优缺点 */
-  td.pros{color:#2d6a4f;min-width:160px;font-size:.72rem;text-align:left;}
-  td.cons{color:#c93b2b;min-width:140px;font-size:.72rem;text-align:left;}
-  td.best{color:#5a4f43;min-width:120px;font-size:.72rem;text-align:left;}
-  td.best strong{color:#2c2824;display:block;margin-bottom:2px;font-weight:700;}
-
-  /* 说明 */
   .note{background:#fff9f2;border:1px dashed #d2c0b0;border-radius:18px;padding:20px 24px;margin:28px 0;font-size:.85rem;color:#5a4f43;line-height:1.8;}
   .note strong{color:#2c2824;}
   .note ul{list-style:none;margin-top:10px;display:flex;flex-direction:column;gap:6px;}
   .note ul li{display:grid;grid-template-columns:16px 1fr;gap:8px;align-items:start;line-height:1.65;}
   .note ul li i{color:#c4a47c;margin-top:5px;font-size:.72rem;}
 
-  /* CTA */
   .cta-wrap{text-align:center;margin:48px 0 32px;}
   .cta-btn{display:inline-block;background:#b99f87;color:#fff;padding:15px 40px;border-radius:50px;font-size:.95rem;font-weight:600;text-decoration:none;letter-spacing:.03em;transition:all .2s;box-shadow:0 6px 16px rgba(185,159,135,.35);}
   .cta-btn:hover{background:#9f8468;transform:translateY(-2px);box-shadow:0 10px 22px rgba(185,159,135,.45);}
   .cta-note{font-size:.85rem;color:#7a6e62;margin-top:20px;line-height:1.9;}
   .cta-note a{color:#b99f87;text-decoration:none;font-weight:600;}
 
-  /* Footer */
   .footer{text-align:center;padding:40px 24px;border-top:1px solid #e8dfd5;color:#9b8b7c;font-size:.75rem;margin-top:48px;}
 
-  /* 响应式 */
   @media(max-width:700px){
     .container{padding:0 14px;}
     .hero{padding:48px 16px 40px;}
     .hero h1{font-size:1.7rem;}
     .hero p{font-size:.82rem;}
     .legend{font-size:.7rem;}
-    th,td{padding:8px 7px;font-size:.7rem;}
-    td.stars{font-size:.82rem;}
+    th,td{padding:10px 8px;font-size:.76rem;}
+    td.stars{font-size:.88rem;}
+    td.brand .brand-name{font-size:.85rem;}
+    td.brand .brand-type{font-size:.64rem;}
     .cta-btn{width:100%;padding:14px 20px;}
   }
 </style>
@@ -104,7 +90,7 @@
     <span><span class="dot str"></span> 🔥 Strength — higher = stronger</span>
     <span><span class="dot dry"></span> 💧 Dry Skin Fit</span>
     <span><span class="dot oily"></span> 🌿 Oily Skin Fit</span>
-    <span><span class="dot fol"></span> 🧴 Follicle-Friendly (acne / closed comedones)</span>
+    <span><span class="dot fol"></span> 🧴 Follicle-Friendly</span>
   </div>
 
   <div class="table-wrap">
@@ -118,9 +104,6 @@
           <th>💧 Dry</th>
           <th>🌿 Oily</th>
           <th>🧴 Follicle</th>
-          <th class="left">Pros</th>
-          <th class="left">Cons &amp; Risks</th>
-          <th class="left">Best For</th>
         </tr>
       </thead>
       <tbody>
@@ -137,9 +120,6 @@
           <td class="stars dry">★★★★★</td>
           <td class="stars oily">★★★★</td>
           <td class="stars fol">★★</td>
-          <td class="pros">Gradual-release; sensitive-skin friendly; soothing complex</td>
-          <td class="cons">Contains Glyceryl Stearate (medium comedogenic); smaller clinical dataset</td>
-          <td class="best"><strong>Beginners</strong>Thin, easily-irritated skin</td>
         </tr>
         <tr>
           <td class="conc"><span class="conc-tag">1.0%</span></td>
@@ -148,26 +128,28 @@
           <td class="stars dry">★★★★</td>
           <td class="stars oily">★★★★</td>
           <td class="stars fol">★★</td>
-          <td class="pros">Still encapsulated; neuropeptide + D+ complex</td>
-          <td class="cons">1% requires building tolerance</td>
-          <td class="best"><strong>Step-up from 0.5%</strong>Still gentle</td>
         </tr>
 
         <!-- ============ SkinBetter ============ -->
         <tr>
-          <td class="brand">
+          <td rowspan="2" class="brand">
             <span class="brand-name">SkinBetter</span>
             <span class="brand-type">AlphaRet® — patented double-conjugated retinoid</span>
           </td>
-          <td class="conc"><span class="conc-tag">AlphaRet</span></td>
+          <td class="conc"><span class="conc-tag">AlphaRet Overnight</span></td>
           <td class="stars tol">★★★★</td>
           <td class="stars str">★★★★★</td>
           <td class="stars dry">★★★★★</td>
           <td class="stars oily">★★★★</td>
           <td class="stars fol">★★★★</td>
-          <td class="pros">Clinically non-inferior to 0.025% tretinoin; 98% sensitive users could use nightly</td>
-          <td class="cons">Contains bound lactic acid; avoid stacking exfoliants</td>
-          <td class="best"><strong>Sensitive but wants results</strong>Photoaging; strong + tolerable</td>
+        </tr>
+        <tr>
+          <td class="conc"><span class="conc-tag">AlphaRet Clear</span></td>
+          <td class="stars tol">★★★★</td>
+          <td class="stars str">★★★★★</td>
+          <td class="stars dry">★★★</td>
+          <td class="stars oily">★★★★★</td>
+          <td class="stars fol">★★★★★</td>
         </tr>
 
         <!-- ============ SkinMedica ============ -->
@@ -182,9 +164,6 @@
           <td class="stars dry">★★★★★</td>
           <td class="stars oily">★★★</td>
           <td class="stars fol">★★★★</td>
-          <td class="pros">Stabilized delivery; designed to minimize irritation</td>
-          <td class="cons">Still normal retinol adjustment</td>
-          <td class="best"><strong>Beginners</strong>Dry / normal / mature</td>
         </tr>
         <tr>
           <td class="conc"><span class="conc-tag">0.5%</span></td>
@@ -193,9 +172,6 @@
           <td class="stars dry">★★★★</td>
           <td class="stars oily">★★★</td>
           <td class="stars fol">★★★★</td>
-          <td class="pros">Mid-step; buffering system (niacinamide, ceramides)</td>
-          <td class="cons">Adjustment period continues</td>
-          <td class="best"><strong>Intermediate users</strong>Normal to combination skin</td>
         </tr>
         <tr>
           <td class="conc"><span class="conc-tag">1.0%</span></td>
@@ -204,9 +180,6 @@
           <td class="stars dry">★★★</td>
           <td class="stars oily">★★</td>
           <td class="stars fol">★★★★</td>
-          <td class="pros">Highest SkinMedica concentration; still buffered</td>
-          <td class="cons">Requires established tolerance</td>
-          <td class="best"><strong>Experienced users</strong>Photoaging / resistant skin</td>
         </tr>
 
         <!-- ============ SkinCeuticals ============ -->
@@ -221,9 +194,6 @@
           <td class="stars dry">★★</td>
           <td class="stars oily">★★★★</td>
           <td class="stars fol">★★★★★</td>
-          <td class="pros">Beginner strength; bisabolol / Boswellia soothing; non-comedogenic</td>
-          <td class="cons">Requires gradual introduction</td>
-          <td class="best"><strong>Beginners</strong>Oily / combination / sun-damaged</td>
         </tr>
         <tr>
           <td class="conc"><span class="conc-tag">0.5%</span></td>
@@ -232,9 +202,6 @@
           <td class="stars dry">★★</td>
           <td class="stars oily">★★★★</td>
           <td class="stars fol">★★★★★</td>
-          <td class="pros">Mid-step; packaging preserves potency; non-comedogenic</td>
-          <td class="cons">Irritation / photosensitivity possible</td>
-          <td class="best"><strong>Intermediate users</strong>Oily / resistant skin</td>
         </tr>
         <tr>
           <td class="conc"><span class="conc-tag">1.0%</span></td>
@@ -243,9 +210,6 @@
           <td class="stars dry">★</td>
           <td class="stars oily">★★★★★</td>
           <td class="stars fol">★★★★★</td>
-          <td class="pros">Highest OTC pure retinol strength; non-comedogenic</td>
-          <td class="cons">Strong adjustment; irritation likely</td>
-          <td class="best"><strong>Fortress skin only</strong>Severe photoaging</td>
         </tr>
 
         <!-- ============ ZO ============ -->
@@ -260,9 +224,6 @@
           <td class="stars dry">★★</td>
           <td class="stars oily">★★★★</td>
           <td class="stars fol">★★★★</td>
-          <td class="pros">Microemulsion; stronger penetration than typical 0.25%</td>
-          <td class="cons">Anticipated reactions possible</td>
-          <td class="best"><strong>Experienced users</strong>Photoaging / texture</td>
         </tr>
         <tr>
           <td class="conc"><span class="conc-tag">0.5%</span></td>
@@ -271,9 +232,6 @@
           <td class="stars dry">★</td>
           <td class="stars oily">★★★★★</td>
           <td class="stars fol">★★★★</td>
-          <td class="pros">Professional-grade; 8–12 wk clinical improvement</td>
-          <td class="cons">Redness, peeling, dryness expected</td>
-          <td class="best"><strong>Fortress skin</strong>Resistant, non-sensitive</td>
         </tr>
         <tr>
           <td class="conc"><span class="conc-tag">1.0%</span></td>
@@ -282,9 +240,6 @@
           <td class="stars dry">★</td>
           <td class="stars oily">★★★★★</td>
           <td class="stars fol">★★★★</td>
-          <td class="pros">Maximum strength; strongest collagen stimulation</td>
-          <td class="cons">Highest irritation; strict tolerance required</td>
-          <td class="best"><strong>Very experienced only</strong>Fortress skin, no sensitivity</td>
         </tr>
 
       </tbody>
