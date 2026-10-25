@@ -757,7 +757,7 @@ function renderCart() {
 // ==================== Group 折扣判断 ====================
 function isGroupOrder() {
   const name = (document.getElementById('customerName')?.value || '').trim().toLowerCase();
-  return name.startsWith('333group');
+  return name.startsWith('636');
 }
 
 function calculateGroupDiscount() {
@@ -774,6 +774,7 @@ function calculateGroupDiscount() {
 }
 
 // ==================== 2026 Annual Sale 判断 ====================
+<div class="promo-item featured" data-promo="annualSale" style="display:none;">
 function isAnnualSaleEligibleItem(item) {
   const brand = (item.brand || '').toUpperCase();
   const name = (item.name || '').toUpperCase();
@@ -849,6 +850,7 @@ function checkAnnualSale() {
   }
   return { ok: true, discount: result.discount, tier: result.tier, message: result.message };
 }
+ </div>
 
 // ==================== Birthday 折扣判断 ====================
 function checkBirthdayPromo() {
