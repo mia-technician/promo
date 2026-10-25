@@ -774,7 +774,8 @@ function calculateGroupDiscount() {
 }
 
 // ==================== 2026 Annual Sale 判断 ====================
-  const brand = (item.brand || '').toUpperCase();
+  function isAnnualSaleEligibleItem(item) {
+ const brand = (item.brand || '').toUpperCase();
   const name = (item.name || '').toUpperCase();
   if (brand === ANNUAL_SALE_EXCLUDED_BRAND) return false;
   if (name.includes(ANNUAL_SALE_EXCLUDED_PRODUCT_KEYWORD)) return false;
