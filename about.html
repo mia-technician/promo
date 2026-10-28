@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6f3ef">
+  <meta name="description" content="Professional portfolio of a Senior Medical Aesthetic Specialist with 20+ years of experience in clinical nursing, medical aesthetics, and spa management.">
+  <title>Senior Medical Aesthetic Specialist | Professional Portfolio</title>
+  
+  <!-- 引入优雅的字体 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #2c2a27;
+      --muted: #6b6661;
+      --paper: #f8f6f2;
+      --white: #fffdfa;
+      --gold: #b89c7d;
+      --gold-dark: #93785c;
+      --line: #e6e0d6;
+      --shadow: 0 12px 40px rgba(44, 42, 39, .04);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Inter', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1080px, calc(100% - 48px)); margin: 0 auto; }
+    
+    /* === Navigation === */
+    .nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 0; gap: 20px;
+    }
+    .brand { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; color: var(--gold-dark); }
+    .navlinks { display: flex; gap: 28px; font-size: .85rem; font-weight: 500; color: var(--muted); }
+    .navlinks a:hover { color: var(--ink); }
+
+    /* === Hero Section === */
+    .hero {
+      padding: 80px 0 100px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media(max-width: 850px) {
+      .hero { grid-template-columns: 1fr; gap: 40px; padding: 60px 0; text-align: center; }
+    }
+
+    .hero-image-wrapper {
+      display: flex; justify-content: center;
+    }
+    .avatar {
+      width: 100%; max-width: 320px; aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 160px 160px 24px 24px; /* 拱形门设计，非常优雅 */
+      box-shadow: var(--shadow);
+      border: 6px solid var(--white);
+      background: var(--line);
+    }
+
+    .hero-content {
+      max-width: 600px;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: var(--gold-dark); font-size: .75rem; font-weight: 600;
+      letter-spacing: .15em; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .eyebrow:before { content: ""; display: inline-block; width: 24px; height: 1px; background: var(--gold); }
+
+    h1 {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(2.8rem, 6vw, 4.5rem); 
+      font-weight: 500; line-height: 1.1; letter-spacing: -.02em;
+    }
+    h1 em { color: var(--gold); font-style: italic; font-weight: 400; }
+    
+    .hero-copy {
+      margin: 24px 0 0; color: var(--muted);
+      font-size: 1.05rem; line-height: 1.8;
+    }
+
+    .hero-actions { margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap;}
+    @media(max-width: 850px){ .hero-actions { justify-content: center; } }
+    
+    .button {
+      display: inline-block; padding: 14px 28px; border-radius: 40px;
+      font-size: .85rem; font-weight: 600; letter-spacing: .05em;
+      transition: all .3s ease;
+    }
+    .button.primary { color: var(--white); background: var(--gold-dark); }
+    .button.primary:hover { background: var(--ink); transform: translateY(-2px); }
+    .button.secondary { border: 1px solid var(--gold); color: var(--gold-dark); }
+    .button.secondary:hover { background: var(--gold); color: var(--white); }
+
+    /* === Stats === */
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+      margin-top: 50px; border-top: 1px solid var(--line); padding-top: 30px;
+    }
+    @media(max-width: 500px) { .stats { grid-template-columns: 1fr; gap: 24px; text-align: left; } }
+    .stat strong { display: block; font-family: var(--font-serif); font-size: 2.2rem; font-weight: 500; color: var(--ink); line-height: 1; }
+    .stat span { display: block; color: var(--muted); font-size: .85rem; margin-top: 8px; }
+
+    /* === Common Section Styles === */
+    section { padding: 80px 0; }
+    .section-head { margin-bottom: 50px; text-align: center; }
+    .kicker { color: var(--gold-dark); font-size: .75rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; display: block; margin-bottom: 12px; }
+    h2 { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 500; letter-spacing: -.01em; margin: 0; line-height: 1.2; }
+    .section-intro { color: var(--muted); max-width: 600px; margin: 16px auto 0; font-size: .95rem; }
+
+    /* === About Section (Cards) === */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media(max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+    
+    .panel {
+      background: var(--white); border: 1px solid var(--line); border-radius: 20px;
+      padding: 40px; box-shadow: var(--shadow);
+    }
+    .panel h3 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 600; margin: 0 0 16px; }
+    .panel p { color: var(--muted); margin: 0; font-size: .95rem; }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .pill { border: 1px solid #e1dbd1; border-radius: 30px; padding: 6px 14px; font-size: .8rem; color: var(--gold-dark); background: var(--paper); }
+
+    /* === Expertise Section === */
+    .skill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    @media(max-width: 768px) { .skill-grid { grid-template-columns: 1fr; } }
+    
+    .skill-card { 
+      background: var(--white); border: 1px solid var(--line); border-radius: 20px; 
+      padding: 36px; transition: transform .3s ease;
+    }
+    .skill-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--gold); }
+    .skill-number { color: var(--gold); font-size: .75rem; font-weight: 700; letter-spacing: .15em; }
+    .skill-card h3 { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 600; margin: 12px 0 12px; }
+    .skill-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+
+    /* === Technology Section === */
+    .equipment-box { 
+      background: var(--white); border-radius: 24px; padding: 50px; 
+      border: 1px solid var(--line); box-shadow: var(--shadow); text-align: center;
+    }
+    @media(max-width: 768px) { .equipment-box { padding: 30px 20px; } }
+    
+    .equipment-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 30px; }
+    .equipment-list span { 
+      background: var(--paper); border: 1px solid var(--line); 
+      padding: 10px 18px; border-radius: 30px; font-size: .85rem; color: var(--ink); font-weight: 500;
+    }
+
+    /* === Closing / Contact === */
+    .closing { 
+      background: var(--white); border-top: 1px solid var(--line); 
+      text-align: center; padding: 100px 0;
+    }
+    .closing h2 { margin-bottom: 20px; }
+    .closing p { color: var(--muted); max-width: 600px; margin: 0 auto 32px; }
+
+    /* === Footer === */
+    footer { padding: 30px 0; color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+    /* === Print === */
+    @media print {
+      .navlinks, .hero-actions, .button { display: none; }
+      body { background: white; }
+      section { padding: 30px 0; }
+      .panel, .skill-card, .equipment-box, .avatar { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap nav">
+    <a class="brand" href="#top">Professional Portfolio</a>
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#technology">Technology</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- Hero 区域：照片在左，文字在右 -->
+    <div class="wrap">
+      <section class="hero">
+        <div class="hero-image-wrapper">
+          <!-- 🌟 照片放这里，替换 src 链接即可 -->
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" alt="Mia Profile" class="avatar">
+        </div>
+        
+        <div class="hero-content">
+          <div class="eyebrow">Clinical expertise · Aesthetic care</div>
+          <h1>Senior Medical<br><em>Aesthetic Specialist</em></h1>
+          <p class="hero-copy">
+            Bringing together clinical knowledge, advanced aesthetic technology, and personalized client care to support safe, thoughtful, results-driven treatments.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#expertise">Explore Expertise</a>
+            <a class="button secondary" href="#contact">Contact Me</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><strong>20+</strong><span>Years experience</span></div>
+            <div class="stat"><strong>Clinical</strong><span>Nursing foundation</span></div>
+            <div class="stat"><strong>360°</strong><span>Client care</span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- About 区域 -->
+    <section id="about" style="background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">01 / About</span>
+          <h2>Precision in treatment.<br>Care in every detail.</h2>
+          <p class="section-intro">With over 20 years of experience spanning clinical nursing, medical aesthetics, and spa management, I offer a distinctive combination of clinical understanding, technical expertise, and a client-centered approach.</p>
+        </div>
+        <div class="about-grid">
+          <article class="panel">
+            <h3>A thoughtful clinical approach</h3>
+            <p>I bring an understanding of facial anatomy, skin physiology, and aesthetic treatment principles to every consultation. My approach emphasizes safety, realistic expectations, and personalized plans that reflect each client's concerns and goals.</p>
+            <div class="pill-list">
+              <span class="pill">Skin health</span><span class="pill">Treatment assessment</span><span class="pill">Personalized planning</span>
+            </div>
+          </article>
+          <article class="panel">
+            <h3>Relationships built on trust</h3>
+            <p>Exceptional aesthetic care extends beyond the treatment room. I value clear education, honest product recommendations, attentive follow-up, and long-term relationships grounded in professionalism and integrity.</p>
+            <div class="pill-list">
+              <span class="pill">Client education</span><span class="pill">Skincare consultation</span><span class="pill">Follow-up care</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Expertise 区域 -->
+    <section id="expertise">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">02 / Expertise</span>
+          <h2>A well-rounded aesthetic skill set.</h2>
+          <p class="section-intro">A combination of hands-on treatment experience, tailored skincare guidance, and operational awareness supports a seamless client experience.</p>
+        </div>
+        <div class="skill-grid">
+          <article class="skill-card">
+            <div class="skill-number">01 — CLINICAL</div>
+            <h3>Clinical & Aesthetic Knowledge</h3>
+            <p>Facial anatomy, skin physiology, treatment assessment, individualized planning, treatment safety, and realistic expectation-setting.</p>
+          </article>
+          <article class="skill-card">
+            <div class="skill-number">02 — CLIENT CARE</div>
+            <h3>Consultation & Skincare</h3>
+            <p>Personalized skincare routines, professional product recommendations, client education, sales, and consistent follow-up care.</p>
+          </article>
+          <article class="skill-card">
+            <div class="skill-number">03 — OPERATIONS</div>
+            <h3>Clinic & Spa Management</h3>
+            <p>Experience supporting spa management, workflow coordination, team collaboration, and client relationship development.</p>
+          </article>
+          <article class="skill-card">
+            <div class="skill-number">04 — DIGITAL</div>
+            <h3>Computer & Digital Skills</h3>
+            <p>Microsoft Word, Excel, Adobe Acrobat, GitHub, Supabase, Canva, Square, photo and video editing, and social media tools.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technology 区域 -->
+    <section id="technology" style="background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">03 / Technology</span>
+          <h2>Advanced aesthetic technology experience.</h2>
+          <p class="section-intro">Experience across a broad range of medical-grade aesthetic equipment and skin analysis systems.</p>
+        </div>
+        <div class="equipment-box">
+          <div class="equipment-list">
+            <span>Ultherapy</span><span>Thermage</span><span>Fraxel</span><span>Pico / Nano Lasers</span>
+            <span>Laser Hair Removal</span><span>HydraFacial</span><span>CoolSculpting</span><span>truSculpt</span>
+            <span>miraDry</span><span>Vectra</span><span>VISIA</span><span>RF Microneedling</span>
+            <span>SkinPen</span><span>EndyMed</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact / Closing 区域 -->
+    <section class="closing" id="contact">
+      <div class="wrap">
+        <span class="kicker">04 / Professional profile</span>
+        <h2>Personalized care.<br>Professional standards.</h2>
+        <p>Fluent in English, Mandarin, and Cantonese. Known for being responsible, reliable, detail-oriented, efficient, and quick to learn new technologies and systems.</p>
+        <a class="button primary" href="mailto:mia.lu@dermapure.com">Contact Mia</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>Senior Medical Aesthetic Specialist</span>
+      <span>© Mia. All rights reserved.</span>
+    </div>
+  </footer>
+</body>
+</html>
