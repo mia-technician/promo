@@ -42,17 +42,17 @@
   }
   .section-header p{color:#7a6e62;font-size:.82rem;}
 
-  /* ============ 统一卡片网格 ============ */
+  /* ============ 卡片网格：桌面4列，手机1列 ============ */
   .card-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+    grid-template-columns:repeat(4,1fr);
     gap:26px;
     margin:28px 0 8px;
+    align-items:start;
   }
 
-  /* ============ 统一卡片外观 ============ */
+  /* ============ 卡片外观 ============ */
   .card{
-    display:flex;flex-direction:column;
     background:#fffdf9;
     border-radius:24px;
     overflow:hidden;
@@ -68,46 +68,26 @@
     position:relative;width:100%;aspect-ratio:1/1;
     background:#f0ebe4;overflow:hidden;
   }
-  .card .image-bg-blur{
-    position:absolute;inset:0;
-    background-size:cover;background-position:center;
-    filter:blur(20px);transform:scale(1.1);
-    opacity:.5;z-index:1;
-  }
   .card .image-foreground{
     position:absolute;inset:0;
-    display:flex;align-items:center;justify-content:center;z-index:2;
   }
   .card .image-foreground img{
-    width:100%;height:100%;object-fit:contain;
-  }
-  .card .card-caption{
-    padding:16px 14px 18px;text-align:center;
-    display:flex;flex-direction:column;flex:1;
-  }
-  .card .card-caption h4{
-    font-size:.95rem;font-weight:600;color:#2c2824;margin-bottom:5px;
-  }
-  .card .card-caption p{
-    font-size:.72rem;color:#9b8b7c;line-height:1.5;flex:1;
-  }
-  .card .card-price{
-    font-size:1rem;font-weight:700;color:#9b7b58;
-    letter-spacing:.5px;margin-top:8px;
+    width:100%;height:100%;object-fit:cover;
+    display:block;
   }
 
-  /* 分类标签 */
-  .card-tag{
-    position:absolute;top:12px;left:12px;z-index:3;
-    font-size:.62rem;font-weight:700;letter-spacing:.06em;
-    text-transform:uppercase;
-    padding:4px 10px;border-radius:999px;
+  /* 放大镜按钮 */
+  .zoom-btn{
+    position:absolute;right:12px;bottom:12px;z-index:4;
+    width:34px;height:34px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
     background:rgba(255,255,255,.92);
-    color:#8b7355;
-    box-shadow:0 2px 6px rgba(0,0,0,.06);
+    color:#8b7355;font-size:.82rem;
+    border:none;cursor:zoom-in;
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+    transition:background .2s,color .2s,transform .2s;
   }
-  .card-tag.new{color:#2d6a4f;background:rgba(232,245,233,.95);}
-  .card-tag.promo{color:#9b7b58;background:rgba(255,249,242,.95);}
+  .zoom-btn:hover{background:#c4a47c;color:#fff;transform:scale(1.08);}
 
   /* ============ Loyalty ============ */
   .loyalty-grid{
@@ -126,12 +106,6 @@
     display:flex;align-items:center;gap:8px;
   }
   .loyalty-card h3 i{color:#c4a47c;}
-  .loyalty-card .highlight-text{
-    font-size:1.3rem;font-weight:700;color:#9b7b58;margin:8px 0;
-  }
-  .loyalty-card .small-text{
-    font-size:.8rem;color:#9b8b7c;margin-bottom:12px;
-  }
   .loyalty-card ul{list-style:none;margin-top:8px;}
   .loyalty-card li{
     padding:9px 0;display:flex;align-items:flex-start;gap:10px;
@@ -144,32 +118,19 @@
     background:linear-gradient(135deg,#fff9f2 0%,#faf5ee 100%);
     border:2px solid #d9c5b0;
   }
-
-  /* Loyalty 卡片内的按钮 */
   .loyalty-card .card-btn{
-    display:inline-block;
-    margin-top:18px;
-    padding:10px 20px;
-    background:#c4a47c;
-    color:#fff;
-    font-size:.82rem;
-    font-weight:600;
-    border-radius:40px;
-    text-decoration:none;
-    text-align:center;
+    display:inline-block;margin-top:18px;padding:10px 20px;
+    background:#c4a47c;color:#fff;font-size:.82rem;font-weight:600;
+    border-radius:40px;text-decoration:none;text-align:center;
     transition:background .2s, transform .2s;
   }
-  .loyalty-card .card-btn:hover{
-    background:#a98960;
-    transform:translateY(-2px);
-  }
+  .loyalty-card .card-btn:hover{background:#a98960;transform:translateY(-2px);}
 
   /* ============ Value Packages ============ */
   .packages{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
-    gap:24px;
-    margin:28px 0;
+    gap:24px;margin:28px 0;
   }
   .treatment-item{
     background:#fff;border:1px solid #eee5dc;border-radius:24px;
@@ -185,17 +146,14 @@
     text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;
   }
   .treatment-desc{
-    color:#5a4f43;line-height:1.7;margin-bottom:14px;font-size:.86rem;
-    flex:1;
+    color:#5a4f43;line-height:1.7;margin-bottom:14px;font-size:.86rem;flex:1;
   }
   .treatment-features{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px;}
   .treatment-features span{
     background:#f0ebe4;padding:5px 12px;border-radius:20px;
     font-size:.7rem;color:#8b7355;
   }
-  .treatment-specs{
-    margin-top:auto;padding-top:14px;border-top:1px dashed #e5d9cf;
-  }
+  .treatment-specs{margin-top:auto;padding-top:14px;border-top:1px dashed #e5d9cf;}
   .spec{
     display:inline-block;background:#f0ebe4;
     padding:6px 14px;border-radius:30px;
@@ -204,42 +162,44 @@
 
   /* ============ CTA ============ */
   .cta-wrap{
-    text-align:center;
-    margin:56px 0 0;
-    padding:32px 24px;
-    background:#fffdf9;
-    border:1px solid #eee5dc;
-    border-radius:24px;
+    text-align:center;margin:56px 0 0;padding:32px 24px;
+    background:#fffdf9;border:1px solid #eee5dc;border-radius:24px;
   }
-  .cta-note{
-    font-size:.86rem;
-    color:#5a4f43;
-    line-height:1.9;
-  }
-  .cta-note a{
-    color:#9b7b58;
-    font-weight:600;
-    text-decoration:none;
-  }
-  .cta-note a:hover{ text-decoration:underline; }
+  .cta-note{font-size:.86rem;color:#5a4f43;line-height:1.9;}
+  .cta-note a{color:#9b7b58;font-weight:600;text-decoration:none;}
+  .cta-note a:hover{text-decoration:underline;}
 
   /* ============ Footer ============ */
   .footer{
-    text-align:center;
-    padding:32px 24px;
-    border-top:1px solid #e8dfd5;
-    color:#9b8b7c;
-    font-size:.72rem;
-    margin-top:0;
+    text-align:center;padding:32px 24px;
+    border-top:1px solid #e8dfd5;color:#9b8b7c;
+    font-size:.72rem;margin-top:0;
   }
-  .footer p{ margin:0; }
+  .footer p{margin:0;}
+
+  /* ============ 灯箱 ============ */
+  .lightbox{
+    display:none;position:fixed;inset:0;z-index:9999;
+    background:rgba(0,0,0,.85);
+    align-items:center;justify-content:center;
+    padding:24px;cursor:zoom-out;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{
+    max-width:95vw;max-height:92vh;
+    object-fit:contain;border-radius:8px;
+    box-shadow:0 20px 60px rgba(0,0,0,.5);
+  }
 
   /* ============ 响应式 ============ */
+  @media(max-width:900px){
+    .card-grid{grid-template-columns:repeat(2,1fr);gap:18px;}
+  }
   @media(max-width:768px){
     .container{padding:0 16px;}
     .hero h1{font-size:2rem;}
     .hero{padding:48px 16px 40px;}
-    .card-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;}
+    .card-grid{grid-template-columns:1fr;gap:16px;}
     .loyalty-grid{grid-template-columns:1fr;}
     .packages{grid-template-columns:1fr;}
     .section-header{margin:40px 0 20px;}
@@ -257,154 +217,135 @@
 
 <div class="container">
 
-  <!-- ============ NEW & PROMO 合并区 ============ -->
+  <!-- ============ NEW & PROMO ============ -->
   <div class="section-header">
     <h2>✨ New & Promotions ✨</h2>
     <div class="divider"></div>
     <p>Fresh arrivals and exclusive offers this month</p>
   </div>
- <div class="card-grid"> 
 
-  <!-- New: Boey -->
-   <div class="card">
-      <div class="image-wrapper">
-        <span class="card-tag new">New</span>
-        <div class="image-bg-blur" id="boey-bg"></div>
-        <div class="image-foreground">
-          <img id="boey-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/boey.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9ib2V5LmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0ODU2NDcsImV4cCI6NDkxNzU0OTY0N30.OZhILArQOQ9pibMqs9xa2V-AxPewJKAWHm_RkPYsC8g" alt="Boey">
-        </div>
-      </div>
-    </div>
+  <div class="card-grid">
 
-      <!-- New: FLX -->
-       <div class="card">
+    <!-- Boey（无跳转） -->
+    <div class="card">
       <div class="image-wrapper">
-        <span class="card-tag new">New</span>
-        <div class="image-bg-blur" id="FLX-bg"></div>
         <div class="image-foreground">
-          <img id="FLX-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/FLX.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9GTFguanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc5NTQ4Njc2MywiZXhwIjo0OTE3NTUwNzYzfQ.IPb4rQWoPci9Rr23S7vPTDT7CARQVyt8FGBlTndwwQg" alt="FLX">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/boey.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9ib2V5LmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0ODU2NDcsImV4cCI6NDkxNzU0OTY0N30.OZhILArQOQ9pibMqs9xa2V-AxPewJKAWHm_RkPYsC8g" alt="Boey">
         </div>
+        <button class="zoom-btn" onclick="event.stopPropagation();openLightbox(this.closest('.image-wrapper').querySelector('img').src)"><i class="fas fa-magnifying-glass-plus"></i></button>
       </div>
     </div>
 
-        <!-- New: Hair Exosomes -->
-         <div class="card">
+    <!-- FLX（无跳转） -->
+    <div class="card">
       <div class="image-wrapper">
-        <span class="card-tag new">New</span>
-        <div class="image-bg-blur" id="hair-bg"></div>
         <div class="image-foreground">
-          <img id="hair-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/hair.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9oYWlyLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0ODczMjQsImV4cCI6NDkxNzU1MTMyNH0.DpDp1TQv_hnHXUl5pI_4kbP8b2ovkp1lGhrcx9XrBD8" alt="HairExo">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/FLX.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9GTFguanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc5NTQ4Njc2MywiZXhwIjo0OTE3NTUwNzYzfQ.IPb4rQWoPci9Rr23S7vPTDT7CARQVyt8FGBlTndwwQg" alt="FLX">
         </div>
-      </div>
-      </div>
-
-          <!-- New: JetPeel-->
-           <div class="card">
-      <div class="image-wrapper">
-        <span class="card-tag new">New</span>
-        <div class="image-bg-blur" id="jetpeel-bg"></div>
-        <div class="image-foreground">
-          <img id="jetpeel-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/jetpeel.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9qZXRwZWVsLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0ODc3NjMsImV4cCI6NDkxNzU1MTc2M30.RCnmTikTqYC_4dnVzf7lL2ptaC8zZwxQP4bgEKflnmY" alt="JetPeel">
-        </div>
+        <button class="zoom-btn" onclick="event.stopPropagation();openLightbox(this.closest('.image-wrapper').querySelector('img').src)"><i class="fas fa-magnifying-glass-plus"></i></button>
       </div>
     </div>
 
-            <!-- New: TNXA-->
-             <div class="card">
+    <!-- Hair Exosomes（无跳转） -->
+    <div class="card">
       <div class="image-wrapper">
-        <span class="card-tag new">New</span>
-        <div class="image-bg-blur" id="TNXA-bg"></div>
         <div class="image-foreground">
-          <img id="TNXA-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/TNXA.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9UTlhBLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0ODg0MjQsImV4cCI6NDkxNzU1MjQyNH0.cvs4Tgi-_j9yDYetYYjIQ1DCeQeczJl6BOuib8NQmg4" alt="TNXA">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/hair.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9oYWlyLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0ODczMjQsImV4cCI6NDkxNzU1MTMyNH0.DpDp1TQv_hnHXUl5pI_4kbP8b2ovkp1lGhrcx9XrBD8" alt="HairExo">
         </div>
-      </div>
-    </div>
-   
-    <!-- New: tns-replacement（整卡可点，跳到 tns-replacement.html） -->
-    <div class="card is-link" onclick="window.open('./tns-replacement.html', '_blank')">
-      <div class="image-wrapper">
-        <span class="card-tag new">New</span>
-        <div class="image-bg-blur" id="img6-bg"></div>
-        <div class="image-foreground">
-          <img id="img6-main" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/tns-exo.png?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby90bnMtZXhvLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTI5NjYxMzcsImV4cCI6NDkxNTAzMDEzN30.zWKljIylC81UBkAYaVFbCQIPl5PibrRjObY83M3gt-E" alt="Skin Better">
-        </div>
-      </div>
-      <div class="card-caption">
-        <h4>A Revised Anti-Aging Routine from Dr. Shah!</h4>
-        <p>The new combination shares some important similarities with the original routine, but also brings more advanced technologies into your skincare regimen.</p>
-        <div class="card-price">Click For Details</div>
+        <button class="zoom-btn" onclick="event.stopPropagation();openLightbox(this.closest('.image-wrapper').querySelector('img').src)"><i class="fas fa-magnifying-glass-plus"></i></button>
       </div>
     </div>
 
-        <!-- Promo: Black Friday TX -->
-       <div class="card">
+    <!-- JetPeel（无跳转） -->
+    <div class="card">
       <div class="image-wrapper">
-        <span class="card-tag prmo">Promo</span>
-        <div class="image-bg-blur" id="BFTX-bg"></div>
         <div class="image-foreground">
-          <img id="BFTX-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/BFTX.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9CRlRYLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0OTA3MjEsImV4cCI6NDkxNzU1NDcyMX0.WVz1AYQgeSuK3evHjD-0lhj_198ojILZDcsqAWEIcR4" alt="BFTX">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/jetpeel.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9qZXRwZWVsLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0ODc3NjMsImV4cCI6NDkxNzU1MTc2M30.RCnmTikTqYC_4dnVzf7lL2ptaC8zZwxQP4bgEKflnmY" alt="JetPeel">
         </div>
-      </div>
-    </div>
-          <!-- Promo: Black Friday PD -->
-       <div class="card">
-      <div class="image-wrapper">
-        <span class="card-tag prmo">Promo</span>
-        <div class="image-bg-blur" id="BFPD-bg"></div>
-        <div class="image-foreground">
-          <img id="BFPD-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/BFPD.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9CRlBELmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0OTA4NTIsImV4cCI6NDkxNzU1NDg1Mn0.uzXCwFc2USchJs9vQrzdAkJRI4AX2KpJ6nr7BEhuWeM" alt="BFPD">
-        </div>
-      </div>
-    </div>
-  
-  <!-- Promo: Coolsculpting -->
-    <div class="card is-link" onclick="window.open('https://www.brilliantdistinctions.ca/', '_blank')">
-      <div class="image-wrapper">
-        <span class="card-tag promo">Promo</span>
-        <div class="image-bg-blur" id="promo3-bg"></div>
-        <div class="image-foreground">
-          <img id="promo3-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/cool-2.png?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9jb29sLTIucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc5MDgwMTA1MiwiZXhwIjo0OTEyODY1MDUyfQ.eRvH2XhICYGqam-xAt4740jePBm1n4seyEpwjP9Z7YY" alt="Coolsculpting">
-        </div>
-      </div>
-      <div class="card-caption">
-        <h4>45%–50% Off + $200 Cash Back</h4>
-        <p>Cashback is with a minimum spend of $2000 on Coolsculpting<br>1st time submission of Coolsculpting in BD<br>Extented Now!! till Dec 31, 2026</p>
-      </div>
-    </div>
-   
-    <!-- Promo: Brilliant Distinctions -->
-    <div class="card is-link" onclick="window.open('https://www.brilliantdistinctions.ca/', '_blank')">
-      <div class="image-wrapper">
-        <span class="card-tag promo">Promo</span>
-        <div class="image-bg-blur" id="50-bg"></div>
-        <div class="image-foreground">
-          <img id="50-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/50.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby81MC5qcGciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzk1NDkxMjA5LCJleHAiOjQ5MTc1NTUyMDl9.1ipxf9WXPUmg7tZ8L7GZhHwncI52QWY4QB91S34Xxxc" alt="Cash Back">
-        </div>
-    </div>
-     </div>
-
-      <!-- Promo: HarmonyCa -->
-    <div class="card is-link" onclick="window.open('https://www.brilliantdistinctions.ca/', '_blank')">
-      <div class="image-wrapper">
-        <span class="card-tag promo">Promo</span>
-        <div class="image-bg-blur" id="harmonyca-bg"></div>
-        <div class="image-foreground">
-          <img id="harmonyca-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/harmonyca1.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9oYXJtb255Y2ExLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0OTAwMDAsImV4cCI6NDkxNzU1NDAwMH0.GYZSgbIxYcRA-55H_2j5xqBwbTAbPWWZvwYwjAX9NXY" alt="harmonyca">
-        </div>
+        <button class="zoom-btn" onclick="event.stopPropagation();openLightbox(this.closest('.image-wrapper').querySelector('img').src)"><i class="fas fa-magnifying-glass-plus"></i></button>
       </div>
     </div>
 
-    <!-- Promo: Birthday -->
-    <div class="card is-link" onclick="window.open('./order.html', '_blank')">
+    <!-- TNXA（无跳转） -->
+    <div class="card">
       <div class="image-wrapper">
-        <span class="card-tag promo">Promo</span>
-        <div class="image-bg-blur" id="promo4-bg"></div>
         <div class="image-foreground">
-          <img id="promo4-img" src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/BD.png?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9CRC5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzk0NDMxOTk1LCJleHAiOjQ5MTY0OTU5OTV9.nbvHGrWABrTzwsvCEBYPuSTOh-qAB-YIGmuwQCr3YmU" alt="Birthday Special">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/TNXA.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9UTlhBLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0ODg0MjQsImV4cCI6NDkxNzU1MjQyNH0.cvs4Tgi-_j9yDYetYYjIQ1DCeQeczJl6BOuib8NQmg4" alt="TNXA">
         </div>
+        <button class="zoom-btn" onclick="event.stopPropagation();openLightbox(this.closest('.image-wrapper').querySelector('img').src)"><i class="fas fa-magnifying-glass-plus"></i></button>
       </div>
     </div>
-</div>
+
+    <!-- tns-replacement（有跳转） -->
+    <div class="card is-link" onclick="window.open('./tns-replacement.html','_blank')">
+      <div class="image-wrapper">
+        <div class="image-foreground">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/tns-exo.png?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby90bnMtZXhvLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTI5NjYxMzcsImV4cCI6NDkxNTAzMDEzN30.zWKljIylC81UBkAYaVFbCQIPl5PibrRjObY83M3gt-E" alt="Skin Better">
+        </div>
+        <button class="zoom-btn" onclick="event.stopPropagation();openLightbox(this.closest('.image-wrapper').querySelector('img').src)"><i class="fas fa-magnifying-glass-plus"></i></button>
+      </div>
+    </div>
+
+    <!-- Black Friday TX（无跳转） -->
+    <div class="card">
+      <div class="image-wrapper">
+        <div class="image-foreground">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/BFTX.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9CRlRYLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0OTA3MjEsImV4cCI6NDkxNzU1NDcyMX0.WVz1AYQgeSuK3evHjD-0lhj_198ojILZDcsqAWEIcR4" alt="BFTX">
+        </div>
+        <button class="zoom-btn" onclick="event.stopPropagation();openLightbox(this.closest('.image-wrapper').querySelector('img').src)"><i class="fas fa-magnifying-glass-plus"></i></button>
+      </div>
+    </div>
+
+    <!-- Black Friday PD（无跳转） -->
+    <div class="card">
+      <div class="image-wrapper">
+        <div class="image-foreground">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/BFPD.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9CRlBELmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0OTA4NTIsImV4cCI6NDkxNzU1NDg1Mn0.uzXCwFc2USchJs9vQrzdAkJRI4AX2KpJ6nr7BEhuWeM" alt="BFPD">
+        </div>
+        <button class="zoom-btn" onclick="event.stopPropagation();openLightbox(this.closest('.image-wrapper').querySelector('img').src)"><i class="fas fa-magnifying-glass-plus"></i></button>
+      </div>
+    </div>
+
+    <!-- Coolsculpting（有跳转） -->
+    <div class="card is-link" onclick="window.open('https://www.brilliantdistinctions.ca/','_blank')">
+      <div class="image-wrapper">
+        <div class="image-foreground">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/cool-2.png?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9jb29sLTIucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc5MDgwMTA1MiwiZXhwIjo0OTEyODY1MDUyfQ.eRvH2XhICYGqam-xAt4740jePBm1n4seyEpwjP9Z7YY" alt="Coolsculpting">
+        </div>
+        <button class="zoom-btn" onclick="event.stopPropagation();openLightbox(this.closest('.image-wrapper').querySelector('img').src)"><i class="fas fa-magnifying-glass-plus"></i></button>
+      </div>
+    </div>
+
+    <!-- Brilliant Distinctions（有跳转） -->
+    <div class="card is-link" onclick="window.open('https://www.brilliantdistinctions.ca/','_blank')">
+      <div class="image-wrapper">
+        <div class="image-foreground">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/50.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby81MC5qcGciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzk1NDkxMjA5LCJleHAiOjQ5MTc1NTUyMDl9.1ipxf9WXPUmg7tZ8L7GZhHwncI52QWY4QB91S34Xxxc" alt="Cash Back">
+        </div>
+        <button class="zoom-btn" onclick="event.stopPropagation();openLightbox(this.closest('.image-wrapper').querySelector('img').src)"><i class="fas fa-magnifying-glass-plus"></i></button>
+      </div>
+    </div>
+
+    <!-- HarmonyCa（有跳转） -->
+    <div class="card is-link" onclick="window.open('https://www.brilliantdistinctions.ca/','_blank')">
+      <div class="image-wrapper">
+        <div class="image-foreground">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/harmonyca1.jpg?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9oYXJtb255Y2ExLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTU0OTAwMDAsImV4cCI6NDkxNzU1NDAwMH0.GYZSgbIxYcRA-55H_2j5xqBwbTAbPWWZvwYwjAX9NXY" alt="HarmonyCa">
+        </div>
+        <button class="zoom-btn" onclick="event.stopPropagation();openLightbox(this.closest('.image-wrapper').querySelector('img').src)"><i class="fas fa-magnifying-glass-plus"></i></button>
+      </div>
+    </div>
+
+    <!-- Birthday（有跳转） -->
+    <div class="card is-link" onclick="window.open('./order.html','_blank')">
+      <div class="image-wrapper">
+        <div class="image-foreground">
+          <img src="https://dmrskyskryrdclknezth.supabase.co/storage/v1/object/sign/Promo/BD.png?token=eyJraWQiOiI0Y2U0N2M0OS1lMTY2LTQ4ZjctOGVjZi1mZTcxN2ZkYzM1NmQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQcm9tby9CRC5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzk0NDMxOTk1LCJleHAiOjQ5MTY0OTU5OTV9.nbvHGrWABrTzwsvCEBYPuSTOh-qAB-YIGmuwQCr3YmU" alt="Birthday Special">
+        </div>
+        <button class="zoom-btn" onclick="event.stopPropagation();openLightbox(this.closest('.image-wrapper').querySelector('img').src)"><i class="fas fa-magnifying-glass-plus"></i></button>
+      </div>
+    </div>
+
   </div>
 
   <!-- ============ LOYALTY ============ -->
@@ -422,9 +363,7 @@
         <li><i class="fas fa-gift"></i> FREE Microdermabrasion Facial, valued $200</li>
         <li><i class="fas fa-gift"></i> FREE Checkup every 3 months · Photo comparing · Products & treatment advice</li>
       </ul>
-      <a class="card-btn" href="./order.html" target="_blank">
-        Check the Products Menu to Order
-      </a>
+      <a class="card-btn" href="./order.html" target="_blank">Check the Products Menu to Order</a>
     </div>
 
     <div class="loyalty-card">
@@ -463,13 +402,9 @@
       <div class="treatment-sub">Thermage</div>
       <div class="treatment-desc">A non-invasive radiofrequency skin-tightening treatment that heats deep skin layers to stimulate collagen production, reducing wrinkles and sagging with little to no downtime. Best for mild to moderate skin laxity on face, eyes, neck, and body.</div>
       <div class="treatment-features">
-        <span>✨ Stimulates collagen</span>
-        <span>✨ Reduces wrinkles</span>
-        <span>✨ No downtime</span>
+        <span>✨ Stimulates collagen</span><span>✨ Reduces wrinkles</span><span>✨ No downtime</span>
       </div>
-      <div class="treatment-specs">
-        <span class="spec">Save $1097–$3291 for 3 Face/Eye Tips</span>
-      </div>
+      <div class="treatment-specs"><span class="spec">Save $1097–$3291 for 3 Face/Eye Tips</span></div>
     </div>
 
     <div class="treatment-item">
@@ -477,13 +412,9 @@
       <div class="treatment-sub">Platelet-Rich Fibrin (PRF)</div>
       <div class="treatment-desc">PRF uses your body's own growth factors to rejuvenate skin and support hair restoration. Reduces dark circles, fine lines, and crepey under-eye skin. Results up to 12 months.</div>
       <div class="treatment-features">
-        <span>✨ Stimulates collagen</span>
-        <span>✨ Natural growth factors</span>
-        <span>✨ Results up to 12 months</span>
+        <span>✨ Stimulates collagen</span><span>✨ Natural growth factors</span><span>✨ Results up to 12 months</span>
       </div>
-      <div class="treatment-specs">
-        <span class="spec">Save $840 for 4 Treatments</span>
-      </div>
+      <div class="treatment-specs"><span class="spec">Save $840 for 4 Treatments</span></div>
     </div>
 
     <div class="treatment-item">
@@ -491,14 +422,9 @@
       <div class="treatment-sub">JUVÉDERM® & BELOTERO®</div>
       <div class="treatment-desc">Dermal fillers designed to smooth, sculpt, and restore youthful volume. Results up to 2 years.</div>
       <div class="treatment-features">
-        <span>Static wrinkles</span>
-        <span>Facial contour</span>
-        <span>Volume loss</span>
-        <span>Lip plumping</span>
+        <span>Static wrinkles</span><span>Facial contour</span><span>Volume loss</span><span>Lip plumping</span>
       </div>
-      <div class="treatment-specs">
-        <span class="spec">Save $788 for 4 Syringes / 4ml</span>
-      </div>
+      <div class="treatment-specs"><span class="spec">Save $788 for 4 Syringes / 4ml</span></div>
     </div>
 
     <div class="treatment-item">
@@ -506,14 +432,9 @@
       <div class="treatment-sub">Advanced Biostimulator — RADIESSE®</div>
       <div class="treatment-desc">Restore structure and rejuvenate from within. Lift vertically, correct volume loss, enhance facial contour. Results up to 2 years.</div>
       <div class="treatment-features">
-        <span>Vertical lift</span>
-        <span>Volume correction</span>
-        <span>Skin thickness</span>
-        <span>Jawline definition</span>
+        <span>Vertical lift</span><span>Volume correction</span><span>Skin thickness</span><span>Jawline definition</span>
       </div>
-      <div class="treatment-specs">
-        <span class="spec">Save $992 for 4 Syringes</span>
-      </div>
+      <div class="treatment-specs"><span class="spec">Save $992 for 4 Syringes</span></div>
     </div>
 
     <div class="treatment-item">
@@ -521,13 +442,9 @@
       <div class="treatment-sub">Baby Glow</div>
       <div class="treatment-desc">Microdroplets of hyaluronic acid boost skin hydration, glow, and smoothness. Results up to 9 months.</div>
       <div class="treatment-features">
-        <span>Deep hydration</span>
-        <span>Radiant complexion</span>
-        <span>Minimal downtime</span>
+        <span>Deep hydration</span><span>Radiant complexion</span><span>Minimal downtime</span>
       </div>
-      <div class="treatment-specs">
-        <span class="spec">Save $788 for 3 Syringes / 3ml</span>
-      </div>
+      <div class="treatment-specs"><span class="spec">Save $788 for 3 Syringes / 3ml</span></div>
     </div>
 
     <div class="treatment-item">
@@ -535,13 +452,9 @@
       <div class="treatment-sub">EMSELLA®</div>
       <div class="treatment-desc">Health Canada–approved, non-invasive treatment using HIFEM+ energy to strengthen pelvic floor muscles.</div>
       <div class="treatment-features">
-        <span>Urinary incontinence</span>
-        <span>Sexual wellness</span>
-        <span>Pelvic support</span>
+        <span>Urinary incontinence</span><span>Sexual wellness</span><span>Pelvic support</span>
       </div>
-      <div class="treatment-specs">
-        <span class="spec">$150 / 60-minute treatment</span>
-      </div>
+      <div class="treatment-specs"><span class="spec">$150 / 60-minute treatment</span></div>
     </div>
 
   </div>
@@ -561,24 +474,24 @@
   <p>© 2026 Mia @ BC Laser</p>
 </footer>
 
-<script>
-  function setupAdaptiveImage(imgId, bgId) {
-    const img = document.getElementById(imgId);
-    const bg = document.getElementById(bgId);
-    if (!img || !bg) return;
-    const updateBg = () => {
-      if (img.src) bg.style.backgroundImage = `url('${img.src}')`;
-    };
-    if (img.complete) updateBg();
-    else img.addEventListener('load', updateBg);
-    new MutationObserver(() => updateBg()).observe(img, { attributes: true, attributeFilter: ['src'] });
-  }
+<!-- 灯箱 -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+</div>
 
-  setupAdaptiveImage('img1-main', 'img1-bg');
-  setupAdaptiveImage('img6-main', 'img6-bg');
-  setupAdaptiveImage('promo2-img', 'promo2-bg');
-  setupAdaptiveImage('promo3-img', 'promo3-bg');
-  setupAdaptiveImage('promo4-img', 'promo4-bg');
+<script>
+  function openLightbox(src){
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
 </script>
 
 </body>
